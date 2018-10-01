@@ -3,7 +3,7 @@ const express = require('express');
 const compression = require('compression');
 const enforce = require('express-sslify');
 
-const isProduction = process.env.NODE_ENV === 'production';
+const isProduction = false;//process.env.NODE_ENV === 'production';
 
 let app = express();
 
@@ -16,14 +16,19 @@ let port = process.env.PORT || 8080;
 
 app.set('view engine', 'ejs');
 app.use(express.static(path.join(__dirname, 'node_modules')));
-app.use(express.static(path.join(__dirname, 'src')));
+app.use(express.static(path.join(__dirname, 'dist')));
+app.use(express.static(path.join(__dirname, 'src/collector')));
 
+fs = require('fs');
+
+index = fs.readFileSync('./dist/index.html');
 app.get('/', (req, res) => {
-  res.render('./src/index.html');
+  res.end(index);
 });
 
+collector = fs.readFileSync('src/collector/index.html');
 app.get('/collector', (req, res) => {
-  res.render('./src/collector/index.html');
+	res.end(collector);
 });
 
 app.listen(port, function () {

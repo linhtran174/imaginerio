@@ -18,8 +18,8 @@ require('../scss/index.scss');
 
 eras.forEach((e) => {
   const text = translations.find(d => d.name === e.dates.join('-'));
-  const { en, pr, name } = text;
-  Object.assign(e, { en, pr, id: name });
+  const { en, vn, name } = text;
+  Object.assign(e, { en, vn, id: name });
 });
 
 const components = {};

@@ -15,7 +15,7 @@ const getInit = (components) => {
   const Init = {};
 
   let server = 'https://irio.axismaps.io/';
-  let tileserver = 'https://irio.axismaps.io/tiles/';
+  let tileserver = 'http://images.vietbando.com/ImageLoader/GetImage.ashx?LayerIds=VBD';
   let rasterserver = 'https://irio.axismaps.io/raster/';
   
   const thumbnaillUrl = 'https://mdxdv.artstor.org/thumb/imgstor/size1/sslps/c7731849/';
@@ -83,7 +83,7 @@ const getInit = (components) => {
 
   checkHash();
   year = params.year || 1565; // a year that actually has something
-  language = params.language || 'en';
+  language = params.language || 'vn';
   
 
   loadTimeline(() => {
@@ -144,7 +144,7 @@ const getInit = (components) => {
   function setLanguageDropdown() {
     const languageOptions = {
       en: 'English Version',
-      pr: 'Versão em Português',
+      vn: 'Tiếng Việt',
     };
 
 

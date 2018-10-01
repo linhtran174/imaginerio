@@ -41,13 +41,15 @@ const getMap = (components) => {
 
   let layers = ['all']; // either 'all' or a list of DISABLED layers
 
-  const aerialLayer = L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}', {
-    attribution: 'Tiles &copy; Esri &mdash; Source: Esri, i-cubed, USDA, USGS, AEX, GeoEye, Getmapping, Aerogrid, IGN, IGP, UPR-EGP, and the GIS User Community',
+  //http://images.vietbando.com/ImageLoader/GetImage.ashx?LayerIds=VBD&Level=17&X=104071&Y=57694
+  //https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}
+  const aerialLayer = L.tileLayer('http://images.vietbando.com/ImageLoader/GetImage.ashx?LayerIds=VBD&Level={z}&X={x}&Y={y}', {
+    // attribution: 'Map data from © 2011 Vietbando',
   });
 
   // -22.9046, -43.1919
   let locationMarker;
-  const locationBounds = L.latLngBounds([[-23.10243406, -44.04944719 ], [-22.63003187, -42.65988214]]);
+  const locationBounds = L.latLngBounds([[21.0581331, 105.8352045], [-22.63003187, -42.65988214]]);
 
   let tilesAreLoaded = false;
   let minTileLoadDone = false;
@@ -118,12 +120,12 @@ const getMap = (components) => {
     }
 
     map = L.map(container, {
-      zoomControl: false,
+      zoomControl: true,
       maxZoom: 18,
-      minZoom: 12,
-      maxBounds: [[-23.10243406, -44.0], [-22.63003187, -42.69]],
+      minZoom: 13,
+      maxBounds: [[21.092327, 105.772103], [21.016277, 105.888311]],
     })
-      .setView([-22.9046, -43.1919], 16)
+      .setView([21.055160, 105.827277], 14)
       .on('click', probe)
       // .on('movestart', () => {
       //   probes.hideMapProbe();
@@ -140,7 +142,8 @@ const getMap = (components) => {
       });
     L.control.zoom({ position: 'bottomleft' }).addTo(map);
 
-    const tileUrl = `${tileserver}${year}/${layers.join(',')}/{z}/{x}/{y}.png`;
+    // http://images.vietbando.com/ImageLoader/GetImage.ashx?LayerIds=VBD&Level={z}&X={x}&Y={y}
+    const tileUrl = `${tileserver}&Level={z}&X={x}&Y={y}`;
 
     tileLayer = L.tileLayer(tileUrl)
       .on('load', removeLoadIfTimePassed)
@@ -203,7 +206,8 @@ const getMap = (components) => {
       map.removeLayer(tileLayer);
       map.addLayer(aerialLayer);
     } else {
-      tileLayer.setUrl(`${tileserver}${year}/${layers.join(',')}/{z}/{x}/{y}.png`);
+
+      tileLayer.setUrl(`${tileserver}&Level={z}&X={x}&Y={y}`);
       if (map.hasLayer(aerialLayer)) map.removeLayer(aerialLayer);
       if (!map.hasLayer(tileLayer)) map.addLayer(tileLayer);
     }

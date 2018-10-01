@@ -21,7 +21,7 @@ let tooltips = {
 /* -------------------------*/
 
 let metaserver = 'https://beirut.axismaps.io';
-let tileserver = 'https://beirut.axismaps.io/tiles/';
+let tileserver = 'https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/';
 let year;
 let maxYear = 2017;
 let tiles = {};
