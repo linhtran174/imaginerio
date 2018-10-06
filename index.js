@@ -17,7 +17,7 @@ if (isProduction) {
 let port = process.env.PORT || 8080;
 
 app.set('view engine', 'ejs');
-app.use(express.static(path.join(__dirname, 'node_modules')));
+// app.use(express.static(path.join(__dirname, 'node_modules')));
 app.use(express.static(path.join(__dirname, 'dist')));
 app.use(express.static(path.join(__dirname, 'src/collector')));
 
@@ -41,10 +41,8 @@ app.get('/imageCollector', (req, res) => {
 //   });
 // })
 
-app.post("/submitImage", upload.single("image"));
-
 images = JSON.parse(fs.readFileSync("data/imageMeta.json"));
-
+app.post("/submitImage", upload.single("image"));
 app.post('/submitImage', (req, res)=>{
   let name = req.file.originalname.split(".");
   let ext = name[1];
@@ -54,6 +52,7 @@ app.post('/submitImage', (req, res)=>{
 
   // console.log(req.body, req.file);
   req.body["imageId"] = imageId;
+  req.body["index"] = images.length + 1;
   images.push(req.body);
   
   fs.writeFile("data/images/" + imageId, req.file.buffer, {flag: "w+"}, (err)=>{
@@ -65,6 +64,28 @@ app.post('/submitImage', (req, res)=>{
     res.status(200).send()
   });
 })
+
+app.get("/imageMeta", (req, res)=>{
+  res.json(images);
+})
+
+let imageReviewPage = fs.readFileSync("dist/imageReview_1103mcnbb592hd7302jslc.html");
+app.get("/imageReview/120342osxbs39sjslkf399", (req, res)=>{
+  res.end(imageReviewPage);
+})
+
+
+app.use("/getImage/", express.static(path.join(__dirname, 'data/images')));
+
+app.get("/discardImage/", (req, res)=>{
+  
+})
+
+let publishedImages = [];
+app.get("/publishImage/:index", (req, res)=>{
+  publishedImages.push(images[req.params.index]);
+})
+
 
 let _prevSize = 0;
 setInterval(()=>{

@@ -135,7 +135,7 @@ document.querySelector('.sidebar--submit').addEventListener('click', function (e
     }, 3000);
   });
 
-  
+  formEl.year_dst.value = slider.get();
   var formData = new FormData(formEl);
   // var object = {};
   //   formData.forEach(function(value, key){

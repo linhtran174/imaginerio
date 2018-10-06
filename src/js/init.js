@@ -7,7 +7,6 @@ const getInit = (components) => {
     Legend,
     Search,
     dispatch,
-    register,
     translations,
   } = components;
   const Dispatch = dispatch;
@@ -104,13 +103,17 @@ const getInit = (components) => {
 
   preloadImages();
   
+  $("#contribute-image-button").on("click",()=>{
+    window.location.href = window.location.origin + "/imageCollector";
+  })
+
   function initialize() {
     // eras[eras.length - 1].dates[1] = new Date().getFullYear();
     
     Map.initialize('map').setYear(year);
     Timeline.initialize(eras, 'timeline').setYear(year);
     Filmstrip.initialize();
-    register.initialize();
+    
     Legend.initialize().setYear(year);
     Search.initialize('search').setYear(year);
     init_ui();
@@ -430,6 +433,8 @@ const getInit = (components) => {
   function goToMap() {
     Dispatch.call('setyear', this, year);
     $('main').removeClass('eras').removeClass('start');
+    document.querySelector("#contribute-image-button").style.display = "";
+    document.querySelector("#contribute-map-button").style.display = "";
     updateHash();
     updateEra();
   }
@@ -556,6 +561,8 @@ const getInit = (components) => {
     if (hash.length > 1) {
       console.log('hide dropdown');
       $('.language-dropdown').addClass('language-dropdown--off');
+      document.querySelector("#contribute-image-button").style.display = "";
+      document.querySelector("#contribute-map-button").style.display = "";
     }
     params.language = hash[0] ? hash[0] : '';
     params.year = hash[1] ? parseInt(hash[1], 10) : '';
