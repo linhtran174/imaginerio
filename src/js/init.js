@@ -49,12 +49,6 @@ const getInit = (components) => {
   const mobile = window.innerWidth <= 700;
   const mobileLandscape = mobile && window.innerWidth >= 415;
 
-  if (gup( 'dev' ) == 'true') {
-    server = 'https://imaginerio-dev.axismaps.io:3000';
-    tileserver = 'http://imaginerio-dev.axismaps.io:3001/tiles/';
-    rasterserver = 'http://imaginerio-dev.axismaps.io:3001/raster/';
-  }
-
   function loadTimeline(callback) {
     $.getJSON(`${server}timeline`, (yearsData) => {
       years = yearsData;
@@ -82,8 +76,19 @@ const getInit = (components) => {
   }
 
   checkHash();
-  year = params.year || 1565; // a year that actually has something
+  year = params.year || 1858; // a year that actually has something
   language = params.language || 'vn';
+
+  let autoSwitchLang = setInterval(()=>{
+    language = (language=='vn')?'en':'vn';
+    setLanguageDropdown()
+    updateLanguage();
+    updateUILanguage();
+  }, 4000)
+  setTimeout(()=>{
+    clearInterval(autoSwitchLang);
+  }, 30000);
+  if(params.language) clearInterval(autoSwitchLang);
   
 
   loadTimeline(() => {
@@ -100,8 +105,7 @@ const getInit = (components) => {
   preloadImages();
   
   function initialize() {
-    eras[eras.length - 1].dates[1] = new Date().getFullYear();
-    
+    // eras[eras.length - 1].dates[1] = new Date().getFullYear();
     
     Map.initialize('map').setYear(year);
     Timeline.initialize(eras, 'timeline').setYear(year);
@@ -217,6 +221,7 @@ const getInit = (components) => {
       const menuCloseDelay = mobile ? 0 : 500;
       dropdownButton
         .on('mouseover', () => {
+          clearInterval(autoSwitchLang);
           stopDropdownTimer();
           openDropdown();
         })
@@ -252,6 +257,7 @@ const getInit = (components) => {
     const eventType = mobile ? 'touchstart' : 'click';
 
     otherLanguage.on(eventType, function switchLanguage() {
+
       const newLanguage = $(this).attr('data-language');
       language = newLanguage;
       Init.language = language;
@@ -292,6 +298,7 @@ const getInit = (components) => {
   }
 
   function init_ui() {
+    var switchLanguage = 
     setLanguageDropdown();
     updateUILanguage();
     // if mobile, go back to map.
@@ -397,6 +404,7 @@ const getInit = (components) => {
   }
 
   function goButtonClick() {
+    clearInterval(autoSwitchLang);
     goToMap();
   }
 
@@ -538,17 +546,6 @@ const getInit = (components) => {
   function formatYear(y) {
     if (y < 0) return - y + ' BC';
     return y;
-  }
-  
-  function gup(name) {
-    name = name.replace(/[\[]/,"\\\[").replace(/[\]]/,"\\\]");
-    var regexS = "[\\?&]"+name+"=([^&#]*)";
-    var regex = new RegExp( regexS );
-    var results = regex.exec( window.location.href );
-    if( results == null )
-      return "";
-    else
-      return results[1];
   }
   
   function checkHash() {

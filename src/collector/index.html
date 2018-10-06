@@ -18,52 +18,74 @@
 		<div class="wrapper">
 			<main>
 				<div class="slider-wrapper">
+					<p style="
+					margin-top: 0px;
+					margin-bottom: 0px;">Year of image</p>
 					<div class="slider"></div>
 				</div>
 				<div class="map" id="map"></div>
 			</main>
 			<sidebar>
-				<form class="sidebar--form" method="post" target="_blank">
+				<form class="sidebar--form" method="post" target="_blank" enctype="multipart/form-data"> 
 					<h1 class="sidebar--title">Image Details</h1>
-
 					<div class="sidebar--input-wrapper">
-						<label for="form-id" class="sidebar--label">id</label>
-						<input id="form-id" name="id" class="sidebar--input required" />
+						<input id="image" name="image" type="file" accept="image/*" class="required" style="display: none">
+						<button id="uploadImage" type="file" accept="image/*" class="button" style="margin: 0; width: 100%">Upload Image</button>
+					</div>
+					<div class="sidebar--input-wrapper">
+						<p id="uploadImageName" style="padding-left: 5px; margin: 0"></p>
+					</div>
+					
+					<div class="sidebar--input-wrapper">
+						<label class="sidebar--label">Description</label>
+						<input name="description" class="sidebar--input required" placeholder="Short description, less than 50 characters"/>
 					</div>
 
 					<div class="sidebar--input-wrapper">
-						<label for="form-creator" class="sidebar--label">creator</label>
-						<input id="form-creator" name="creator" class="sidebar--input" />
+						<label class="sidebar--label">Caption</label>
+						<textarea name="caption" class="sidebar--textarea required" placeholder="Give us a line less than 200 characters here"></textarea>
 					</div>
 
 					<div class="sidebar--input-wrapper">
-						<label for="form-repository" class="sidebar--label">repository</label>
-						<input id="form-repository" name="repository" class="sidebar--input" />
+						<label class="sidebar--label">Year of source</label>
+						<input name="year_source" class="sidebar--input required"  placeholder="The year this image is discovered/passed over"/>
 					</div>
 
 					<div class="sidebar--input-wrapper">
-						<label for="form-first-display" class="sidebar--label">first display</label>
-						<input id="form-first-display" name="firstdisplay" class="sidebar--input required" />
+						<label class="sidebar--label">Focus</label>
+						<input name="focus" class="sidebar--input" placeholder="People, Building, Land, Panorama..."/>
 					</div>
 
 					<div class="sidebar--input-wrapper">
-						<label for="form-last-display" class="sidebar--label">last display</label>
-						<input id="form-last-display" name="lastdisplay" class="sidebar--input required" />
+						<label class="sidebar--label">Postcard?</label>
+						<input name="postcard" class="sidebar--input" placeholder="Y/N?"/>
 					</div>
 
 					<div class="sidebar--input-wrapper">
-						<label for="form-image-ssid" class="sidebar--label">image ssid</label>
-						<input id="form-image-ssid" name="ssid" class="sidebar--input required" />
+						<label class="sidebar--label">Source</label>
+						<input name="source" class="sidebar--input" placeholder=""/>
 					</div>
 
 					<div class="sidebar--input-wrapper">
-						<label for="form-title" class="sidebar--label">title</label>
-						<textarea id="form-title" name="title" class="sidebar--textarea" rows="5"></textarea>
+						<label class="sidebar--label">Copyright</label>
+						<input name="copyright" class="sidebar--input" />
 					</div>
 
-					<input id="form-polygon-data" name="polygon" class="sidebar--input hidden-input" />
-					<input id="form-point-lat" name="lat" class="sidebar--input hidden-input" />
-					<input id="form-point-lon" name="lon" class="sidebar--input hidden-input" />
+					<div class="sidebar--input-wrapper">
+						<label class="sidebar--label">Notes</label>
+						<textarea name="notes" class="sidebar--textarea"></textarea>
+					</div>
+
+					<div class="sidebar--input-wrapper">
+						<label class="sidebar--label">Contributor</label>
+						<input name="contributor" class="sidebar--input" />
+					</div>
+
+					<input id="form-polygon-data" name="perspective" class="sidebar--input hidden-input" />
+					<input id="form-shot-lat" name="shot_lat" class="sidebar--input hidden-input" />
+					<input id="form-shot-lon" name="shot_lon" class="sidebar--input hidden-input" />
+					<input id="form-focus-lat" name="focus_lat" class="sidebar--input hidden-input" />
+					<input id="form-focus-lon" name="focus_lon" class="sidebar--input hidden-input" />
 
 					<div class="sidebar--input-wrapper sidebar--buttons-wrapper">
 						<input type="submit" value="submit" class="button sidebar--submit disabled"></input>
@@ -74,12 +96,12 @@
 		</div>
 
 		<div class="message error-message">
-			<h1 class="message-title">Error uploading ViewCone</h1>
+			<h1 class="message-title">Error uploading image</h1>
 			<p class="message-response">Server error message</p>
 		</div>
 
 		<div class="message success-message">
-			<h1 class="message-title">Successfully uploaded ViewCone</h1>
+			<h1 class="message-title">Successfully uploaded image</h1>
 		</div>
 
 		<script src="https://unpkg.com/leaflet@1.0.3/dist/leaflet.js"></script>

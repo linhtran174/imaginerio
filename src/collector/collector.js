@@ -1,9 +1,3 @@
-/* imagineRio Cone Collector */
-
-/* -------------------------*/
-/* Config Vars */
-/* -------------------------*/
-
 let maxAngleAllowed = 170;
 let tooltips = {
   firstPoint: 'Click map to place Focal point of Visual',
@@ -16,51 +10,45 @@ let tooltips = {
   }
 };
 
-/* -------------------------*/
-/* Vars and Intialization */
-/* -------------------------*/
-
-let metaserver = 'https://beirut.axismaps.io';
-let tileserver = 'https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/';
-let year;
+let metaserver = window.location.origin;
+let tileserver = 'http://images.vietbando.com/ImageLoader/GetImage.ashx?LayerIds=VBD';
+let year = 1945;
 let maxYear = 2017;
 let tiles = {};
 let shown = {};
 
 /* General Map */
 let leafletMap = L.map('map', {
-  center: [29.717, -95.402],
-  zoom: 16,
-  minZoom: 15,
+  center: [21.055160, 105.827277],
+  maxBounds: [[21.092327, 105.772103], [21.016277, 105.888311]],
+  zoom: 15,
+  minZoom: 14,
   maxZoom: 18,
   doubleClickZoom: false
 });
 
-let base = L.tileLayer(tileserver + year + '/{z}/{x}/{y}.png').addTo(leafletMap);
+let base = L.tileLayer(tileserver + '&Level={z}&X={x}&Y={y}').addTo(leafletMap);
 
 /* Slider */
-let pipValues = _.range(1900, 2025, 25);
-pipValues.push(maxYear);
-
 let slider = noUiSlider.create(document.querySelector('.slider'), {
-  start: [1900],
+  start: [1945],
   connect: false,
   step: 1,
   range: {
-    min: [1900],
-    max: [2017]
+    min: [1858],
+    max: [2018]
   },
   pips: {
     mode: 'values',
-    filter: (val) => {
-      if (val === maxYear) return 1;
-      else if (val === 2000) return 0;
-      else if (val % 50) {
-        if (val % 25) return 0;
-        else return 2;
-      } else return 1;
-    },
-    values: pipValues,
+    // filter: (val) => {
+    //   if (val === maxYear) return 1;
+    //   else if (val === 2000) return 0;
+    //   else if (val % 50) {
+    //     if (val % 25) return 0;
+    //     else return 2;
+    //   } else return 1;
+    // },
+    values: [1858, 1945, 1975, 1986, 2015],
     density: 2
   },
   tooltips: true,
@@ -68,10 +56,6 @@ let slider = noUiSlider.create(document.querySelector('.slider'), {
     to: (value) => value,
     from: (value) => parseInt(value)
   }
-});
-
-slider.on('set', (y) => {
-  updateYear(y[0]);
 });
 
 /* Leaflet Draw */
@@ -93,8 +77,6 @@ leafletMap.addControl(drawControl);
 /* Sidebar */
 
 // Set form submit location
-document.querySelector('.sidebar--form').setAttribute('action', metaserver + '/collector/');
-
 let requiredInputs = document.querySelectorAll('.required');
 for (let i = 0; i < requiredInputs.length; i++) {
   requiredInputs[i].addEventListener('change', function () {
@@ -102,14 +84,26 @@ for (let i = 0; i < requiredInputs.length; i++) {
   });
 }
 
+document.querySelector("#uploadImage").onclick = (e)=>{
+  e.preventDefault();
+  document.querySelector("#image").click();
+}
+
+document.querySelector("#image").onchange = (e)=>{
+  // console.log(e)
+  let files = e.srcElement.files;
+  document.querySelector("#uploadImageName").innerHTML =
+  files[0].name;
+}
+
 // Submit Event
 document.querySelector('.sidebar--submit').addEventListener('click', function (e) {
-  //e.preventDefault();
+  e.preventDefault();
 
   let formEl = document.querySelector('.sidebar--form');
 
   let request = new XMLHttpRequest();
-  request.open('POST', metaserver + '/collector/', true);
+  request.open('POST', metaserver + '/submitImage/', true);
 
   // Success
   request.addEventListener('load', function () {
@@ -133,7 +127,7 @@ document.querySelector('.sidebar--submit').addEventListener('click', function (e
 
   // Error
   request.addEventListener('error', function (e) {
-    document.querySelector('.error-message > .message-response').textContent = e.responseText || 'There was an error submitting the viewcone to the server.';
+    document.querySelector('.error-message > .message-response').textContent = e.responseText || 'There was an error submitting the image to the server.';
     document.querySelector('.error-message').classList.add('show');
 
     setTimeout(function () {
@@ -143,11 +137,11 @@ document.querySelector('.sidebar--submit').addEventListener('click', function (e
 
   
   var formData = new FormData(formEl);
-  var object = {};
-    formData.forEach(function(value, key){
-    object[key] = value;
-  });
-  request.send(JSON.stringify(object));
+  // var object = {};
+  //   formData.forEach(function(value, key){
+  //   object[key] = value;
+  // });
+  request.send(formData);
 });
 
 // Cancel event
@@ -168,12 +162,12 @@ document.querySelector('.sidebar--cancel').addEventListener('click', function (e
 /* -------------------------*/
 
 /* General Functions */
-function updateYear(y) {
-  if (year == y) return false;
-  year = y;
+// function updateYear(y) {
+//   if (year == y) return false;
+//   year = y;
 
-  loadTiles();
-}
+//   loadTiles();
+// }
 
 function mapLoading(show) {
   if (show && document.querySelector('.loading') == null) {
@@ -195,21 +189,21 @@ function mapLoading(show) {
 }
 
 /* Tile functions */
-function loadTiles() {
-  mapLoading(true);
-  if (tiles[year]) {
-    leafletMap.addLayer(tiles[year].setOpacity(0));
-  } else {
-    var t = L.tileLayer(tileserver  + year + '/all/{z}/{x}/{y}.png')
-       .addTo(leafletMap)
-       .setOpacity(0)
-       .on('load', function () {
-        showTiles(this);
-      });
+// function loadTiles() {
+//   mapLoading(true);
+//   if (tiles[year]) {
+//     leafletMap.addLayer(tiles[year].setOpacity(0));
+//   } else {
+//     var t = L.tileLayer(tileserver  + year + '/all/{z}/{x}/{y}.png')
+//        .addTo(leafletMap)
+//        .setOpacity(0)
+//        .on('load', function () {
+//         showTiles(this);
+//       });
 
-    tiles[year] = t;
-  }
-}
+//     tiles[year] = t;
+//   }
+// }
 
 function showTiles(tile) {
   if (!_.isEqual(shown.tiles, tile)) {
@@ -465,9 +459,11 @@ function fourthPointCreated(e) {
       // update the cone polygon
       if (dependentLayers.indexOf('finalCone') >= 0) {
         updatePolygon();
+        savePolygonToForm();
       }
     });
   });
+  savePolygonToForm();
 }
 
 function updateLine(line, midPoint) {
@@ -526,7 +522,7 @@ function updatePolygon(curvePoint) {
   let newPoints = [[majorPoints[0].lat, majorPoints[0].lng]].concat(generateCurvePoints([majorPoints[1], curvePoint, majorPoints[2]]));
   finalCone.setLatLngs(newPoints);
 
-  savePolygonToForm();
+  // savePolygonToForm();
 }
 
 function getMapEdgePoint(a, b) {
@@ -617,8 +613,11 @@ function generateCurvePoints(ptsArray) {
 
 function savePolygonToForm() {
   document.getElementById('form-polygon-data').value = JSON.stringify(finalCone.toGeoJSON());
-  document.getElementById('form-point-lat').value = majorPoints[0].lat;
-  document.getElementById('form-point-lon').value = majorPoints[0].lng;
+  document.getElementById('form-shot-lat').value = majorPoints[0].lat;
+  document.getElementById('form-shot-lon').value = majorPoints[0].lng;
+  document.getElementById('form-focus-lat').value = majorPoints[3].lat;
+  document.getElementById('form-focus-lon').value = majorPoints[3].lng;
+  
   checkForm();
 }
 
@@ -634,7 +633,7 @@ function checkForm() {
   // check polygon is drawn
   if (majorPoints[3]) modifiedCount += 1;
 
-  if (modifiedCount === 5) {
+  if (modifiedCount === (required.length + 1)) {
     document.querySelector('.sidebar--submit').classList.remove('disabled');
   }
 }
