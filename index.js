@@ -53,6 +53,7 @@ app.post('/submitImage', (req, res)=>{
   // console.log(req.body, req.file);
   req.body["imageId"] = imageId;
   req.body["index"] = images.length + 1;
+  req.status = "pending";
   images.push(req.body);
   
   fs.writeFile("data/images/" + imageId, req.file.buffer, {flag: "w+"}, (err)=>{
@@ -77,13 +78,14 @@ app.get("/imageReview/120342osxbs39sjslkf399", (req, res)=>{
 
 app.use("/getImage/", express.static(path.join(__dirname, 'data/images')));
 
-app.get("/discardImage/", (req, res)=>{
-  
+app.get("/discardImage/:index", (req, res)=>{
+  let index = req.params.index;
+  images[index].status = "discarded";
 })
 
-let publishedImages = [];
 app.get("/publishImage/:index", (req, res)=>{
-  publishedImages.push(images[req.params.index]);
+  let index = req.params.index;
+  images[index].status = "published";
 })
 
 

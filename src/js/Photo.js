@@ -1,5 +1,12 @@
 
 const getPhoto = (components) => {
+  // let server = window.location.origin;
+
+  // let Photos = {};
+  // $.getJSON(server + "/imageMeta", (json)=>{
+  //   Photos = json;
+  // })
+
   const Photo = (data, thumbUrl) => {
     const P = {};
 
@@ -85,6 +92,7 @@ const getPhoto = (components) => {
   
     return P;
   };
+
   return Photo;
 };
 

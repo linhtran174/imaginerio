@@ -13,7 +13,7 @@ const getInit = (components) => {
 
   const Init = {};
 
-  let server = 'https://irio.axismaps.io/';
+  let server = window.location.origin;
   let tileserver = 'http://images.vietbando.com/ImageLoader/GetImage.ashx?LayerIds=VBD';
   let rasterserver = 'https://irio.axismaps.io/raster/';
   

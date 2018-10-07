@@ -154,6 +154,7 @@ const getFilmstrip = (components) => {
   }
 
   function addPhoto(p, container) {
+    console.log("addPhoto", p);
     const {
       probes,
       dispatch,

@@ -137,10 +137,6 @@ document.querySelector('.sidebar--submit').addEventListener('click', function (e
 
   formEl.year_dst.value = slider.get();
   var formData = new FormData(formEl);
-  // var object = {};
-  //   formData.forEach(function(value, key){
-  //   object[key] = value;
-  // });
   request.send(formData);
 });
 
