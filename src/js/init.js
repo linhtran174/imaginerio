@@ -13,17 +13,21 @@ const getInit = (components) => {
 
   const Init = {};
 
-  let server = window.location.origin;
+  let server = "https://irio.axismaps.io/";
   let tileserver = 'http://images.vietbando.com/ImageLoader/GetImage.ashx?LayerIds=VBD';
   let rasterserver = 'https://irio.axismaps.io/raster/';
   
   const thumbnaillUrl = 'https://mdxdv.artstor.org/thumb/imgstor/size1/sslps/c7731849/';
   const imageUrl = 'https://mdxdv.artstor.org/thumb/imgstor/size2/sslps/c7731849/';
   
-  let years;
+  let years = [];
   let year;
   const minYear = 1830;
   let names;
+  let namesData = {
+    en: {"visualdocuments":"Visual Documents","creator":"Creator","occupant":"Occupant","year":"Mapped","builtenvironment":"Built Environment","firstowner":"First Owner","owner":"Owner","politicalboundaries":"Political Boundaries","architecture":"Architecture","boundaries":"Boundaries","plaza":"Plaza","topography":"Topography","civilengineering":"Civil Engineering","landscapearchitecture":"Landscape Architecture","naturalenvironment":"Natural Environment","water":"Water","buildingspoint":"Stops","tram stations":"Tram Stations","train stations":"Train Stations","metro stations":"Metro Stations","address":"Address","marshes":"Marshes","inlandwaterspoly":"Lagoons and Ponds","lagoons":"Lagoons","ponds":"Ponds","salty marshes":"Salty Marshes","neighborhoodspoly":"Areas","favelas":"Favelas","neighborhoods":"Neighborhoods","parishes":"Parishes","utilitiespoint":"UtilitiesPoint","urbanism/urbanismo":"Urbanism","iconography":"Iconography","utilitiespoly":"Water Storage and Distribution","viewfull":"View full map","fountains":"Fountains","reservoirs":"Reservoirs","highlight":"View","landline":"Land Features","beaches":"Beaches","landpoly":"Territory","publicspacespoly":"Public Spaces","cemeteries":"Cemeteries","gardens":"Gardens","parks":"Parks","plazas":"Plazas","squares":"Squares","roadsline":"Roads","alleys":"Alleys","avenues":"Avenues","expressways":"Expressways","overpasses":"Overpasses","passages":"Passages","slopes":"Slopes","streets":"Streets","trails":"Trails","agriculture":"Agriculture","forests":"Forests","mangroves":"Mangroves","riparian forests":"Riparian Forests","spit vegetation":"Spit Vegetation","clear":"Clear project","maps":"Maps","plans":"Plans","views":"Views","inlandwatersline":"Rivers and Streams","brooks":"Brooks","creeks":"Creeks","rivers":"Rivers","streams":"Streams","utilitiesline":"Water Canalization","aqueducts":"Aqueducts","canals":"Canals","ditches":"Ditches","sewage pipes":"Sewage Pipes","water pipes":"Water Pipes","buildingspoly":"Buildings","civil":"Civil","health":"Health","infrastructure":"Infrastructure","military":"Military","religious":"Religious","viewsheds":"Cones of Vision","piers":"Piers","plans/planos":"Urban Projects","groundcoverpoly":"Ground Cover","geography/geografia":"Landscape","farm":"Farm","mill":"Mill","built domain":"Built Domain"},
+    vn: {"visualdocuments":"Visual Documents","creator":"Creator","occupant":"Occupant","year":"Mapped","builtenvironment":"Built Environment","firstowner":"First Owner","owner":"Owner","politicalboundaries":"Political Boundaries","architecture":"Architecture","boundaries":"Boundaries","plaza":"Plaza","topography":"Topography","civilengineering":"Civil Engineering","landscapearchitecture":"Landscape Architecture","naturalenvironment":"Natural Environment","water":"Water","buildingspoint":"Stops","tram stations":"Tram Stations","train stations":"Train Stations","metro stations":"Metro Stations","address":"Address","marshes":"Marshes","inlandwaterspoly":"Lagoons and Ponds","lagoons":"Lagoons","ponds":"Ponds","salty marshes":"Salty Marshes","neighborhoodspoly":"Areas","favelas":"Favelas","neighborhoods":"Neighborhoods","parishes":"Parishes","utilitiespoint":"UtilitiesPoint","urbanism/urbanismo":"Urbanism","iconography":"Iconography","utilitiespoly":"Water Storage and Distribution","viewfull":"View full map","fountains":"Fountains","reservoirs":"Reservoirs","highlight":"View","landline":"Land Features","beaches":"Beaches","landpoly":"Territory","publicspacespoly":"Public Spaces","cemeteries":"Cemeteries","gardens":"Gardens","parks":"Parks","plazas":"Plazas","squares":"Squares","roadsline":"Roads","alleys":"Alleys","avenues":"Avenues","expressways":"Expressways","overpasses":"Overpasses","passages":"Passages","slopes":"Slopes","streets":"Streets","trails":"Trails","agriculture":"Agriculture","forests":"Forests","mangroves":"Mangroves","riparian forests":"Riparian Forests","spit vegetation":"Spit Vegetation","clear":"Clear project","maps":"Maps","plans":"Plans","views":"Views","inlandwatersline":"Rivers and Streams","brooks":"Brooks","creeks":"Creeks","rivers":"Rivers","streams":"Streams","utilitiesline":"Water Canalization","aqueducts":"Aqueducts","canals":"Canals","ditches":"Ditches","sewage pipes":"Sewage Pipes","water pipes":"Water Pipes","buildingspoly":"Buildings","civil":"Civil","health":"Health","infrastructure":"Infrastructure","military":"Military","religious":"Religious","viewsheds":"Cones of Vision","piers":"Piers","plans/planos":"Urban Projects","groundcoverpoly":"Ground Cover","geography/geografia":"Landscape","farm":"Farm","mill":"Mill","built domain":"Built Domain"}
+  }
   let language;
   let currentEra = eras[0];
   const darkBlue = 'rgb(1, 34, 95)';
@@ -48,20 +52,6 @@ const getInit = (components) => {
   const mobile = window.innerWidth <= 700;
   const mobileLandscape = mobile && window.innerWidth >= 415;
 
-  function loadTimeline(callback) {
-    $.getJSON(`${server}timeline`, (yearsData) => {
-      years = yearsData;
-      if (callback !== undefined) callback();
-    });
-  }
-
-  function loadNames(callback) {
-    $.getJSON(`${server}names/${language}`, (namesData) => {
-      Init.names = namesData;
-      // console.log('names', Init.names);
-      if (callback !== undefined) callback();
-    });
-  }
 
   function loadPlans(callback) {
     $.getJSON(`${server}plans/`, (plansList) => {
@@ -90,11 +80,9 @@ const getInit = (components) => {
   if(params.language) clearInterval(autoSwitchLang);
   
 
-  loadTimeline(() => {
-    loadNames(() => {
-      loadPlans(initialize);
-    });
-  });
+  
+  
+  loadPlans(initialize);
 
   const preloadImages = () => {
     const img = new Image();
@@ -276,9 +264,8 @@ const getInit = (components) => {
 
   function updateLanguage() {
     console.log('update language');
-    loadNames(() => {
-      Dispatch.call('updatelanguage', this);
-    });
+    names = nameData[language];
+    Dispatch.call('updatelanguage', this);
   }
 
   function updateUILanguage() {
