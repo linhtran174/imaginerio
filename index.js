@@ -52,9 +52,10 @@ app.post('/submitImage', (req, res)=>{
 
   // console.log(req.body, req.file);
   req.body["imageId"] = imageId;
-  req.body["index"] = images.length + 1;
-  req.status = "pending";
+  req.body["index"] = images.length;
+  req.body.status = "pending";
   images.push(req.body);
+  _data_changed = true;
   
   fs.writeFile("data/images/" + imageId, req.file.buffer, {flag: "w+"}, (err)=>{
     if (err) {
@@ -81,21 +82,49 @@ app.use("/getImage/", express.static(path.join(__dirname, 'data/images')));
 app.get("/discardImage/:index", (req, res)=>{
   let index = req.params.index;
   images[index].status = "discarded";
+  _data_changed = true;
+  res.end();
+})
+
+
+app.post("/modifyImage/:index", (req, res)=>{
+  let index = req.params.index;
+
+  bp(req, (err, body)=>{
+    if (err) {console.log(err); return;}    
+    _data_changed = images[index].description != body.description||
+    images[index].caption != body.caption||
+    images[index].year_source != body.year_source||
+    images[index].year_est != body.year_est;
+
+    images[index].description = body.description;
+    images[index].caption = body.caption;
+    images[index].year_source = body.year_source;
+    images[index].year_est = body.year_est;
+    res.end()
+  });
+  
 })
 
 app.get("/publishImage/:index", (req, res)=>{
   let index = req.params.index;
   images[index].status = "published";
+  _data_changed = true;
+  res.end();
 })
 
 
-let _prevSize = 0;
+let _data_changed = false;
 setInterval(()=>{
-  if(images.length != _prevSize){
-    _prevSize = images.length;
+  if(_data_changed){
+    _data_changed = false;
     fs.writeFile("data/imageMeta.json", JSON.stringify(images),()=>{});
   }
 }, 1000)
+
+
+
+
 
 app.listen(port, function () {
   console.log('App is running on:' + port);

@@ -1,0 +1,130 @@
+<html>
+    <style>
+        body{
+            margin: 0;
+        }
+
+        p {
+            margin: 5px;
+        }
+
+        .control-btn {
+            border-radius: 10px;
+            padding: 5px;
+            margin-left: 15px;
+            font-size: 16px;
+            position: absolute;
+        }
+
+        .ellipsis{
+            overflow: hidden;
+            text-overflow: ellipsis;
+            vertical-align: top;
+            white-space: nowrap;
+        }
+    </style>
+    <script>
+        var $ = (q)=>{return document.querySelector(q)};
+        var imageMeta = [];
+        var r = new XMLHttpRequest();
+        r.open("GET", window.location.origin + "/imageMeta/", true);
+        r.onload = function(e){
+            imageMeta = r.response;
+            console.log(imageMeta);
+            var body = document.querySelector("#imageInfo");
+            html = "";
+            imageMeta.forEach((i , index)=> {
+                if(i.status != "pending"){
+                    return;
+                }
+                html += "<div style='border-bottom: 3px solid grey; height: 150px; position: relative'>"
+                html += "<img src='" + window.location.origin + "/getImage/" + i.imageId + "' style='display: inline-block; height: 100%; width: 30%'/>"
+                html += "<div style='display: inline-block; width: 70%; vertical-align: top;'>"
+                html += "<p style='display: inline-block'>Description: </p><p style='display: inline-block; width: calc(100% - 101px);' class='ellipsis' id='des"+index+"'>"+i.description+"</p>";
+                html += "<p style='display: inline-block'>Caption: </p><p style='display: inline-block; width: calc(100% - 76px);' class='ellipsis' id='cap"+index+"'>"+i.caption+"</p>";
+                html += "<p style='display: inline-block'>Year source: </p><p style='display: inline-block; width: calc(100% - 101px);' class='ellipsis' id='year_source"+index+"'>"+i.year_source+"</p>";
+                html += "<p style='display: inline-block'>Year image: </p><p style='display: inline-block; width: calc(100% - 99px);' class='ellipsis' id='year_est"+index+"'>"+i.year_est+"</p>";
+                html += "<p style='display: inline-block'>Contributor: </p><p style='display: inline-block; width: calc(100% - 101px);' class='ellipsis' id='contrib"+index+"'>"+i.contributor+"</p>";
+                html += "</div>"
+                html += "<button class='control-btn' style='bottom:-7px; right: 200px' onclick=publish(" + index + ") id='p"+ index +"'>Publish</button>";
+                html += "<button class='control-btn' style='bottom:-7px; right: 120px' onclick=modify(" + index + ") id='m"+ index +"'>Modify</button>";
+                html += "<button class='control-btn' style='bottom:-7px; right: 35px' onclick=discard(" + index + ")>Discard</button>";
+                html += "</div>"
+            });
+            body.innerHTML = html;
+        }
+        r.responseType = "json";
+        r.send()
+
+        function publish(imageIndex){
+            var r = new XMLHttpRequest();
+            r.open("GET", window.location.origin + "/publishImage/" + imageIndex, true);
+            r.onload = ()=>{window.location.reload()}
+            r.send();
+        }
+
+        
+        function modify(imageIndex){
+            var btn = $("#m" +imageIndex);
+            if(btn.innerHTML == "Modify"){
+                btn.innerHTML = "Confirm";
+                btn.style.backgroundColor = "lightgreen";
+                replaceTextWithInput($("#des"+imageIndex))
+                replaceTextWithInput($("#cap"+imageIndex))
+                replaceTextWithInput($("#year_source"+imageIndex))
+                replaceTextWithInput($("#year_est"+imageIndex))
+                return;
+            }
+
+            var r = new XMLHttpRequest();
+            r.open("POST", window.location.origin + "/modifyImage/" + imageIndex, true);
+            r.onload = ()=>{
+                // r.response
+                btn.innerHTML = "Modify";
+                btn.style.backgroundColor = "";
+                replaceInputWithText($("#des"+imageIndex))
+                replaceInputWithText($("#cap"+imageIndex))
+                replaceInputWithText($("#year_source"+imageIndex))
+                replaceInputWithText($("#year_est"+imageIndex))
+            }
+            r.send(JSON.stringify({
+                description: $("#des"+imageIndex).value,
+                caption: $("#cap"+imageIndex).value,
+                year_source: $("#year_source"+imageIndex).value,
+                year_est: $("#year_est"+imageIndex).value
+            }));
+        }
+        function discard(imageIndex){
+            var r = new XMLHttpRequest();
+            r.open("GET", window.location.origin + "/discardImage/" + imageIndex, true);
+            r.onload = ()=>{window.location.reload()}
+            r.send();
+        }
+
+        function replaceTextWithInput(element){
+            var newElement = document.createElement("input");
+            newElement.id = element.id;
+            newElement.type = "text";
+            newElement.class = element.class;
+            newElement.style.width = element.style.width;
+            newElement.style.display = element.style.display;
+            newElement.style.height = "20px";
+            newElement.value = element.innerHTML;
+            element.parentNode.replaceChild(newElement, element);
+        }
+
+        function replaceInputWithText(element){
+            var newElement = document.createElement("p");
+            newElement.id = element.id;
+            newElement.style.width = element.style.width;
+            newElement.style.display = element.style.display;
+            newElement.class = element.class;
+            newElement.innerHTML = element.value;
+            element.parentNode.replaceChild(newElement, element);
+        }
+    </script>
+    <body>
+        <div style="display: inline-block; width: 50%; height: 100%; vertical-align: top"><h1>A MAP OF TAY HO WILL BE HERE, SHOWING THE SHOT LOCATION + PERSPECTIVE</h1></div>
+        <div id="imageInfo" style="display: inline-block; width: calc(50% - 10px); height: 100%; border-left: 5px solid grey; overflow-y:scroll"></div>
+    </body>
+</html>

@@ -17,13 +17,9 @@
   <body>
 		<div class="wrapper">
 			<main>
-				<div class="slider-wrapper">
-					<p style="
-					margin-top: 0px;
-					margin-bottom: 0px;">Year of image</p>
-					<div class="slider"></div>
-				</div>
-				<div class="map" id="map"></div>
+				<h1 style=" margin-left: 5px; text-align: center; margin-top: 5px; margin-bottom: 5px;">Historical Photograph Contribution</h1>
+				<p style="text-align: center;margin-left: 5px;margin-top: 0px;">Please complete all the details and draw in the phot perspective in the map below. The submit button will turn green when you finish</p>
+				<div id="map" class="map"></div>
 			</main>
 			<sidebar>
 				<form class="sidebar--form" method="post" target="_blank" enctype="multipart/form-data"> 
@@ -37,18 +33,23 @@
 					</div>
 					
 					<div class="sidebar--input-wrapper">
-						<label class="sidebar--label">Description</label>
+						<label class="sidebar--label"><span style="color: red">*</span> Description</label>
 						<input name="description" class="sidebar--input required" placeholder="Short description, less than 50 characters"/>
 					</div>
 
 					<div class="sidebar--input-wrapper">
-						<label class="sidebar--label">Caption</label>
-						<textarea name="caption" class="sidebar--textarea required" placeholder="Give us a line less than 200 characters here"></textarea>
+						<label class="sidebar--label"><span style="color: red">*</span> Caption</label>
+						<textarea name="caption" class="sidebar--textarea required" placeholder="Give us a line less than 200 characters"></textarea>
 					</div>
 
 					<div class="sidebar--input-wrapper">
-						<label class="sidebar--label">Year of source</label>
+						<label class="sidebar--label"><span style="color: red">*</span> Year of source</label>
 						<input name="year_source" class="sidebar--input required"  placeholder="The year this image is discovered/passed over"/>
+					</div>
+
+					<div class="sidebar--input-wrapper">
+						<label class="sidebar--label"><span style="color: red">*</span> Year of image</label>
+						<input name="year_est" class="sidebar--input required"  placeholder="The year this image is shot"/>
 					</div>
 
 					<div class="sidebar--input-wrapper">
@@ -81,7 +82,6 @@
 						<input name="contributor" class="sidebar--input" />
 					</div>
 					
-					<input id="year_dst" name="year_dst" class="sidebar--input hidden-input" />
 					<input id="form-polygon-data" name="perspective" class="sidebar--input hidden-input" />
 					<input id="form-shot-lat" name="shot_lat" class="sidebar--input hidden-input" />
 					<input id="form-shot-lon" name="shot_lon" class="sidebar--input hidden-input" />

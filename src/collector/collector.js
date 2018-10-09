@@ -29,35 +29,6 @@ let leafletMap = L.map('map', {
 
 let base = L.tileLayer(tileserver + '&Level={z}&X={x}&Y={y}').addTo(leafletMap);
 
-/* Slider */
-let slider = noUiSlider.create(document.querySelector('.slider'), {
-  start: [1945],
-  connect: false,
-  step: 1,
-  range: {
-    min: [1858],
-    max: [2018]
-  },
-  pips: {
-    mode: 'values',
-    // filter: (val) => {
-    //   if (val === maxYear) return 1;
-    //   else if (val === 2000) return 0;
-    //   else if (val % 50) {
-    //     if (val % 25) return 0;
-    //     else return 2;
-    //   } else return 1;
-    // },
-    values: [1858, 1945, 1975, 1986, 2015],
-    density: 2
-  },
-  tooltips: true,
-  format: {
-    to: (value) => value,
-    from: (value) => parseInt(value)
-  }
-});
-
 /* Leaflet Draw */
 let editableLayer = new L.FeatureGroup();
 let nonEditableLayer = new L.FeatureGroup();
@@ -135,7 +106,7 @@ document.querySelector('.sidebar--submit').addEventListener('click', function (e
     }, 3000);
   });
 
-  formEl.year_dst.value = slider.get();
+  
   var formData = new FormData(formEl);
   request.send(formData);
 });
@@ -637,5 +608,5 @@ function checkForm() {
 /* -------------------------*/
 /* Start */
 /* -------------------------*/
-slider.set(1950);
+
 newCone();

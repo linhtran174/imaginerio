@@ -16,6 +16,7 @@ body {
 }
 
 main {
+  border-right: 2px dotted black;
   flex-grow: 1;
   height: 100%;
 }
@@ -39,7 +40,7 @@ main {
 
 /* Map */
 .map {
-  height: calc(100% - 150px); /* 100% - slider-wrapper height */
+  height: calc(100% - 86px); /* 100% - slider-wrapper height */
   width: 100%;
 }
 
