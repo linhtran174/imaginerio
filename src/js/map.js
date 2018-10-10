@@ -197,70 +197,103 @@ const getMap = (components) => {
     const {
       tileserver,
       server,
+      imageMeta
     } = init;
 
     if (newYear === year) return;
     M.clearSelected();
     year = newYear;
-    if (year === new Date().getFullYear()) {
-      map.removeLayer(tileLayer);
-      map.addLayer(aerialLayer);
-    } else {
+    // if (year === new Date().getFullYear()) {
+    //   map.removeLayer(tileLayer);
+    //   map.addLayer(aerialLayer);
+    // } else {
 
-      tileLayer.setUrl(`${tileserver}&Level={z}&X={x}&Y={y}`);
-      if (map.hasLayer(aerialLayer)) map.removeLayer(aerialLayer);
-      if (!map.hasLayer(tileLayer)) map.addLayer(tileLayer);
-    }
+    //   // tileLayer.setUrl(`${tileserver}&Level={z}&X={x}&Y={y}`);
+    //   if (map.hasLayer(aerialLayer)) map.removeLayer(aerialLayer);
+    //   if (!map.hasLayer(tileLayer)) map.addLayer(tileLayer);
+    // }
     M.removeHighlight();
     removeViewsheds();
     viewshedPoints = null;
-    $.getJSON(`${server}visual/${year}`, (json) => {
-      const { probes, dispatch } = components;
-      const Dispatch = dispatch;
-      const { mapProbe } = probes;
+    // $.getJSON(`${server}visual/${year}`, (json) => {
+    //   const { probes, dispatch } = components;
+    //   const Dispatch = dispatch;
+    //   const { mapProbe } = probes;
 
-      if (!json.features || !json.features.length) return;
-      const points = _.map(json.features, f => ({
-        type: 'Feature',
-        properties: _.extend(
-          f.properties,
-          {
-            cone: L.geoJSON(
-              {
-                type: 'Feature',
-                geometry: f.geometry,
-              },
-              { style() { return viewshedConeStyle; } },
-            ),
-          },
-        ),
-        geometry: { type: 'Point', coordinates: f.geometry.coordinates[0][0] },
-      }));
+    //   if (!json.features || !json.features.length) return;
+    //   const points = _.map(json.features, f => ({
+    //     type: 'Feature',
+    //     properties: _.extend(
+    //       f.properties,
+    //       {
+    //         cone: L.geoJSON(
+    //           {
+    //             type: 'Feature',
+    //             geometry: f.geometry,
+    //           },
+    //           { style() { return viewshedConeStyle; } },
+    //         ),
+    //       },
+    //     ),
+    //     geometry: { type: 'Point', coordinates: f.geometry.coordinates[0][0] },
+    //   }));
+    //   console.log("fuckyou points:", points);
+    //   viewshedPoints = L.geoJSON({ type: 'FeatureCollection', features: points }, {
+
+    //     pointToLayer(pt, latlng) {
+    //       return L.marker(latlng, viewshedStyle);
+    //     },
+
+    //     onEachFeature(feature, layer) {
+    //       layer.on('mouseover', (e) => {
+    //         const { language } = init;
+    //         feature.properties.cone.addTo(map);
+    //         mapProbe(e, `<strong>${feature.properties.description}</strong><br><em>${translations.find(d => d.name === 'click-for-details')[language]}</em>`);
+    //       }).on('mouseout', function onMouseout() {
+    //         $('#map-probe').hide();
+    //         if (map.hasLayer(feature.properties.cone) && selectedViewshed != this) map.removeLayer(feature.properties.cone);
+    //       }).on('click', function onClick() {
+    //         probes.hideHintProbe();
+    //         Dispatch.call('viewshedclick', this, this.feature.properties.id);
+    //       });
+    //     },
+    //   });
+    //   if (M.hasViews) viewshedPoints.addTo(map);
+    //   if (selectedViewshedData) { // was set after year change & before json load
+    //     M.zoomToView(selectedViewshedData);
+    //   }
+    // });
+
+    const { probes, dispatch } = components;
+    const Dispatch = dispatch;
+    const { mapProbe } = probes;
+
+    console.log("fuckyou points:", points);
       viewshedPoints = L.geoJSON({ type: 'FeatureCollection', features: points }, {
 
-        pointToLayer(pt, latlng) {
-          return L.marker(latlng, viewshedStyle);
-        },
+      pointToLayer(pt, latlng) {
+        return L.marker(latlng, viewshedStyle);
+      },
 
-        onEachFeature(feature, layer) {
-          layer.on('mouseover', (e) => {
-            const { language } = init;
-            feature.properties.cone.addTo(map);
-            mapProbe(e, `<strong>${feature.properties.description}</strong><br><em>${translations.find(d => d.name === 'click-for-details')[language]}</em>`);
-          }).on('mouseout', function onMouseout() {
-            $('#map-probe').hide();
-            if (map.hasLayer(feature.properties.cone) && selectedViewshed != this) map.removeLayer(feature.properties.cone);
-          }).on('click', function onClick() {
-            probes.hideHintProbe();
-            Dispatch.call('viewshedclick', this, this.feature.properties.id);
-          });
-        },
-      });
-      if (M.hasViews) viewshedPoints.addTo(map);
-      if (selectedViewshedData) { // was set after year change & before json load
-        M.zoomToView(selectedViewshedData);
-      }
+      onEachFeature(feature, layer) {
+        layer.on('mouseover', (e) => {
+          const { language } = init;
+          feature.properties.cone.addTo(map);
+          mapProbe(e, `<strong>${feature.properties.description}</strong><br><em>${translations.find(d => d.name === 'click-for-details')[language]}</em>`);
+        }).on('mouseout', function onMouseout() {
+          $('#map-probe').hide();
+          if (map.hasLayer(feature.properties.cone) && selectedViewshed != this) map.removeLayer(feature.properties.cone);
+        }).on('click', function onClick() {
+          probes.hideHintProbe();
+          Dispatch.call('viewshedclick', this, this.feature.properties.id);
+        });
+      },
     });
+    if (M.hasViews) viewshedPoints.addTo(map);
+    if (selectedViewshedData) { // was set after year change & before json load
+      M.zoomToView(selectedViewshedData);
+    }
+
     return M;
   };
 

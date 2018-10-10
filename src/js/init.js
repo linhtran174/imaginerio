@@ -21,6 +21,25 @@ const getInit = (components) => {
   const thumbnaillUrl = 'https://mdxdv.artstor.org/thumb/imgstor/size1/sslps/c7731849/';
   const imageUrl = 'https://mdxdv.artstor.org/thumb/imgstor/size2/sslps/c7731849/';
   
+  let imageMeta = {};
+  $.getJSON(`${server}imageMeta`, (d)=>{
+    imageMeta.raw = d;
+
+    let eraByYear = {};
+    eras.forEach((e)=>{
+      for(var i = e.dates[0]; i <= e.dates[1]; i++){
+        eraByYear[i] = e;
+      }
+    });
+    d.forEach((p, i)=>{
+      if(p.year_est
+    })
+    imageMeta.byEra = {};
+    imageMeta.byYear = function(year){
+      year
+    }
+  });
+
   let years = [];
   let year;
   const minYear = 1830;
@@ -610,6 +629,7 @@ const getInit = (components) => {
     mobileLandscape,
     server,
     tileserver,
+    imageMeta,
     rasterserver,
     names,
     thumbnaillUrl,
