@@ -43,5 +43,4 @@ const eras = [
 ];
 
 // _.reduce(eras, (m, e) => m + Math.round((e.dates[1] - e.dates[0]) / e.increment), 0);
-
-export default eras;
+module.exports = eras;

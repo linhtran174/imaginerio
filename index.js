@@ -42,6 +42,25 @@ app.get('/imageCollector', (req, res) => {
 // })
 
 images = JSON.parse(fs.readFileSync("data/imageMeta.json"));
+
+var imageByEra = [];
+var eras = require('./src/js/eras.js');
+for(i in eras){
+  imageByEra[i] = [];
+}
+
+images.forEach((image, index)=>{
+  for(var i = 0; i < eras.length; i++){
+    var e = eras[i];
+    if(image.year_est >= e.dates[0] && image.year_est <= e.dates[1]){
+      imageByEra[i].push(index);
+      break;
+    }
+  }
+});
+
+// console.log(images, imageByEra);
+
 app.post("/submitImage", upload.single("image"));
 app.post('/submitImage', (req, res)=>{
   let name = req.file.originalname.split(".");
@@ -67,8 +86,21 @@ app.post('/submitImage', (req, res)=>{
   });
 })
 
-app.get("/imageMeta", (req, res)=>{
-  res.json(images);
+
+
+
+app.get("/imageMeta/:era", (req, res)=>{
+  // console.log(req.params.era);
+  if(req.params.era == -1){
+    res.json(images);
+    return;
+  }
+
+  var temp = []
+  imageByEra[req.params.era].forEach(
+    i=>temp.push(images[i])
+  )
+  res.json(temp);
 })
 
 let imageReviewPage = fs.readFileSync("dist/imageReview_1103mcnbb592hd7302jslc.html");

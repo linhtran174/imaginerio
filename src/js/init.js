@@ -13,7 +13,7 @@ const getInit = (components) => {
 
   const Init = {};
 
-  let server = "https://irio.axismaps.io/";
+  let server = window.location.origin;
   // http://images.vietbando.com/ImageLoader/GetImage.ashx?LayerIds=VBD&Level={z}&X={x}&Y={y}
   let tileserver = 'http://images.vietbando.com/ImageLoader/GetImage.ashx?LayerIds=VBD';
   let rasterserver = 'https://irio.axismaps.io/raster/';
@@ -22,22 +22,25 @@ const getInit = (components) => {
   const imageUrl = 'https://mdxdv.artstor.org/thumb/imgstor/size2/sslps/c7731849/';
   
   let imageMeta = {};
-  $.getJSON(`${server}imageMeta`, (d)=>{
+  $.getJSON(`${server}imageMeta/-1`, (d)=>{
     imageMeta.raw = d;
 
     let eraByYear = {};
-    eras.forEach((e)=>{
+    eras.forEach((e, index)=>{
       for(var i = e.dates[0]; i <= e.dates[1]; i++){
-        eraByYear[i] = e;
+        eraByYear[i] = index;
       }
     });
-    d.forEach((p, i)=>{
-      if(p.year_est
-    })
     imageMeta.byEra = {};
+    imageMeta.raw.forEach((p, i)=>{
+      imageMeta.byEra[eraByYear[p.year_est]].push(p);
+    })
+    
     imageMeta.byYear = function(year){
-      year
+      return imageMeta.byEra[eraByYear[year]];
     }
+
+    loadPlans(initialize);
   });
 
   let years = [];
@@ -102,7 +105,7 @@ const getInit = (components) => {
 
   
   
-  loadPlans(initialize);
+  
 
   const preloadImages = () => {
     const img = new Image();

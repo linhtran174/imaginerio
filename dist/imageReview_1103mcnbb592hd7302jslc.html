@@ -35,7 +35,7 @@
         var $ = (q)=>{return document.querySelector(q)};
         var imageMeta = [];
         var r = new XMLHttpRequest();
-        r.open("GET", window.location.origin + "/imageMeta/", true);
+        r.open("GET", window.location.origin + "/imageMeta/-1", true);
         r.onload = function(e){
             imageMeta = r.response;
             console.log(imageMeta);
