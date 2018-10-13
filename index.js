@@ -4,7 +4,7 @@ const compression = require('compression');
 const enforce = require('express-sslify');
 const bp = require("fast-json-body");
 const upload = require("multer")({dset: "/data/temp"});
-
+const cors = require("cors");
 const isProduction = false;//process.env.NODE_ENV === 'production';
 
 let app = express();
@@ -14,9 +14,11 @@ if (isProduction) {
   app.use(enforce.HTTPS({ trustProtoHeader: true }));
 }
 
-let port = process.env.PORT || 8080;
 
-app.set('view engine', 'ejs');
+
+let port = process.env.PORT || 3000;
+
+app.use(cors())
 // app.use(express.static(path.join(__dirname, 'node_modules')));
 app.use(express.static(path.join(__dirname, 'dist')));
 app.use(express.static(path.join(__dirname, 'src/collector')));

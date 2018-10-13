@@ -579,7 +579,7 @@ function generateCurvePoints(ptsArray) {
 }
 
 function savePolygonToForm() {
-  document.getElementById('form-polygon-data').value = JSON.stringify([
+  document.getElementById('form-perspective').value = JSON.stringify([
     [majorPoints[1].lat, majorPoints[1].lng],
     [majorPoints[2].lat, majorPoints[2].lng]
   ]);

@@ -3,7 +3,7 @@ const getFilmstrip = (components) => {
 
   const filmstrip = $('#filmstrip');
   let rasters = [];
-  const photos = [];
+  let photos = [];
   let year = 2015;
   let maxYear;
 
@@ -38,26 +38,36 @@ const getFilmstrip = (components) => {
     const {
       server,
       thumbnaillUrl,
+      imageMeta
     } = init;
     year = y;
     maxYear = max;
     // clear current rasters
     rasters = [];
-    const rasterUrl = `${server}raster/${year}${(max ? (`?max=${max}`) : '')}`;
+    const rasterUrl = "http://irio.axismaps.io/raster/1902";
     console.log(`${server}raster/${year}${(max ? (`?max=${max}`) : '')}`);
     // console.log('rasterUrl', `${server}raster/${year}${(max ? (`?max=${max}`) : '')}`);
-    $.getJSON(rasterUrl, (json) => {
+    console.log(imageMeta);
+    // $.getJSON(rasterUrl, (json) => {
       const {
         Photo,
         Overlay,
       } = components;
       filmstrip.show();
-      json = _.reject(json, r => r.id === null);
+      // json = _.reject(json, r => r.id === null);
+
+      photos = imageMeta.byYear(y).map(p=>{
+        p.id = p.imageId;
+        p.date = p.year_est;
+        p.creator = p.contributor;
+        return p;
+      })
+
 
       $('.mini-thumbs', filmstrip).empty();
       $('.filmstrip-thumbnails').empty();
       // if no rasters
-      if (!json.length) {
+      if (!photos.length) {
         $('.filmstrip-showall').hide();
         $('.raster-types i.selected').removeClass('selected');
         $('.filmstrip-thumbnails').append('<p class="no-data">No views, maps, plans, or aerials are available for this year.</p>')
@@ -65,7 +75,7 @@ const getFilmstrip = (components) => {
         filmstrip.addClass('collapsed');
       } else {
         $('.filmstrip-showall').show();
-        _.each(json, (r) => {
+        _.each(photos, (r) => {
           if (!allRasters[r.id]) {
             // if allRasters doesn't have item, add
             allRasters[r.id] = r;
@@ -115,7 +125,7 @@ const getFilmstrip = (components) => {
         tempRaster = null;
         dispatch.call('statechange', this);
       }
-    });
+    // });
   }
 
   function filterTypes(e) {

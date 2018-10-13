@@ -54,79 +54,79 @@ const getLegend = (components) => {
 
     $('.legend-contents').empty();
     // get layer data
-    $.getJSON(`${server}layers/${year}`, (layersJson) => {
-      const { dispatch } = components;
-      const { names } = init;
-      // console.log('names', names);
+    // $.getJSON(`${server}layers/${year}`, (layersJson) => {
+    //   const { dispatch } = components;
+    //   const { names } = init;
+    //   // console.log('names', names);
 
-      layers = layersJson;
-      // console.log('legend layers', layersJson);
+    //   layers = layersJson;
+    //   // console.log('legend layers', layersJson);
 
-      _.each(layersJson, (category, categoryName) => {
-        const cat = $('<div>')
-          .attr('class', 'legend-category')
-          .attr('data-category', 'feature')
-          .appendTo('.legend-contents');
-        // console.log('layers', layersJson);
-        // console.log('cat name', categoryName);
+    //   _.each(layersJson, (category, categoryName) => {
+    //     const cat = $('<div>')
+    //       .attr('class', 'legend-category')
+    //       .attr('data-category', 'feature')
+    //       .appendTo('.legend-contents');
+    //     // console.log('layers', layersJson);
+    //     // console.log('cat name', categoryName);
 
-        const title = names[categoryName.toLowerCase()].toUpperCase();
-        $('<div>')
-          .attr('class', 'category-title')
-          .html(title)
-          .appendTo(cat);
+    //     const title = names[categoryName.toLowerCase()].toUpperCase();
+    //     $('<div>')
+    //       .attr('class', 'category-title')
+    //       .html(title)
+    //       .appendTo(cat);
 
-        _.each(category, (obj, objName) => { // there's an extra level here
-          if (obj.features) addLayerGroup(obj, objName);
-          else _.each(obj, addLayerGroup);
-        });
+    //     _.each(category, (obj, objName) => { // there's an extra level here
+    //       if (obj.features) addLayerGroup(obj, objName);
+    //       else _.each(obj, addLayerGroup);
+    //     });
 
-        function addLayerGroup(group, groupName) {
-          const { names } = init;
+    //     function addLayerGroup(group, groupName) {
+    //       const { names } = init;
 
-          const value = group.id !== undefined ? group.id :
-            [...new Set(Object.keys(group.features).map(d => group.features[d].id))]
-              .join('&');
+    //       const value = group.id !== undefined ? group.id :
+    //         [...new Set(Object.keys(group.features).map(d => group.features[d].id))]
+    //           .join('&');
 
-          const gr = $('<div>').attr('class', 'legend-group').attr('data-group', groupName).appendTo(cat);
-          const groupTitle = $('<div>').attr('class', 'group-title').appendTo(gr);
-          $('<label>')
-            // .html(names[groupName.toLowerCase()] || groupName)
-            .prepend(`<input type="checkbox" value="${value}"checked>`)
-            .appendTo(groupTitle);
+    //       const gr = $('<div>').attr('class', 'legend-group').attr('data-group', groupName).appendTo(cat);
+    //       const groupTitle = $('<div>').attr('class', 'group-title').appendTo(gr);
+    //       $('<label>')
+    //         // .html(names[groupName.toLowerCase()] || groupName)
+    //         .prepend(`<input type="checkbox" value="${value}"checked>`)
+    //         .appendTo(groupTitle);
 
-          _.each(group.features, (feature, key) => {
-            const layer = $('<div>').attr('class', 'layer').appendTo(gr);
-            addLayerExisting(feature, key, layer);
-            // console.log(feature, key);
-            if (feature.style) {
-              addSwatch(feature.style).appendTo(layer);
-              layer.addClass('styled');
-            }
-          });
-          // console.log('group', group);
+    //       _.each(group.features, (feature, key) => {
+    //         const layer = $('<div>').attr('class', 'layer').appendTo(gr);
+    //         addLayerExisting(feature, key, layer);
+    //         // console.log(feature, key);
+    //         if (feature.style) {
+    //           addSwatch(feature.style).appendTo(layer);
+    //           layer.addClass('styled');
+    //         }
+    //       });
+    //       // console.log('group', group);
 
-          addSwatch(group.style).appendTo(groupTitle);
+    //       addSwatch(group.style).appendTo(groupTitle);
 
-          $('<div>')
-            .attr('class', 'group-name')
-            .html(names[groupName.toLowerCase()] || groupName)
-            .appendTo(groupTitle);
-        }
-      });
-      dispatch.call('setlayers', this, Lg.layers());
-      dispatch.call('statechange', this);
+    //       $('<div>')
+    //         .attr('class', 'group-name')
+    //         .html(names[groupName.toLowerCase()] || groupName)
+    //         .appendTo(groupTitle);
+    //     }
+    //   });
+    //   dispatch.call('setlayers', this, Lg.layers());
+    //   dispatch.call('statechange', this);
 
-      if (tempLayers) {
-        Lg.layers(tempLayers);
-        tempLayers = null;
-        dispatch.call('setlayers', this, Lg.layers());
-        dispatch.call('statechange', this);
-      }
-      if (plans.length > 0) {
-        addPlans();
-      }
-    });
+    //   if (tempLayers) {
+    //     Lg.layers(tempLayers);
+    //     tempLayers = null;
+    //     dispatch.call('setlayers', this, Lg.layers());
+    //     dispatch.call('statechange', this);
+    //   }
+    //   if (plans.length > 0) {
+    //     addPlans();
+    //   }
+    // });
   }
 
   function updateYear(y) {

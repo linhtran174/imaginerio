@@ -297,33 +297,28 @@ const getMap = (components) => {
       p.id = p.imageId;
       p.geometry = generateCurvePoints([p.perspective[0], [p.focus_lat, p.focus_lon], p.perspective[1], [p.shot_lat, p.shot_lon]]);
       p.geometry.push([p.shot_lat, p.shot_lon]);
-      p.geometry = {
-        type: "Polygon",
-        coordinates: [p.geometry]
-      };
+      
       return p;
     })
     
-    const points = _.map(photos, p =>{
-      console.log("PPPPPPPPPP", p.geometry);
+    const points = _.map(photos, (p) =>{
+      var viewConeGeometry = {
+        type: "Polygon",
+        coordinates: [p.geometry]
+      };
+      p.cone = L.geoJSON(
+        {
+          type: 'Feature',
+          geometry:  viewConeGeometry,
+        },
+        { style() { return viewshedConeStyle; } },
+      );
       return{
       type: 'Feature',
-      properties: _.extend(
-        p,
-        {
-          cone: L.geoJSON(
-            {
-              type: 'Feature',
-              geometry:  p.geometry,
-            },
-            { style() { return viewshedConeStyle; } },
-          ),
-        },
-      ),
+      properties: p,
       geometry: { type: 'Point', coordinates: [p.shot_lat, p.shot_lon]},
     }});
 
-    console.log("fuckyou points:", points);
     viewshedPoints = L.geoJSON({ type: 'FeatureCollection', features: points }, {
 
       pointToLayer(pt, latlng) {
@@ -348,7 +343,7 @@ const getMap = (components) => {
     if (selectedViewshedData) { // was set after year change & before json load
       M.zoomToView(selectedViewshedData);
     }
-    
+
     return M;
   };
 

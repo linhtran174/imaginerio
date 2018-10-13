@@ -13,26 +13,37 @@ const getInit = (components) => {
 
   const Init = {};
 
-  let server = window.location.origin;
+  let server = "http://localhost:3000/";
   // http://images.vietbando.com/ImageLoader/GetImage.ashx?LayerIds=VBD&Level={z}&X={x}&Y={y}
   let tileserver = 'http://images.vietbando.com/ImageLoader/GetImage.ashx?LayerIds=VBD';
   let rasterserver = 'https://irio.axismaps.io/raster/';
   
   const thumbnaillUrl = 'https://mdxdv.artstor.org/thumb/imgstor/size1/sslps/c7731849/';
   const imageUrl = 'https://mdxdv.artstor.org/thumb/imgstor/size2/sslps/c7731849/';
-  
+
   let imageMeta = {};
-  $.getJSON(`${server}imageMeta/-1`, (d)=>{
+  $.getJSON(server + "imageMeta/-1", (d)=>{
     imageMeta.raw = d;
 
+    imageMeta.byEra = {};
     let eraByYear = {};
     eras.forEach((e, index)=>{
       for(var i = e.dates[0]; i <= e.dates[1]; i++){
         eraByYear[i] = index;
       }
+      imageMeta.byEra[index] = [];
     });
-    imageMeta.byEra = {};
     imageMeta.raw.forEach((p, i)=>{
+      if(p.perspective){
+        p.perspective = JSON.parse(p.perspective);
+      }
+      else{
+        p.perspective = [[0,0],[0,0]]
+      }
+      p.shot_lat = p.shot_lat - 0;
+      p.shot_lon = p.shot_lon - 0;
+      p.focus_lat = p.focus_lat - 0;
+      p.focus_lon = p.focus_lon - 0;
       imageMeta.byEra[eraByYear[p.year_est]].push(p);
     })
     
@@ -40,12 +51,14 @@ const getInit = (components) => {
       return imageMeta.byEra[eraByYear[year]];
     }
 
-    loadPlans(initialize);
+    Init.plans = [];
+    initialize()
+    // loadPlans(initialize);
   });
 
   let years = [];
   let year;
-  const minYear = 1830;
+  const minYear = 1858;
   let names;
   let nameData = {
     en: {"visualdocuments":"Visual Documents","creator":"Creator","occupant":"Occupant","year":"Mapped","builtenvironment":"Built Environment","firstowner":"First Owner","owner":"Owner","politicalboundaries":"Political Boundaries","architecture":"Architecture","boundaries":"Boundaries","plaza":"Plaza","topography":"Topography","civilengineering":"Civil Engineering","landscapearchitecture":"Landscape Architecture","naturalenvironment":"Natural Environment","water":"Water","buildingspoint":"Stops","tram stations":"Tram Stations","train stations":"Train Stations","metro stations":"Metro Stations","address":"Address","marshes":"Marshes","inlandwaterspoly":"Lagoons and Ponds","lagoons":"Lagoons","ponds":"Ponds","salty marshes":"Salty Marshes","neighborhoodspoly":"Areas","favelas":"Favelas","neighborhoods":"Neighborhoods","parishes":"Parishes","utilitiespoint":"UtilitiesPoint","urbanism/urbanismo":"Urbanism","iconography":"Iconography","utilitiespoly":"Water Storage and Distribution","viewfull":"View full map","fountains":"Fountains","reservoirs":"Reservoirs","highlight":"View","landline":"Land Features","beaches":"Beaches","landpoly":"Territory","publicspacespoly":"Public Spaces","cemeteries":"Cemeteries","gardens":"Gardens","parks":"Parks","plazas":"Plazas","squares":"Squares","roadsline":"Roads","alleys":"Alleys","avenues":"Avenues","expressways":"Expressways","overpasses":"Overpasses","passages":"Passages","slopes":"Slopes","streets":"Streets","trails":"Trails","agriculture":"Agriculture","forests":"Forests","mangroves":"Mangroves","riparian forests":"Riparian Forests","spit vegetation":"Spit Vegetation","clear":"Clear project","maps":"Maps","plans":"Plans","views":"Views","inlandwatersline":"Rivers and Streams","brooks":"Brooks","creeks":"Creeks","rivers":"Rivers","streams":"Streams","utilitiesline":"Water Canalization","aqueducts":"Aqueducts","canals":"Canals","ditches":"Ditches","sewage pipes":"Sewage Pipes","water pipes":"Water Pipes","buildingspoly":"Buildings","civil":"Civil","health":"Health","infrastructure":"Infrastructure","military":"Military","religious":"Religious","viewsheds":"Cones of Vision","piers":"Piers","plans/planos":"Urban Projects","groundcoverpoly":"Ground Cover","geography/geografia":"Landscape","farm":"Farm","mill":"Mill","built domain":"Built Domain"},
@@ -77,14 +90,15 @@ const getInit = (components) => {
 
 
   function loadPlans(callback) {
-    $.getJSON(`${server}plans/`, (plansList) => {
-      Init.plans = plansList.map((d) => {
-        const planCopy = Object.assign({}, d);
-        planCopy.years = d.planyear.split('-').map(dd => parseInt(dd, 10));
-        return planCopy;
-      });
-      if (callback !== undefined) callback();
-    });
+    Init.plans = [];
+    // $.getJSON(`${server}plans/`, (plansList) => {
+    //   Init.plans = plansList.map((d) => {
+    //     const planCopy = Object.assign({}, d);
+    //     planCopy.years = d.planyear.split('-').map(dd => parseInt(dd, 10));
+    //     return planCopy;
+    //   });
+    //   if (callback !== undefined) callback();
+    // });
   }
 
   checkHash();
@@ -413,7 +427,6 @@ const getInit = (components) => {
       Search.clear();
     });
 
-    $('#export').click(exportMap);
   }
 
   function goButtonClick() {
@@ -608,17 +621,17 @@ const getInit = (components) => {
     // $( '.facebook-button a' ).attr('href', 'http://www.facebook.com/sharer/sharer.php?u=imaginerio.org/' + encodeURIComponent( window.location.hash ) + '&title=Imagine Rio');
   }
 
-  function exportMap() {
-    $('#export')
-      .attr('class', 'icon-circle-notch animate-spin');
-    const layers = Legend.layers().sort().join(',');
-    const raster = $('#overlay-info').data('p') ? $('#overlay-info').data('p').data.file : 'null';
-    const url = server + 'export/en/' + year + '/' + layers + '/' + raster + '/' + Map.getBounds().toBBoxString() + '/';
-    console.log('raster', raster);
-    console.log('export url', url);
-    document.getElementById('download_iframe').src = url;
-    window.setTimeout(() => { $('#export').attr('class', 'icon-download'); }, 2000);
-  }
+  // function exportMap() {
+  //   $('#export')
+  //     .attr('class', 'icon-circle-notch animate-spin');
+  //   const layers = Legend.layers().sort().join(',');
+  //   const raster = $('#overlay-info').data('p') ? $('#overlay-info').data('p').data.file : 'null';
+  //   const url = server + 'export/en/' + year + '/' + layers + '/' + raster + '/' + Map.getBounds().toBBoxString() + '/';
+  //   console.log('raster', raster);
+  //   console.log('export url', url);
+  //   document.getElementById('download_iframe').src = url;
+  //   window.setTimeout(() => { $('#export').attr('class', 'icon-download'); }, 2000);
+  // }
 
   function setYear(newYear) {
     year = newYear;

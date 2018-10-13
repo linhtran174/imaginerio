@@ -8,6 +8,9 @@ const getPhoto = (components) => {
   // })
 
   const Photo = (data, thumbUrl) => {
+    let {init} = components;
+    let {imageMeta} = init;
+
     const P = {};
 
     // private and public methods: get thumb, full image, Leaflet marker, etc.
@@ -23,6 +26,7 @@ const getPhoto = (components) => {
     let request;
 
     function getMetadata() {
+      imageMeta
       request = $.getJSON(`https://www.sscommons.org/openlibrary/secure/imagefpx/${data.id}/7731849/5`, (json) => {
         P.metadata = json[0];
         P.metadata.imageServer = P.metadata.imageServer.replace(/^http/, 'https');
@@ -44,7 +48,7 @@ const getPhoto = (components) => {
       });
     }
   
-    getMetadata();
+    // getMetadata();
   
     function getUrl(size) {
       const scaled = P.getScaled(size);
@@ -56,18 +60,20 @@ const getPhoto = (components) => {
         .append('<i class="icon-circle-notch animate-spin"></i>')
         .bind('destroyed', () => {
           divs.splice(divs.indexOf(div), 1);
-          if (!divs.length && request && request.readyState != 4) {
-            request.abort();
-            request = null;
-          }
+          // if (!divs.length && request && request.readyState != 4) {
+          //   request.abort();
+          //   request = null;
+          // }
         });
       divs.push(div);
       if (!P.metadata.imageServer) {
         tempImages.push({ div, size, setDimensions: setDimensionsOnLoad });
-        if (!request) {
-          getMetadata();
-        }
+
+        // if (!request) {
+        //   getMetadata();
+        // }
       } else {
+
         div.empty().css('background-image', 'url(' + getUrl(size) + ')');
       }
       return div;
