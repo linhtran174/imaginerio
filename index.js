@@ -16,7 +16,7 @@ if (isProduction) {
 
 
 
-let port = process.env.PORT || 3000;
+let port = process.env.PORT || 8080;
 
 app.use(cors())
 // app.use(express.static(path.join(__dirname, 'node_modules')));

@@ -151,10 +151,10 @@ const getDispatch = (components) => {
     $('#fixed-probe').hide();
   });
 
-  Dispatch.on('drawplanfeature', (plan) => {
-    const { Map } = components;
-    Map.drawPlanFeature(plan.planname);
-  });
+  // Dispatch.on('drawplanfeature', (plan) => {
+  //   const { Map } = components;
+  //   Map.drawPlanFeature(plan.planname);
+  // });
 
   Dispatch.on('drawfeature', (data, zoomTo = true) => {
     const {

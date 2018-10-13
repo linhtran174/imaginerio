@@ -49,7 +49,7 @@ const getLegend = (components) => {
       server,
     } = init;
 
-    setCurrentPlans();
+    // setCurrentPlans();
     resizeLegendButton();
 
     $('.legend-contents').empty();
@@ -134,87 +134,87 @@ const getLegend = (components) => {
     year = y;
   }
 
-  function addPlans() {
-    const {
-      dispatch,
-      translations,
-      init,
-    } = components;
+  // function addPlans() {
+  //   const {
+  //     dispatch,
+  //     translations,
+  //     init,
+  //   } = components;
 
-    const { language } = init;
+  //   const { language } = init;
 
-    const cat = $('<div>')
-      .attr('class', 'legend-category')
-      .attr('data-category', 'feature')
-      .prependTo('.legend-contents');
+  //   const cat = $('<div>')
+  //     .attr('class', 'legend-category')
+  //     .attr('data-category', 'feature')
+  //     .prependTo('.legend-contents');
     
 
-    $('<div>')
-      .attr('class', 'category-title')
-      .html(translations.find(d => d.name === 'plans')[language].toUpperCase())
-      .appendTo(cat);
+  //   $('<div>')
+  //     .attr('class', 'category-title')
+  //     .html(translations.find(d => d.name === 'plans')[language].toUpperCase())
+  //     .appendTo(cat);
     
 
-    plans.forEach((plan) => {
-      const row = $('<div>').attr('class', 'search-result plan-legend-row')
-        .append('<i class="icon-right-dir"></i>')
-        .append('<i class="icon-down-dir"></i>')
-        .appendTo(cat);
+  //   plans.forEach((plan) => {
+  //     const row = $('<div>').attr('class', 'search-result plan-legend-row')
+  //       .append('<i class="icon-right-dir"></i>')
+  //       .append('<i class="icon-down-dir"></i>')
+  //       .appendTo(cat);
 
-      $(`<span>${plan.planname}</span>`)
-        .appendTo(row)
-        .on('click', function click() {
-          if (!row.hasClass('selected')) {
-            $('.search-result.selected').removeClass('selected');
-            row.addClass('selected');
-            if (!row.hasClass('expanded')) $(this).prev().click();
-            dispatch.call('drawplanfeature', this, plan);
-          } else {
-            row.removeClass('selected');
-            if (row.hasClass('expanded')) $(this).prev().click();
-            dispatch.call('removehighlight', this);
-          }
-        })
-        .prepend('<i class="icon-binoculars">');
+  //     $(`<span>${plan.planname}</span>`)
+  //       .appendTo(row)
+  //       .on('click', function click() {
+  //         if (!row.hasClass('selected')) {
+  //           $('.search-result.selected').removeClass('selected');
+  //           row.addClass('selected');
+  //           if (!row.hasClass('expanded')) $(this).prev().click();
+  //           // dispatch.call('drawplanfeature', this, plan);
+  //         } else {
+  //           row.removeClass('selected');
+  //           if (row.hasClass('expanded')) $(this).prev().click();
+  //           dispatch.call('removehighlight', this);
+  //         }
+  //       })
+  //       .prepend('<i class="icon-binoculars">');
 
-      $('i.icon-right-dir, i.icon-down-dir', row).on('click', () => {
-        if (row.hasClass('expanded')) {
-          row.removeClass('expanded');
-        } else {
-          row.addClass('expanded');
-          if (!$('.result-details', row).length) {
-            const details = $('<div>')
-              .attr('class', 'result-details')
-              .appendTo(row);
-            details.html(plan.planyear);
-          }
-        }
-      });
-    });
-  }
+  //     $('i.icon-right-dir, i.icon-down-dir', row).on('click', () => {
+  //       if (row.hasClass('expanded')) {
+  //         row.removeClass('expanded');
+  //       } else {
+  //         row.addClass('expanded');
+  //         if (!$('.result-details', row).length) {
+  //           const details = $('<div>')
+  //             .attr('class', 'result-details')
+  //             .appendTo(row);
+  //           details.html(plan.planyear);
+  //         }
+  //       }
+  //     });
+  //   });
+  // }
 
-  function setCurrentPlans() {
-    const { init } = components;
-    // filter to find plans for selected year
-    plans = init.plans.filter((d) => {
-      if (d.years.length === 1) {
-        return d.years[0] === year;
-      }
-      return d.years[0] <= year && d.years[1] >= year;
-    });
-  }
+  // function setCurrentPlans() {
+  //   const { init } = components;
+  //   filter to find plans for selected year
+  //   plans = init.plans.filter((d) => {
+  //     if (d.years.length === 1) {
+  //       return d.years[0] === year;
+  //     }
+  //     return d.years[0] <= year && d.years[1] >= year;
+  //   });
+  // }
 
-  function getPlansForLayer(layer) {
-    if (!plans) return;
-    let planArray;
-    plans.forEach((plan) => {
-      if (plan.features.indexOf(layer) !== -1) {
-        if (!planArray) planArray = [];
-        planArray.push(plan);
-      }
-    });
-    return planArray;
-  }
+  // function getPlansForLayer(layer) {
+  //   if (!plans) return;
+  //   let planArray;
+  //   plans.forEach((plan) => {
+  //     if (plan.features.indexOf(layer) !== -1) {
+  //       if (!planArray) planArray = [];
+  //       planArray.push(plan);
+  //     }
+  //   });
+  //   return planArray;
+  // }
 
   function addLayerExisting(feature, key, container, notpresent) {
     const { init } = components;

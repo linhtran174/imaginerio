@@ -194,7 +194,7 @@ const getMap = (components) => {
 
   function generateCurvePoints(viewconePoints, shotPoint) {
     let tension = 0.5;
-    let numOfSegments = 32;
+    let numOfSegments = 8;
   
     let _pts;
     let result = [];
