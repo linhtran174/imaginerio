@@ -194,8 +194,9 @@ const getMap = (components) => {
 
   function generateCurvePoints(ptsArray) {
     let tension = 0.5;
-    let numOfSegments = 16;
+    let numOfSegments = 8;
   
+
     let _pts;
     let result = [];
     let pl = ptsArray.length;
@@ -204,16 +205,16 @@ const getMap = (components) => {
     _pts = _.flatten(ptsArray.map(pt => pt));
   
     // Add control point
-    let halfwayPoint1 = [(ptsArray[0].lng - majorPoints[0].lng) / 2 + majorPoints[0].lng, (ptsArray[0].lat - majorPoints[0].lat) / 2 + majorPoints[0].lat];
-    let point01Dist = [ptsArray[1].lng - ptsArray[0].lng, ptsArray[1].lat - ptsArray[0].lat];
+    let halfwayPoint1 = [(ptsArray[0][1] - ptsArray[3][1]) / 2 + ptsArray[3][1], (ptsArray[0][0] - ptsArray[3][0]) / 2 + ptsArray[3][0]];
+    let point01Dist = [ptsArray[1][1] - ptsArray[0][1], ptsArray[1][1] - ptsArray[0][0]];
     _pts.unshift(halfwayPoint1[1] - point01Dist[1]);
     _pts.unshift(halfwayPoint1[0] - point01Dist[0]);
   
     // Add second control point
-    let halfwayPoint2 = [(ptsArray[2].lng - majorPoints[0].lng) / 2 + majorPoints[0].lng, (ptsArray[2].lat - majorPoints[0].lat) / 2 + majorPoints[0].lat];
-    let point12Dist = [ptsArray[1].lng - ptsArray[2].lng, ptsArray[1].lat - ptsArray[2].lat];
+    let halfwayPoint2 = [(ptsArray[2][1] - ptsArray[3][1]) / 2 + ptsArray[3][1], (ptsArray[2][1] - ptsArray[3][0]) / 2 + ptsArray[3][0]];
+    let point12Dist = [ptsArray[1][1] - ptsArray[2][1], ptsArray[1][1] - ptsArray[2][1]];
     _pts.push(halfwayPoint2[0] - point12Dist[0], halfwayPoint2[1] - point12Dist[1]);
-  
+   
     // 1. loop goes through point array
     // 2. loop goes through each segment between the two points + one point before and after
     for (let i = 2; i < (_pts.length - 4); i += 2) {
@@ -252,11 +253,13 @@ const getMap = (components) => {
         result.push([y, x]);
       }
     }
-  
+    
+    console.log("result: ", result)
     return result;
   }
 
   M.setYear = (newYear) => {
+    
     const { init, translations } = components;
     const {
       tileserver,
@@ -279,89 +282,49 @@ const getMap = (components) => {
     M.removeHighlight();
     removeViewsheds();
     viewshedPoints = null;
-
+    console.log(imageMeta);
     var photos = imageMeta.byYear(newYear);
 
-    // $.getJSON(`${server}visual/${year}`, (json) => {
-      const { probes, dispatch } = components;
-      const Dispatch = dispatch;
-      const { mapProbe } = probes;
 
-      if (!json.features || !json.features.length) return;
-      photos = photos.map(p=>{
-        p.creator = p.contributor;
-        p.date = p.year_est;
-        p.id = p.imageId;
-        p.geometry = generateCurvePoints(p.perspective[0], [p.focus_lat, p.focus_lon], p.perspective[1]);
-        p.geometry.push([p.shot_lat, p.shot_lon]);
-        p.geometry = [p.geometry];
-      })
-      
-      const points = _.map(photos, p =>({
-        type: 'Feature',
-        properties: _.extend(
-          p,
-          {
-            cone: L.geoJSON(
-              {
-                type: 'Feature',
-                geometry:  p.geometry,
-              },
-              { style() { return viewshedConeStyle; } },
-            ),
-          },
-        ),
-        geometry: { type: 'Point', coordinates: [p.shot_lat, p.shot_lon]},
-      }));
-      // const points = _.map(json.features, f => ({
-      //   type: 'Feature',
-      //   properties: _.extend(
-      //     f.properties,
-      //     {
-      //       cone: L.geoJSON(
-      //         {
-      //           type: 'Feature',
-      //           geometry: f.geometry,
-      //         },
-      //         { style() { return viewshedConeStyle; } },
-      //       ),
-      //     },
-      //   ),
-      //   geometry: { type: 'Point', coordinates: f.geometry.coordinates[0][0] },
-      // }));
-      console.log("fuckyou points:", points);
-      viewshedPoints = L.geoJSON({ type: 'FeatureCollection', features: points }, {
+    const { probes, dispatch } = components;
+    const Dispatch = dispatch;
+    const { mapProbe } = probes;
 
-        pointToLayer(pt, latlng) {
-          return L.marker(latlng, viewshedStyle);
+    // if (!json.features || !json.features.length) return;
+    photos = photos.map(p=>{
+      p.creator = p.contributor;
+      p.date = p.year_est;
+      p.id = p.imageId;
+      p.geometry = generateCurvePoints([p.perspective[0], [p.focus_lat, p.focus_lon], p.perspective[1], [p.shot_lat, p.shot_lon]]);
+      p.geometry.push([p.shot_lat, p.shot_lon]);
+      p.geometry = {
+        type: "Polygon",
+        coordinates: [p.geometry]
+      };
+      return p;
+    })
+    
+    const points = _.map(photos, p =>{
+      console.log("PPPPPPPPPP", p.geometry);
+      return{
+      type: 'Feature',
+      properties: _.extend(
+        p,
+        {
+          cone: L.geoJSON(
+            {
+              type: 'Feature',
+              geometry:  p.geometry,
+            },
+            { style() { return viewshedConeStyle; } },
+          ),
         },
-
-        onEachFeature(feature, layer) {
-          layer.on('mouseover', (e) => {
-            const { language } = init;
-            feature.properties.cone.addTo(map);
-            mapProbe(e, `<strong>${feature.properties.description}</strong><br><em>${translations.find(d => d.name === 'click-for-details')[language]}</em>`);
-          }).on('mouseout', function onMouseout() {
-            $('#map-probe').hide();
-            if (map.hasLayer(feature.properties.cone) && selectedViewshed != this) map.removeLayer(feature.properties.cone);
-          }).on('click', function onClick() {
-            probes.hideHintProbe();
-            Dispatch.call('viewshedclick', this, this.feature.properties.id);
-          });
-        },
-      });
-      if (M.hasViews) viewshedPoints.addTo(map);
-      if (selectedViewshedData) { // was set after year change & before json load
-        M.zoomToView(selectedViewshedData);
-      }
-    // });
-
-    // const { probes, dispatch } = components;
-    // const Dispatch = dispatch;
-    // const { mapProbe } = probes;
+      ),
+      geometry: { type: 'Point', coordinates: [p.shot_lat, p.shot_lon]},
+    }});
 
     console.log("fuckyou points:", points);
-      viewshedPoints = L.geoJSON({ type: 'FeatureCollection', features: points }, {
+    viewshedPoints = L.geoJSON({ type: 'FeatureCollection', features: points }, {
 
       pointToLayer(pt, latlng) {
         return L.marker(latlng, viewshedStyle);
@@ -385,7 +348,7 @@ const getMap = (components) => {
     if (selectedViewshedData) { // was set after year change & before json load
       M.zoomToView(selectedViewshedData);
     }
-
+    
     return M;
   };
 
