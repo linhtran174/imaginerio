@@ -192,29 +192,27 @@ const getMap = (components) => {
 
   M.getMap = () => map;
 
-  function generateCurvePoints(ptsArray) {
+  function generateCurvePoints(viewconePoints, shotPoint) {
     let tension = 0.5;
-    let numOfSegments = 8;
+    let numOfSegments = 32;
   
-
     let _pts;
     let result = [];
-    let pl = ptsArray.length;
   
     // clone array so we don't change the original content
-    _pts = _.flatten(ptsArray.map(pt => pt));
+    _pts = _.flatten(viewconePoints.map((pt) => pt));
   
     // Add control point
-    let halfwayPoint1 = [(ptsArray[0][1] - ptsArray[3][1]) / 2 + ptsArray[3][1], (ptsArray[0][0] - ptsArray[3][0]) / 2 + ptsArray[3][0]];
-    let point01Dist = [ptsArray[1][1] - ptsArray[0][1], ptsArray[1][1] - ptsArray[0][0]];
+    let halfwayPoint1 = [(viewconePoints[0][0] - shotPoint[0]) / 2 + shotPoint[0], (viewconePoints[0][1] - shotPoint[1]) / 2 + shotPoint[1]];
+    let point01Dist = [viewconePoints[1][0] - viewconePoints[0][0], viewconePoints[1][1] - viewconePoints[0][1]];
     _pts.unshift(halfwayPoint1[1] - point01Dist[1]);
     _pts.unshift(halfwayPoint1[0] - point01Dist[0]);
   
     // Add second control point
-    let halfwayPoint2 = [(ptsArray[2][1] - ptsArray[3][1]) / 2 + ptsArray[3][1], (ptsArray[2][1] - ptsArray[3][0]) / 2 + ptsArray[3][0]];
-    let point12Dist = [ptsArray[1][1] - ptsArray[2][1], ptsArray[1][1] - ptsArray[2][1]];
+    let halfwayPoint2 = [(viewconePoints[2][0] - shotPoint[0]) / 2 + shotPoint[0], (viewconePoints[2][1] - shotPoint[1]) / 2 + shotPoint[1]];
+    let point12Dist = [viewconePoints[1][0] - viewconePoints[2][0], viewconePoints[1][1] - viewconePoints[2][1]];
     _pts.push(halfwayPoint2[0] - point12Dist[0], halfwayPoint2[1] - point12Dist[1]);
-   
+  
     // 1. loop goes through point array
     // 2. loop goes through each segment between the two points + one point before and after
     for (let i = 2; i < (_pts.length - 4); i += 2) {
@@ -250,11 +248,10 @@ const getMap = (components) => {
         let y = c1 * p1 + c2 * p3 + c3 * t1y + c4 * t2y;
   
         // store points in array
-        result.push([y, x]);
+        result.push([x, y]);
       }
     }
-    
-    console.log("result: ", result)
+  
     return result;
   }
 
@@ -295,8 +292,13 @@ const getMap = (components) => {
       p.creator = p.contributor;
       p.date = p.year_est;
       p.id = p.imageId;
-      p.geometry = generateCurvePoints([p.perspective[0], [p.focus_lat, p.focus_lon], p.perspective[1], [p.shot_lat, p.shot_lon]]);
-      p.geometry.push([p.shot_lat, p.shot_lon]);
+      p.geometry = generateCurvePoints([
+        [p.perspective[0][1], p.perspective[0][0]],
+        [p.focus_lon, p.focus_lat],
+        [p.perspective[1][1], p.perspective[1][0]]
+      ], [p.shot_lon, p.shot_lat]);
+      p.geometry.push([p.shot_lon, p.shot_lat]);
+      p.geometry.unshift([p.shot_lon, p.shot_lat]);
       
       return p;
     })
@@ -311,12 +313,14 @@ const getMap = (components) => {
           type: 'Feature',
           geometry:  viewConeGeometry,
         },
-        { style() { return viewshedConeStyle; } },
+         { style() { return viewshedConeStyle; } }
       );
+      console.log(p.cone.toGeoJSON());
+
       return{
       type: 'Feature',
       properties: p,
-      geometry: { type: 'Point', coordinates: [p.shot_lat, p.shot_lon]},
+      geometry: { type: 'Point', coordinates: [p.shot_lon, p.shot_lat]},
     }});
 
     viewshedPoints = L.geoJSON({ type: 'FeatureCollection', features: points }, {
