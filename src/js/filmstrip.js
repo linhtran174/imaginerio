@@ -49,82 +49,85 @@ const getFilmstrip = (components) => {
     // console.log('rasterUrl', `${server}raster/${year}${(max ? (`?max=${max}`) : '')}`);
     console.log(imageMeta);
     // $.getJSON(rasterUrl, (json) => {
-      const {
-        Photo,
-        Overlay,
-      } = components;
-      filmstrip.show();
-      // json = _.reject(json, r => r.id === null);
+    const {
+      Photo,
+      Overlay,
+    } = components;
+    filmstrip.show();
+    // json = _.reject(json, r => r.id === null);
 
-      photos = imageMeta.byYear(y).map(p=>{
-        p.id = p.imageId;
-        p.date = p.year_est;
-        p.creator = p.contributor;
-        return p;
-      })
+    photos = imageMeta.byYear(y).map(p => {
+      p.id = p.imageId;
+      p.date = p.year_est;
+      p.creator = p.contributor;
+      p.layer = "viewsheds";
+      return p;
+    })
 
 
-      $('.mini-thumbs', filmstrip).empty();
-      $('.filmstrip-thumbnails').empty();
-      // if no rasters
-      if (!photos.length) {
-        $('.filmstrip-showall').hide();
-        $('.raster-types i.selected').removeClass('selected');
-        $('.filmstrip-thumbnails').append('<p class="no-data">No views, maps, plans, or aerials are available for this year.</p>')
-        $('.filmstrip-toggle span', filmstrip).html('<em>NONE</em>');
-        filmstrip.addClass('collapsed');
-      } else {
-        $('.filmstrip-showall').show();
-        _.each(photos, (r) => {
-          if (!allRasters[r.id]) {
-            // if allRasters doesn't have item, add
-            allRasters[r.id] = r;
-            // add photo and overlay to item
-            r.photo = Photo(r, thumbnaillUrl);
-            r.overlay = Overlay(r);
-          }
-          // add to current rasters
-          rasters.push(allRasters[r.id]);
-        });
-        // copy raster. Max 3 for mini icon display
-        const minis = rasters.slice(0, Math.min(3, rasters.length));
-        // console.log('rasters', rasters);
-        _.each(minis, (m) => {
-          // [20] -- Image size
-          m.photo.getImage([20])
-            .appendTo($('.mini-thumbs', filmstrip));
-        });
-        showThumbs();
-      }
-      $('.icon-camera, .raster-type-labels span.views', filmstrip)
-        .toggleClass('disabled', !_.some(rasters, r => r.layer === 'viewsheds'));
-      $('.icon-flight, .raster-type-labels span.surveys', filmstrip)
-        .toggleClass('disabled', !_.some(rasters, r => r.layer === 'surveys'));
-      $('.icon-tsquare, .raster-type-labels span.plans', filmstrip)
-        .toggleClass('disabled', !_.some(rasters, r => r.layer === 'plans'));
-      $('.icon-map-o, .raster-type-labels span.maps', filmstrip)
-        .toggleClass('disabled', !_.some(rasters, r => r.layer === 'maps'));
+    $('.mini-thumbs', filmstrip).empty();
+    $('.filmstrip-thumbnails').empty();
+    // if no rasters
+    if (!photos.length) {
+      $('.filmstrip-showall').hide();
+      $('.raster-types i.selected').removeClass('selected');
+      $('.filmstrip-thumbnails').append('<p class="no-data">No views, maps, plans, or aerials are available for this year.</p>')
+      $('.filmstrip-toggle span', filmstrip).html('<em>NONE</em>');
+      filmstrip.addClass('collapsed');
+    } else {
+      $('.filmstrip-showall').show();
+      _.each(photos, (r) => {
+        if (!allRasters[r.id]) {
+          // if allRasters doesn't have item, add
+          allRasters[r.id] = r;
+          // add photo and overlay to item
+          r.photo = Photo(r, thumbnaillUrl);
+          r.overlay = Overlay(r);
+        }
 
-      // This is here because adding views to legend needs to happen after raster is loaded
-      // Need to replace with centralized state management system
+        // add to current rasters
+        rasters.push(allRasters[r.id]);
+      });
+      // copy raster. Max 3 for mini icon display
+      const minis = rasters.slice(0, Math.min(3, rasters.length));
+      // console.log('rasters', rasters);
+      _.each(minis, (m) => {
+        // [20] -- Image size
+        m = m.photo.getImage([20])
+        
+        m.appendTo($('.mini-thumbs', filmstrip));
+      });
+      showThumbs();
+    }
+    $('.icon-camera, .raster-type-labels span.views', filmstrip)
+      .toggleClass('disabled', !_.some(rasters, r => r.layer === 'viewsheds'));
+    $('.icon-flight, .raster-type-labels span.surveys', filmstrip)
+      .toggleClass('disabled', !_.some(rasters, r => r.layer === 'surveys'));
+    $('.icon-tsquare, .raster-type-labels span.plans', filmstrip)
+      .toggleClass('disabled', !_.some(rasters, r => r.layer === 'plans'));
+    $('.icon-map-o, .raster-type-labels span.maps', filmstrip)
+      .toggleClass('disabled', !_.some(rasters, r => r.layer === 'maps'));
 
-      // if not disabled, add views to legend
-      if (!$('.icon-camera, .raster-type-labels span.views', filmstrip).hasClass('disabled')) {
-        dispatch.call('addviews', this);
-      } else {
-        dispatch.call('resetviews', this);
-      }
-      
-      // open first filmstrip category that isn't disabled (???)
-      if ($('.raster-types i.selected', filmstrip).hasClass('disabled') || !$('.raster-types i.selected', filmstrip).length) {
-        $('.raster-types i').not('.disabled').first().click();
-      }
-      
-      if (tempRaster) {
-        F.setRaster(tempRaster);
-        tempRaster = null;
-        dispatch.call('statechange', this);
-      }
+    // This is here because adding views to legend needs to happen after raster is loaded
+    // Need to replace with centralized state management system
+
+    // if not disabled, add views to legend
+    if (!$('.icon-camera, .raster-type-labels span.views', filmstrip).hasClass('disabled')) {
+      dispatch.call('addviews', this);
+    } else {
+      dispatch.call('resetviews', this);
+    }
+
+    // open first filmstrip category that isn't disabled (???)
+    if ($('.raster-types i.selected', filmstrip).hasClass('disabled') || !$('.raster-types i.selected', filmstrip).length) {
+      $('.raster-types i').not('.disabled').first().click();
+    }
+
+    if (tempRaster) {
+      F.setRaster(tempRaster);
+      tempRaster = null;
+      dispatch.call('statechange', this);
+    }
     // });
   }
 

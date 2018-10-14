@@ -279,9 +279,8 @@ const getMap = (components) => {
     M.removeHighlight();
     removeViewsheds();
     viewshedPoints = null;
-    console.log(imageMeta);
+    // console.log(imageMeta);
     var photos = imageMeta.byYear(newYear);
-
 
     const { probes, dispatch } = components;
     const Dispatch = dispatch;

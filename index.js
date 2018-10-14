@@ -5,16 +5,16 @@ const enforce = require('express-sslify');
 const bp = require("fast-json-body");
 const upload = require("multer")({dset: "/data/temp"});
 const cors = require("cors");
+const sharp = require('sharp');
 const isProduction = false;//process.env.NODE_ENV === 'production';
 
 let app = express();
 
 if (isProduction) {
-  app.use(compression());
   app.use(enforce.HTTPS({ trustProtoHeader: true }));
 }
 
-
+app.use(compression());
 
 let port = process.env.PORT || 8080;
 
@@ -71,12 +71,17 @@ app.post('/submitImage', (req, res)=>{
   // let now = (new Date).toISOString().splice(0, 16);
   let imageId = name + "_" + Date.now() + "." + ext;
 
-  // console.log(req.body, req.file);
-  req.body["imageId"] = imageId;
-  req.body["index"] = images.length;
-  req.body.status = "pending";
-  images.push(req.body);
-  _data_changed = true;
+  var i = req.body;
+  i["imageId"] = imageId;
+  i["index"] = images.length;
+  i.status = "pending";
+
+  sharp(req.file.buffer).metadata().then(m=>{
+    i.width = m.width;
+    i.height = m.height;
+    images.push(i);
+    _data_changed = true;
+  })
   
   fs.writeFile("data/images/" + imageId, req.file.buffer, {flag: "w+"}, (err)=>{
     if (err) {
@@ -112,6 +117,28 @@ app.get("/imageReview/120342osxbs39sjslkf399", (req, res)=>{
 
 
 app.use("/getImage/", express.static(path.join(__dirname, 'data/images')));
+var cache = {}
+app.use("/getImage/scaled/:name/:x", (req, res)=>{
+  // console.log(req.params);
+  var x = Math.floor(req.params.x - 0);
+  var name = req.params.name;
+  if(cache[name+x]){res.end(cache[name+x]); return;}
+
+  fs.readFile("data/images/"+name, (err, data)=>{
+    if(err){
+      console.log(err)
+      res.status(404).send(err);
+    }
+    sharp(data)
+    .resize(x)
+    .toBuffer()
+    .then(data=>{
+      cache[name+x] = data;
+      res.end(data);
+    })
+  })
+})
+
 
 app.get("/discardImage/:index", (req, res)=>{
   let index = req.params.index;

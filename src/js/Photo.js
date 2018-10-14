@@ -1,58 +1,52 @@
 
 const getPhoto = (components) => {
-  // let server = window.location.origin;
-
-  // let Photos = {};
-  // $.getJSON(server + "/imageMeta", (json)=>{
-  //   Photos = json;
-  // })
+  let photoServer; 
 
   const Photo = (data, thumbUrl) => {
     let {init} = components;
-    let {imageMeta} = init;
+    let {imageMeta, server} = init;
+    photoServer = server + "getImage/scaled/";
 
     const P = {};
 
     // private and public methods: get thumb, full image, Leaflet marker, etc.
 
-    P.data = data;
-
     // const file = data.file.replace('SSID', '');
+    P.data = data;
     const tempImages = [];
-    P.metadata = {};
 
     const divs = [];
 
     let request;
 
-    function getMetadata() {
-      imageMeta
-      request = $.getJSON(`https://www.sscommons.org/openlibrary/secure/imagefpx/${data.id}/7731849/5`, (json) => {
-        P.metadata = json[0];
-        P.metadata.imageServer = P.metadata.imageServer.replace(/^http/, 'https');
-        tempImages.forEach((img) => {
-          img.div.empty().css('background-image', 'url(' + getUrl(img.size) + ')');
-          if (img.setDimensions) {
-            const s = P.getScaled(img.size);
-            img.div.css('width', s[0] + 'px').css('height', s[1] + 'px');
-          }
-        });
+    // function getMetadata() {
+    //   imageMeta
+    //   request = $.getJSON(`https://www.sscommons.org/openlibrary/secure/imagefpx/${data.id}/7731849/5`, (json) => {
+    //     P.metadata = json[0];
+    //     P.metadata.imageServer = P.metadata.imageServer.replace(/^http/, 'https');
+    //     tempImages.forEach((img) => {
+    //       img.div.empty().css('background-image', 'url(' + getUrl(img.size) + ')');
+    //       if (img.setDimensions) {
+    //         const s = P.getScaled(img.size);
+    //         img.div.css('width', s[0] + 'px').css('height', s[1] + 'px');
+    //       }
+    //     });
   
-        request = $.ajax(`https://www.sscommons.org/openlibrary/secure/metadata/${data.id}?_method=FpHtml`, {
-          dataType: 'html',
-          success(html) {
-            P.href = $(html).find('td').last().text()
-              .replace(/\s/gm, '');
-          },
-        });
-      });
-    }
+    //     request = $.ajax(`https://www.sscommons.org/openlibrary/secure/metadata/${data.id}?_method=FpHtml`, {
+    //       dataType: 'html',
+    //       success(html) {
+    //         P.href = $(html).find('td').last().text()
+    //           .replace(/\s/gm, '');
+    //       },
+    //     });
+    //   });
+    // }
   
     // getMetadata();
   
     function getUrl(size) {
       const scaled = P.getScaled(size);
-      return P.metadata.imageServer + P.metadata.imageUrl + '&&wid=' + scaled[0] + '&hei=' + scaled[1] + '&rgnn=0,0,1,1&cvt=JPEG';
+      return photoServer + data.imageId +"/"+scaled[0];
     }
   
     P.getImage = (size, setDimensionsOnLoad) => {
@@ -66,22 +60,23 @@ const getPhoto = (components) => {
           // }
         });
       divs.push(div);
-      if (!P.metadata.imageServer) {
-        tempImages.push({ div, size, setDimensions: setDimensionsOnLoad });
+      // if (!P.metadata.imageServer) {
+      //   tempImages.push({ div, size, setDimensions: setDimensionsOnLoad });
 
-        // if (!request) {
-        //   getMetadata();
-        // }
-      } else {
+      //   // if (!request) {
+      //   //   getMetadata();
+      //   // }
+      // }
+      // else {
 
         div.empty().css('background-image', 'url(' + getUrl(size) + ')');
-      }
+      // }
       return div;
     }
   
     P.getScaled = (size) => {
       let newSize = [];
-      const ratio = P.metadata.width / P.metadata.height;
+      const ratio = P.data.width / P.data.height;
       if (size.length === 1) {
         if (ratio >= 1) {
           newSize = [size[0] * ratio, size[0]];

@@ -15,6 +15,7 @@ const getInit = (components) => {
 
   // let server = "http://localhost:3000/";
   let server = window.location.origin+"/";
+  
   // http://images.vietbando.com/ImageLoader/GetImage.ashx?LayerIds=VBD&Level={z}&X={x}&Y={y}
   let tileserver = 'http://images.vietbando.com/ImageLoader/GetImage.ashx?LayerIds=VBD';
   let rasterserver = 'https://irio.axismaps.io/raster/';
