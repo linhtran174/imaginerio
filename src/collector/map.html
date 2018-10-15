@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="initial-scale=1">
+    <title>oldTayHo Photo Contribution</title>
+    <link href='https://fonts.googleapis.com/css?family=Roboto:100,400,400italic,700&subset=latin,latin-ext' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.0.3/dist/leaflet.css" />
+    <link rel="stylesheet" href="https://unpkg.com/leaflet-draw@0.4.10/dist/leaflet.draw.css" />
+    <link href="collector.css" rel="stylesheet" />
+</head>
+<body>
+    <div class="wrapper">
+        <main>
+            <h1 style=" margin-left: 5px; text-align: center; margin-top: 5px; margin-bottom: 5px;">Historical Photograph Contribution</h1>
+            <p style="text-align: center;margin-left: 5px;margin-top: 0px;">Please complete all the details and draw in the phot perspective in the map below. The submit button will turn green when you finish</p>
+            <div id="map" class="map"></div>
+        </main>
+        <sidebar>
+            <form class="sidebar--form" method="post" target="_blank" enctype="multipart/form-data"> 
+                <h1 class="sidebar--title">Image Details</h1>
+                <div class="sidebar--input-wrapper">
+                    <input id="image" name="image" type="file" accept="image/*" class="required" style="display: none">
+                    <button id="uploadImage" type="file" accept="image/*" class="button" style="margin: 0; width: 100%">Upload Image</button>
+                </div>
+                <div class="sidebar--input-wrapper">
+                    <p id="uploadImageName" style="padding-left: 5px; margin: 0"></p>
+                </div>
+                
+                <div class="sidebar--input-wrapper">
+                    <label class="sidebar--label"><span style="color: red">*</span> Description</label>
+                    <input name="description" class="sidebar--input required" placeholder="Short description, less than 50 characters"/>
+                </div>
+
+                <div class="sidebar--input-wrapper">
+                    <label class="sidebar--label"><span style="color: red">*</span> Caption</label>
+                    <textarea name="caption" class="sidebar--textarea required" placeholder="Give us a line less than 200 characters"></textarea>
+                </div>
+
+                <div class="sidebar--input-wrapper">
+                    <label class="sidebar--label"><span style="color: red">*</span> Year of source</label>
+                    <input name="year_source" class="sidebar--input required"  placeholder="The year this image is discovered/passed over"/>
+                </div>
+
+                <div class="sidebar--input-wrapper">
+                    <label class="sidebar--label"><span style="color: red">*</span> Year of image</label>
+                    <input name="year_est" class="sidebar--input required"  placeholder="The year this image is shot"/>
+                </div>
+
+                <div class="sidebar--input-wrapper">
+                    <label class="sidebar--label">Focus</label>
+                    <input name="focus" class="sidebar--input" placeholder="People, Building, Land, Panorama..."/>
+                </div>
+
+                <div class="sidebar--input-wrapper">
+                    <label class="sidebar--label">Postcard?</label>
+                    <input name="postcard" class="sidebar--input" placeholder="Y/N?"/>
+                </div>
+
+                <div class="sidebar--input-wrapper">
+                    <label class="sidebar--label">Source</label>
+                    <input name="source" class="sidebar--input" placeholder=""/>
+                </div>
+
+                <div class="sidebar--input-wrapper">
+                    <label class="sidebar--label">Copyright</label>
+                    <input name="copyright" class="sidebar--input" />
+                </div>
+
+                <div class="sidebar--input-wrapper">
+                    <label class="sidebar--label">Notes</label>
+                    <textarea name="notes" class="sidebar--textarea"></textarea>
+                </div>
+
+                <div class="sidebar--input-wrapper">
+                    <label class="sidebar--label">Contributor</label>
+                    <input name="contributor" class="sidebar--input" />
+                </div>
+                
+                <input id="form-perspective" name="perspective" class="sidebar--input hidden-input" />
+                <input id="form-shot-lat" name="shot_lat" class="sidebar--input hidden-input" />
+                <input id="form-shot-lon" name="shot_lon" class="sidebar--input hidden-input" />
+                <input id="form-focus-lat" name="focus_lat" class="sidebar--input hidden-input" />
+                <input id="form-focus-lon" name="focus_lon" class="sidebar--input hidden-input" />
+
+                <div class="sidebar--input-wrapper sidebar--buttons-wrapper">
+                    <input type="submit" value="submit" class="button sidebar--submit disabled"></input>
+                    <button class="button sidebar--cancel">cancel</input>
+                </div>
+            </form>
+        </sidebar>
+    </div>
+
+    <div class="message error-message">
+        <h1 class="message-title">Error uploading image</h1>
+        <p class="message-response">Server error message</p>
+    </div>
+
+    <div class="message success-message">
+        <h1 class="message-title">Successfully uploaded image</h1>
+    </div>
+
+    <script src="https://unpkg.com/leaflet@1.0.3/dist/leaflet.js"></script>
+    <script src="https://unpkg.com/leaflet-draw@0.4.10/dist/leaflet.draw.js"></script>
+    <script src="https://unpkg.com/underscore@1.8.3/underscore-min.js"></script>
+    <script src="https://unpkg.com/nouislider@10.0.0/distribute/nouislider.min.js"></script>
+
+    <script src="collector.js"></script>
+</body>
+</html>

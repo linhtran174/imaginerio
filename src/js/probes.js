@@ -92,7 +92,9 @@ const getProbes = (components) => {
     const getProbeCredits = () => {
       const { formatYear } = init;
       let text = '';
-      if (p.data.creator) text += p.data.creator + '<br>';
+      if(p.data.caption) text += p.data.caption + '<br>';
+      if(p.data.source) text += "Source: " + p.data.source + "<br>";
+      if (p.data.contributor) text += "Contributor: " + p.data.contributor + '<br>';
       if (p.data.description && $('.lightbox').is(':visible')) text += '<span class="image-title">' + p.data.description + '</span><br>';
       if (p.data.date) text += formatYear(p.data.date);
       if (p.data.credits) text += `<span class="image-credit"> [${p.data.credits}]</span>`;

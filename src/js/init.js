@@ -13,7 +13,7 @@ const getInit = (components) => {
 
   const Init = {};
 
-  // let server = "http://localhost:3000/";
+  // let server = "http://localhost:8081/";
   let server = window.location.origin+"/";
   
   // http://images.vietbando.com/ImageLoader/GetImage.ashx?LayerIds=VBD&Level={z}&X={x}&Y={y}
@@ -35,7 +35,14 @@ const getInit = (components) => {
       }
       imageMeta.byEra[index] = [];
     });
+
     imageMeta.raw.forEach((p, i)=>{
+      
+      p.id = p.imageId;
+      p.date = p.year_est;
+      p.creator = p.contributor;
+      p.layer = "viewsheds";
+
       if(p.perspective){
         p.perspective = JSON.parse(p.perspective);
       }

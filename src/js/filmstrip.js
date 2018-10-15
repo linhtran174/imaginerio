@@ -45,9 +45,7 @@ const getFilmstrip = (components) => {
     // clear current rasters
     rasters = [];
     const rasterUrl = "http://irio.axismaps.io/raster/1902";
-    console.log(`${server}raster/${year}${(max ? (`?max=${max}`) : '')}`);
-    // console.log('rasterUrl', `${server}raster/${year}${(max ? (`?max=${max}`) : '')}`);
-    console.log(imageMeta);
+    // console.log(imageMeta);
     // $.getJSON(rasterUrl, (json) => {
     const {
       Photo,
@@ -182,7 +180,7 @@ const getFilmstrip = (components) => {
       .data('p', p)
       .click(function click() {
         // checking if width is undefined or 0?
-        if (!p.metadata.width) return;
+        if (!p.data.width) return;
         if ($('main').hasClass('eras')) dispatch.call('setyear', this, p.data.date);
         if (p.data.layer !== 'viewsheds') {
           dispatch.call('addoverlay', this, p);

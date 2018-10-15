@@ -30,9 +30,19 @@ app.get('/', (req, res) => {
   res.end(index);
 });
 
-collector = fs.readFileSync('src/collector/index.html');
+// collector = fs.readFileSync('src/collector/index.html');
 app.get('/imageCollector', (req, res) => {
-	res.end(collector);
+  fs.readFile("src/collector/image.html", (err, data)=>{
+    if(err) res.end(err);
+    else res.end(data);
+  })
+});
+
+app.get('/mapCollector', (req, res) => {
+  fs.readFile("src/collector/map.html", (err, data)=>{
+    if(err) res.end(err);
+    else res.end(data);
+  })
 });
 
 // app.post('/submitImage', (req, res, next)=>{
