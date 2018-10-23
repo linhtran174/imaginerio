@@ -43,7 +43,8 @@ const getInit = (components) => {
       p.id = p.imageId;
       p.date = p.year_est;
       p.creator = p.contributor;
-      p.layer = "viewsheds";
+      if(p.type == "image") p.layer = "viewsheds";
+      // if(p.type == "image") p.layer = "viewsheds";
 
       if(p.perspective){
         p.perspective = JSON.parse(p.perspective);
