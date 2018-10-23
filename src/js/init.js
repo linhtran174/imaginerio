@@ -1,3 +1,5 @@
+import { isNullOrUndefined } from "util";
+
 const getInit = (components) => {
   const {
     eras,
@@ -53,7 +55,11 @@ const getInit = (components) => {
       p.shot_lon = p.shot_lon - 0;
       p.focus_lat = p.focus_lat - 0;
       p.focus_lon = p.focus_lon - 0;
-      imageMeta.byEra[eraByYear[p.year_est]].push(p);
+
+      var cEra = eraByYear[p.year_est];
+      if(cEra != undefined){
+        imageMeta.byEra[cEra].push(p);
+      }
     })
     
     imageMeta.byYear = function(year){
