@@ -42,7 +42,7 @@
             var body = document.querySelector("#imageInfo");
             html = "";
             imageMeta.forEach((i , index)=> {
-                if(i.status != "pending"){
+                if(i.status != "pending" || i.type != "image"){
                     return;
                 }
                 html += "<div style='border-bottom: 3px solid black; height: 150px; position: relative' onmouseover='showMarker("+index+")' onmouseout='removeMarker("+index+")'>"
