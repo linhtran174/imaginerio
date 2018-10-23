@@ -300,8 +300,8 @@ var matchFeaturePoint = {
 function send(method, server, thing, onload, onerror){
     var xhr = new XMLHttpRequest();
     xhr.open(method, server, true);
-    xhr.onload = onload;
-    xhr.onerror = onerror;
+    if(onload) xhr.onload = onload(xhr);
+    if(onerror) xhr.onerror = onerror(xhr);
     xhr.send(thing);
 }
 
@@ -322,7 +322,18 @@ $('.sidebar--submit').onclick = (e)=>{
     e.preventDefault();
 
     send("POST", metaserver + "/submitMap/", 
-    new FormData($(".sidebar--form")), ()=>{
+    new FormData($(".sidebar--form")), (e)=>{
+        if(e.status == 404){
+            document.querySelector('.error-message > .message-response').textContent = e.responseText || 'There was an error submitting the image to the server.';
+            document.querySelector('.error-message').classList.add('show');
+      
+            setTimeout(function () {
+              document.querySelector('.error-message').classList.remove('show');
+            }, 3000);
+            
+            return;
+        }
+
         $('.success-message').classList.add('show');
 
         setTimeout(function () {
@@ -339,7 +350,7 @@ $('.sidebar--submit').onclick = (e)=>{
         // Return submit button back to disabled state
         $('.sidebar--submit').classList.add('disabled');
     },
-    ()=>{
+    (e)=>{
         $('.error-message > .message-response').textContent = e.responseText || 'There was an error submitting the map to the server.';
         $('.error-message').classList.add('show');
 

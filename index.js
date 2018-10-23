@@ -6,6 +6,7 @@ const bp = require("fast-json-body");
 const upload = require("multer")({dset: "/data/temp"});
 const cors = require("cors");
 const sharp = require('sharp');
+const utils = require("./utils.js")
 const isProduction = false;//process.env.NODE_ENV === 'production';
 
 let app = express();
@@ -82,6 +83,10 @@ app.post('/submitImage', (req, res)=>{
   let imageId = name + "_" + Date.now() + "." + ext;
 
   var i = req.body;
+  if(isNaN(i.year_est) || isNaN(i.year_source)){
+    res.status(404).send("Year must be a number");
+    return;
+  }
   i.type = "image";
   i["imageId"] = imageId;
   i["index"] = images.length;
@@ -215,6 +220,10 @@ app.post("/submitMap", (req, res)=>{
   let imageId = name + "_" + Date.now() + "." + ext;
 
   var i = req.body;
+  if(isNaN(i.year_est) || isNaN(i.year_source)){
+    res.status(404).send("Year must be a number");
+    return;
+  }
   i.type = "map"
   i["imageId"] = imageId;
   i["index"] = images.length;

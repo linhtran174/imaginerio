@@ -74,7 +74,17 @@ document.querySelector('.sidebar--submit').addEventListener('click', function (e
   request.open('POST', metaserver + '/submitImage/', true);
 
   // Success
-  request.addEventListener('load', function () {
+  request.addEventListener('load', function (e) {
+    if(e.status == 404){
+      document.querySelector('.error-message > .message-response').textContent = e.responseText || 'There was an error submitting the image to the server.';
+      document.querySelector('.error-message').classList.add('show');
+
+      setTimeout(function () {
+        document.querySelector('.error-message').classList.remove('show');
+      }, 3000);
+      
+      return;
+    }
     document.querySelector('.success-message').classList.add('show');
 
     setTimeout(function () {
