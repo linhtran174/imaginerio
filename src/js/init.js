@@ -146,6 +146,9 @@ const getInit = (components) => {
   $("#contribute-image-button").on("click",()=>{
     window.location.href = window.location.origin + "/imageCollector";
   })
+  $("#contribute-map-button").on("click",()=>{
+    window.location.href = window.location.origin + "/mapCollector";
+  })
 
   function initialize() {
     // eras[eras.length - 1].dates[1] = new Date().getFullYear();
