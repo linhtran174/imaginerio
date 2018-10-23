@@ -300,8 +300,8 @@ var matchFeaturePoint = {
 function send(method, server, thing, onload, onerror){
     var xhr = new XMLHttpRequest();
     xhr.open(method, server, true);
-    if(onload) xhr.onload = onload(xhr);
-    if(onerror) xhr.onerror = onerror(xhr);
+    if(onload) xhr.onload = ()=>{onload(xhr)};
+    if(onerror) xhr.onerror = ()=>{onerror(xhr)};
     xhr.send(thing);
 }
 
