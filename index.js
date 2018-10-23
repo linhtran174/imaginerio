@@ -82,6 +82,7 @@ app.post('/submitImage', (req, res)=>{
   let imageId = name + "_" + Date.now() + "." + ext;
 
   var i = req.body;
+  i.type = "image";
   i["imageId"] = imageId;
   i["index"] = images.length;
   i.status = "pending";
@@ -194,8 +195,47 @@ setInterval(()=>{
 }, 1000)
 
 
+// app.post("/mapSubmission/tempImage", upload.single())
+// app.post("/mapSubmission/tempImage", (req, res)=>{
+//   let name = req.file.originalname.split(".");
+//   let ext = name[1];
+//   name = name[0];
+//   let imageId = name + "_" + Date.now() + "." + ext;
+//   req.send(imageId);
+// })
 
 
+
+app.post("/submitMap", upload.single("map"))
+app.post("/submitMap", (req, res)=>{
+  let name = req.file.originalname.split(".");
+  let ext = name[1];
+  name = name[0];
+  // let now = (new Date).toISOString().splice(0, 16);
+  let imageId = name + "_" + Date.now() + "." + ext;
+
+  var i = req.body;
+  i.type = "map"
+  i["imageId"] = imageId;
+  i["index"] = images.length;
+  i.status = "pending";
+
+  sharp(req.file.buffer).metadata().then(m=>{
+    i.width = m.width;
+    i.height = m.height;
+    images.push(i);
+    _data_changed = true;
+  })
+  
+  fs.writeFile("data/images/" + imageId, req.file.buffer, {flag: "w+"}, (err)=>{
+    if (err) {
+      res.status(404).json(err);
+      console.log(err);
+      return;
+    }
+    res.status(200).send()
+  });
+})
 
 app.listen(port, function () {
   console.log('App is running on:' + port);

@@ -12,9 +12,6 @@ let tooltips = {
 
 let metaserver = window.location.origin;
 let tileserver = 'http://images.vietbando.com/ImageLoader/GetImage.ashx?LayerIds=VBD';
-let year = 1945;
-let maxYear = 2017;
-let tiles = {};
 let shown = {};
 
 /* General Map */

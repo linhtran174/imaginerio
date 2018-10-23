@@ -75,6 +75,14 @@ main {
   border-radius: 50%;
 }
 
+.cone-guidepoint-big {
+  background-color: rgba(244,67,54,0.8);
+  border-radius: 50%;
+  width: 20px;
+  height: 20px;
+  border: 3px dotted black;
+}
+
 .cone-guideline {
   stroke: rgba(244,67,54,0.8);
   stroke-dasharray: 5, 5;
