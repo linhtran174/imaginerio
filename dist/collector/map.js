@@ -354,15 +354,7 @@ $('.sidebar--submit').onclick = (e)=>{
           $('.success-message').classList.remove('show');
         }, 3000);
     
-        editableLayer.clearLayers();
-    
-        // Clear form
-        document.querySelectorAll('.sidebar--input, .sidebar--textarea').forEach(function (input) {
-          input.value = '';
-        });
-    
-        // Return submit button back to disabled state
-        $('.sidebar--submit').classList.add('disabled');
+        cancel()
     },
     (e)=>{
         $('.error-message > .message-response').textContent = e.responseText || 'There was an error submitting the map to the server.';
@@ -376,5 +368,17 @@ $('.sidebar--submit').onclick = (e)=>{
 
 $(".sidebar--cancel").onclick = (e)=>{
     e.preventDefault();
+    cancel();
+}
+
+function cancel(){
+    // Clear form
+    document.querySelectorAll('.sidebar--input, .sidebar--textarea').forEach(function (input) {
+        input.value = '';
+    });
+    editableLayer.clearLayers();
     imageOverlay.remove();
+
+    // Return submit button back to disabled state
+    $('.sidebar--submit').classList.add('disabled');
 }
