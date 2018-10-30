@@ -22,7 +22,7 @@ let port = process.env.PORT || 8080;
 app.use(cors())
 // app.use(express.static(path.join(__dirname, 'node_modules')));
 app.use(express.static(path.join(__dirname, 'dist')));
-app.use(express.static(path.join(__dirname, 'src/collector')));
+app.use(express.static(path.join(__dirname, 'dist/collector')));
 
 fs = require('fs');
 
@@ -33,14 +33,14 @@ app.get('/', (req, res) => {
 
 // collector = fs.readFileSync('src/collector/index.html');
 app.get('/imageCollector', (req, res) => {
-  fs.readFile("src/collector/image.html", (err, data)=>{
+  fs.readFile("dist/collector/image.html", (err, data)=>{
     if(err) res.end(err);
     else res.end(data);
   })
 });
 
 app.get('/mapCollector', (req, res) => {
-  fs.readFile("src/collector/map.html", (err, data)=>{
+  fs.readFile("dist/collector/map.html", (err, data)=>{
     if(err) res.end(err);
     else res.end(data);
   })

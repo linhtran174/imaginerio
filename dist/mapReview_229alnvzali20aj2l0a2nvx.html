@@ -1,0 +1,158 @@
+<html>
+    <style>
+        body{
+            margin: 0;
+        }
+
+        p {
+            margin: 5px;
+        }
+
+        .control-btn {
+            border-radius: 10px;
+            padding: 5px;
+            margin-left: 15px;
+            font-size: 16px;
+            position: absolute;
+        }
+
+        .ellipsis{
+            overflow: hidden;
+            text-overflow: ellipsis;
+            vertical-align: top;
+            white-space: nowrap;
+        }
+    </style>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.3.4/dist/leaflet.css"
+    integrity="sha512-puBpdR0798OZvTTbP4A8Ix/l+A4dHDD0DGqYW6RQ+9jxkRFclaxxQb/SJAWZfWAkuyeQUytO7+7N4QKrDh+drA=="
+    crossorigin=""/>
+    <script src="https://unpkg.com/leaflet@1.3.4/dist/leaflet.js"></script>
+    <body>
+        <div id="map" style="display: inline-block; width: 50%; height: 100%; vertical-align: top">A MAP WILL BE HERE</div>
+        <div id="imageInfo" style="display: inline-block; width: calc(50% - 10px); height: 100%; border-left: 5px solid grey; overflow-y:scroll"></div>
+    </body>
+    <script>
+        var $ = (q)=>{return document.querySelector(q)};
+        var imageMeta = [];
+        var r = new XMLHttpRequest();
+        r.open("GET", window.location.origin + "/imageMeta/-1", true);
+        r.onload = function(e){
+            imageMeta = r.response;
+            console.log(imageMeta);
+            var body = document.querySelector("#imageInfo");
+            html = "";
+            imageMeta.forEach((i , index)=> {
+                if(i.status != "pending" || i.type != "map"){
+                    return;
+                }
+                html += "<div style='border-bottom: 3px solid black; height: 150px; position: relative' onmouseover='showMarker("+index+")' onmouseout='removeMarker("+index+")'>"
+                html += "<img src='" + window.location.origin + "/getImage/" + i.imageId + "' style='display: inline-block; height: 100%; width: 30%'/>"
+                html += "<div style='display: inline-block; width: 70%; vertical-align: top;'>"
+                html += "<p style='display: inline-block'>Description: </p><p style='display: inline-block; width: calc(100% - 101px);' class='ellipsis' id='des"+index+"'>"+i.description+"</p>";
+                html += "<p style='display: inline-block'>Caption: </p><p style='display: inline-block; width: calc(100% - 76px);' class='ellipsis' id='cap"+index+"'>"+i.caption+"</p>";
+                html += "<p style='display: inline-block'>Year source: </p><p style='display: inline-block; width: calc(100% - 101px);' class='ellipsis' id='year_source"+index+"'>"+i.year_source+"</p>";
+                html += "<p style='display: inline-block'>Year image: </p><p style='display: inline-block; width: calc(100% - 99px);' class='ellipsis' id='year_est"+index+"'>"+i.year_est+"</p>";
+                html += "<p style='display: inline-block'>Contributor: </p><p style='display: inline-block; width: calc(100% - 101px);' class='ellipsis' id='contrib"+index+"'>"+i.contributor+"</p>";
+                html += "</div>"
+                html += "<button class='control-btn' style='bottom:-7px; right: 200px' onclick=publish(" + index + ") id='p"+ index +"'>Publish</button>";
+                html += "<button class='control-btn' style='bottom:-7px; right: 120px' onclick=modify(" + index + ") id='m"+ index +"'>Modify</button>";
+                html += "<button class='control-btn' style='bottom:-7px; right: 35px' onclick=discard(" + index + ")>Discard</button>";
+                html += "</div>"
+            });
+            body.innerHTML = html;
+        }
+        r.responseType = "json";
+        r.send()
+
+        function publish(imageIndex){
+            var r = new XMLHttpRequest();
+            r.open("GET", window.location.origin + "/publishImage/" + imageIndex, true);
+            r.onload = ()=>{window.location.reload()}
+            r.send();
+        }
+
+        
+        function modify(imageIndex){
+            var btn = $("#m" +imageIndex);
+            if(btn.innerHTML == "Modify"){
+                btn.innerHTML = "Confirm";
+                btn.style.backgroundColor = "lightgreen";
+                replaceTextWithInput($("#des"+imageIndex))
+                replaceTextWithInput($("#cap"+imageIndex))
+                replaceTextWithInput($("#year_source"+imageIndex))
+                replaceTextWithInput($("#year_est"+imageIndex))
+                return;
+            }
+
+            var r = new XMLHttpRequest();
+            r.open("POST", window.location.origin + "/modifyImage/" + imageIndex, true);
+            r.onload = ()=>{
+                // r.response
+                btn.innerHTML = "Modify";
+                btn.style.backgroundColor = "";
+                replaceInputWithText($("#des"+imageIndex))
+                replaceInputWithText($("#cap"+imageIndex))
+                replaceInputWithText($("#year_source"+imageIndex))
+                replaceInputWithText($("#year_est"+imageIndex))
+            }
+            r.send(JSON.stringify({
+                description: $("#des"+imageIndex).value,
+                caption: $("#cap"+imageIndex).value,
+                year_source: $("#year_source"+imageIndex).value,
+                year_est: $("#year_est"+imageIndex).value
+            }));
+        }
+        function discard(imageIndex){
+            var r = new XMLHttpRequest();
+            r.open("GET", window.location.origin + "/discardImage/" + imageIndex, true);
+            r.onload = ()=>{window.location.reload()}
+            r.send();
+        }
+
+        function replaceTextWithInput(element){
+            var newElement = document.createElement("input");
+            newElement.id = element.id;
+            newElement.type = "text";
+            newElement.style.width = element.style.width;
+            newElement.style.display = element.style.display;
+            newElement.style.height = "20px";
+            newElement.value = element.innerHTML;
+            element.parentNode.replaceChild(newElement, element);
+        }
+
+        function replaceInputWithText(element){
+            var newElement = document.createElement("p");
+            newElement.id = element.id;
+            newElement.style.width = element.style.width;
+            newElement.style.display = element.style.display;
+            newElement.className = "ellipsis";
+            newElement.innerHTML = element.value;
+            element.parentNode.replaceChild(newElement, element);
+        }
+        
+        
+        var mymap = L.map('map', {
+            zoomControl: true,
+            maxZoom: 18,
+            minZoom: 13,
+            maxBounds: [[21.092327, 105.772103], [21.016277, 105.888311]],
+        }).setView([21.058049857646516, 105.82497417926788], 15);
+        // http://images.vietbando.com/ImageLoader/GetImage.ashx?LayerIds=VBD&Level={z}&X={x}&Y={y}
+        L.tileLayer('http://images.vietbando.com/ImageLoader/GetImage.ashx?LayerIds=VBD&Level={z}&X={x}&Y={y}', {
+            maxZoom: 18,
+            minZoom: 13,
+        }).addTo(mymap);
+        // var marker = L.marker([21.058049857646516, 105.82497417926788]).addTo(mymap);
+
+        function showMarker(imageIndex){
+            var location = [imageMeta[imageIndex].shot_lat,
+                imageMeta[imageIndex].shot_lon]
+            mymap.setView(location)
+            imageMeta[imageIndex].marker = L.marker(location).addTo(mymap);
+        }
+
+        function removeMarker(imageIndex){
+            imageMeta[imageIndex].marker.remove();
+        }
+    </script>
+</html>
