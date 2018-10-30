@@ -39,6 +39,7 @@ const getInit = (components) => {
     });
 
     imageMeta.raw.forEach((p, i)=>{
+      if(p.type == "map") return;
       
       p.id = p.imageId;
       p.date = p.year_est;
