@@ -27,6 +27,7 @@
     integrity="sha512-puBpdR0798OZvTTbP4A8Ix/l+A4dHDD0DGqYW6RQ+9jxkRFclaxxQb/SJAWZfWAkuyeQUytO7+7N4QKrDh+drA=="
     crossorigin=""/>
     <script src="https://unpkg.com/leaflet@1.3.4/dist/leaflet.js"></script>
+    <script src="libraries/utils.js"></script>
     <body>
         <div id="map" style="display: inline-block; width: 50%; height: 100%; vertical-align: top">A MAP WILL BE HERE</div>
         <div id="imageInfo" style="display: inline-block; width: calc(50% - 10px); height: 100%; border-left: 5px solid grey; overflow-y:scroll"></div>
@@ -45,7 +46,9 @@
                 if(i.status != "pending" || i.type != "map"){
                     return;
                 }
-                html += "<div style='border-bottom: 3px solid black; height: 150px; position: relative' onmouseover='showMarker("+index+")' onmouseout='removeMarker("+index+")'>"
+                i.featurePoints = JSON.parse(i.featurePoints);
+                i.matchPoints = JSON.parse(i.matchPoints);
+                html += "<div style='border-bottom: 3px solid black; height: 150px; position: relative' onmouseover='showMap("+index+")' onmouseout='removeMap("+index+")'>"
                 html += "<img src='" + window.location.origin + "/getImage/" + i.imageId + "' style='display: inline-block; height: 100%; width: 30%'/>"
                 html += "<div style='display: inline-block; width: 70%; vertical-align: top;'>"
                 html += "<p style='display: inline-block'>Description: </p><p style='display: inline-block; width: calc(100% - 101px);' class='ellipsis' id='des"+index+"'>"+i.description+"</p>";
@@ -142,17 +145,27 @@
             maxZoom: 18,
             minZoom: 13,
         }).addTo(mymap);
-        // var marker = L.marker([21.058049857646516, 105.82497417926788]).addTo(mymap);
 
-        function showMarker(imageIndex){
-            var location = [imageMeta[imageIndex].shot_lat,
-                imageMeta[imageIndex].shot_lon]
-            mymap.setView(location)
-            imageMeta[imageIndex].marker = L.marker(location).addTo(mymap);
+
+        function showMap(imageIndex){
+            var i = imageMeta[imageIndex];
+            if(i.marker){
+               i.marker.addTo(mymap);
+               return;
+            }
+            var t = linearTransform(i.featurePoints, i.matchPoints);
+
+            i.marker = L.imageOverlay(
+                window.location.origin + "/getImage/" + i.imageId,
+                [t([0,0]), t([i.height, i.width])],
+                {opacity: 0.7}
+            ).addTo(mymap);
         }
 
-        function removeMarker(imageIndex){
+        function removeMap(imageIndex){
             imageMeta[imageIndex].marker.remove();
         }
+
+        
     </script>
 </html>

@@ -24,6 +24,8 @@ $("#uploadMap").onclick = (e)=>{
     $("#mapImage").click();
 }
 
+var imageOverlay;
+
 var tempImageId;
 var mapImg = $("#mapImg").getContext("2d");
 $("#mapImage").onchange = (e)=>{
@@ -47,7 +49,7 @@ $("#mapImage").onchange = (e)=>{
         var topLeft = t([0,0]);
         var bottomRight =  t([$("#mapImg").height, $("#mapImg").width]);
         r.onload = ()=>{
-            L.imageOverlay(
+            imageOverlay = L.imageOverlay(
                 r.result,
                 [topLeft, bottomRight],
                 {opacity: 0.7}
@@ -75,38 +77,38 @@ $("#mapImage").onchange = (e)=>{
     files[0].name;
 }
 
-function linearTransform(featurePoints, matchPoints){
-    featurePoints = featurePoints.map(p=>[p[1],p[0]]);
-    // console.log()
-    // var offset = [
-    //     matchPoints[0][0] - featurePoints[0][0],
-    //     matchPoints[0][1] - featurePoints[0][1]
-    // ];
-    // var o = function (arr){  
-    //     return [arr[0]+offset[0], arr[1]+offset[1]];
-    // };
-    console.log("matchPoints: ", matchPoints, "featurePoints", featurePoints);
+// function linearTransform(featurePoints, matchPoints){
+//     featurePoints = featurePoints.map(p=>[p[1],p[0]]);
+//     // console.log()
+//     // var offset = [
+//     //     matchPoints[0][0] - featurePoints[0][0],
+//     //     matchPoints[0][1] - featurePoints[0][1]
+//     // ];
+//     // var o = function (arr){  
+//     //     return [arr[0]+offset[0], arr[1]+offset[1]];
+//     // };
+//     console.log("matchPoints: ", matchPoints, "featurePoints", featurePoints);
 
-    var a1 = featurePoints[0];
-    var b1 = featurePoints[1];
-    var a2 = matchPoints[0];
-    var b2 = matchPoints[1];
-    var scale = [
-        (a2[0] - b2[0])/ (a1[0] - b1[0]),
-        (a2[1] - b2[1])/ (a1[1] - b1[1]) 
-    ];
-    console.log("scale: ", scale);
-    var s = function (arr){
-        return [
-            a2[0] + (arr[0] - a1[0]) * scale[0],
-            a2[1] + (arr[1] - a1[1]) * scale[1]
-        ];
-    }
+//     var a1 = featurePoints[0];
+//     var b1 = featurePoints[1];
+//     var a2 = matchPoints[0];
+//     var b2 = matchPoints[1];
+//     var scale = [
+//         (a2[0] - b2[0])/ (a1[0] - b1[0]),
+//         (a2[1] - b2[1])/ (a1[1] - b1[1]) 
+//     ];
+//     console.log("scale: ", scale);
+//     var s = function (arr){
+//         return [
+//             a2[0] + (arr[0] - a1[0]) * scale[0],
+//             a2[1] + (arr[1] - a1[1]) * scale[1]
+//         ];
+//     }
 
-    return function(point){
-        return s(point);
-    };
-}
+//     return function(point){
+//         return s(point);
+//     };
+// }
 
 $("#panzoomSelectPointToggle").onclick = (e)=>{
     selectFeaturePoint.toggleZoomSelect("click")
@@ -114,7 +116,7 @@ $("#panzoomSelectPointToggle").onclick = (e)=>{
 
 document.onkeydown = (e)=>{
     if (e.code == "Space"){
-        if(e.target == $("#uploadMap")){
+        if(e.target == $("#uploadMap") || e.target == $("#panzoomSelectPointToggle")){
             e.stopPropagation();
             e.preventDefault();
         }
@@ -262,8 +264,6 @@ leafletMap.addLayer(editableLayer);
 var matchFeaturePoint = {
     matchPoints : [],
     icon : L.icon({ 
-        // className: 'cone-guidepoint-big',
-        // shadownUrl: 'sniper.png',
         iconUrl: 'img/sniper.png',
         iconSize: [40, 40] 
     }),
@@ -372,4 +372,9 @@ $('.sidebar--submit').onclick = (e)=>{
         $('.error-message').classList.remove('show');
         }, 3000);
     })
+}
+
+$(".sidebar--cancel").onclick = (e)=>{
+    e.preventDefault();
+    imageOverlay.remove();
 }
