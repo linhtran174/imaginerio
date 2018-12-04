@@ -46,7 +46,7 @@ const getPhoto = (components) => {
   
     function getUrl(size) {
       const scaled = P.getScaled(size);
-      return photoServer + data.imageId +"/"+scaled[0];
+      return photoServer + data.imageId.split(" ").join("%20") +"/"+scaled[0];
     }
   
     P.getImage = (size, setDimensionsOnLoad) => {
