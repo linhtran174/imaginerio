@@ -3,7 +3,7 @@ const getFilmstrip = (components) => {
 
   const filmstrip = $('#filmstrip');
   let rasters = [];
-  let photos = [];
+  let overlay = [];
   let year = 2015;
   let maxYear;
 
@@ -54,19 +54,19 @@ const getFilmstrip = (components) => {
     filmstrip.show();
     // json = _.reject(json, r => r.id === null);
 
-    photos = imageMeta.byYear(y).map(p => {
+    overlay = imageMeta.byYear(y).map(p => {
       p.id = p.imageId;
       p.date = p.year_est;
       p.creator = p.contributor;
-      p.layer = "viewsheds";
       return p;
     })
+
 
 
     $('.mini-thumbs', filmstrip).empty();
     $('.filmstrip-thumbnails').empty();
     // if no rasters
-    if (!photos.length) {
+    if (!overlay.length) {
       $('.filmstrip-showall').hide();
       $('.raster-types i.selected').removeClass('selected');
       $('.filmstrip-thumbnails').append('<p class="no-data">No views, maps, plans, or aerials are available for this year.</p>')
@@ -74,13 +74,17 @@ const getFilmstrip = (components) => {
       filmstrip.addClass('collapsed');
     } else {
       $('.filmstrip-showall').show();
-      _.each(photos, (r) => {
+      _.each(overlay, (r) => {
+        console.log(r)
         if (!allRasters[r.id]) {
           // if allRasters doesn't have item, add
           allRasters[r.id] = r;
           // add photo and overlay to item
-          r.photo = Photo(r, thumbnaillUrl);
+          if(r.type == "map")
           r.overlay = Overlay(r);
+
+          // if(r.type == "image")
+          r.photo = Photo(r, thumbnaillUrl);
         }
 
         // add to current rasters

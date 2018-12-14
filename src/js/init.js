@@ -20,7 +20,6 @@ const getInit = (components) => {
   
   // http://images.vietbando.com/ImageLoader/GetImage.ashx?LayerIds=VBD&Level={z}&X={x}&Y={y}
   let tileserver = 'http://images.vietbando.com/ImageLoader/GetImage.ashx?LayerIds=VBD';
-  let rasterserver = 'https://irio.axismaps.io/raster/';
   
   const thumbnaillUrl = 'https://mdxdv.artstor.org/thumb/imgstor/size1/sslps/c7731849/';
   const imageUrl = 'https://mdxdv.artstor.org/thumb/imgstor/size2/sslps/c7731849/';
@@ -39,12 +38,17 @@ const getInit = (components) => {
     });
 
     imageMeta.raw.forEach((p, i)=>{
-      if(p.type == "map") return;
+      if(p.type == "map") {
+        p.layer = "maps";
+        p.matchPoints = JSON.parse(p.matchPoints)
+        p.featurePoints = JSON.parse(p.featurePoints)
+      }
       
       p.id = p.imageId;
       p.date = p.year_est;
       p.creator = p.contributor;
       if(p.type == "image") p.layer = "viewsheds";
+
       // if(p.type == "image") p.layer = "viewsheds";
 
       if(p.perspective){
@@ -666,7 +670,6 @@ const getInit = (components) => {
     server,
     tileserver,
     imageMeta,
-    rasterserver,
     names,
     thumbnaillUrl,
     setYear,

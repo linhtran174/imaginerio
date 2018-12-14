@@ -13,12 +13,11 @@ const getPhoto = (components) => {
 
     // const file = data.file.replace('SSID', '');
     P.data = data;
-    const tempImages = [];
-
     const divs = [];
+    
 
-    let request;
-
+    // const tempImages = [];
+    // let request;
     // function getMetadata() {
     //   imageMeta
     //   request = $.getJSON(`https://www.sscommons.org/openlibrary/secure/imagefpx/${data.id}/7731849/5`, (json) => {

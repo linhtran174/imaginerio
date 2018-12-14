@@ -104,7 +104,7 @@ const getMap = (components) => {
     function showLocation(latlng) {
       if (locationMarker && map.hasLayer(locationMarker)) map.removeLayer(locationMarker);
       if (!locationBounds.contains(latlng)) {
-        alert('Geolocation is only supported in Rio.');
+        alert('Geolocation is only supported in TayHo');
         map.stopLocate();
       } else {
         locationMarker = L.circleMarker(latlng, {
@@ -280,17 +280,19 @@ const getMap = (components) => {
     removeViewsheds();
     viewshedPoints = null;
     // console.log(imageMeta);
-    var photos = imageMeta.byYear(newYear);
+    var overlay = imageMeta.byYear(newYear);
 
     const { probes, dispatch } = components;
     const Dispatch = dispatch;
     const { mapProbe } = probes;
 
     // if (!json.features || !json.features.length) return;
-    photos = photos.map(p=>{
+    overlay = overlay.map(p=>{
       p.creator = p.contributor;
       p.date = p.year_est;
       p.id = p.imageId;
+
+      if(p.type == "map") return p;
       p.geometry = generateCurvePoints([
         [p.perspective[0][1], p.perspective[0][0]],
         [p.focus_lon, p.focus_lat],
@@ -301,8 +303,9 @@ const getMap = (components) => {
       
       return p;
     })
+    var photos = overlay.filter(p=>p.type=="image");
     
-    const points = _.map(photos, (p) =>{
+    const points = photos.map(p=>{
       var viewConeGeometry = {
         type: "Polygon",
         coordinates: [p.geometry]
@@ -417,7 +420,14 @@ const getMap = (components) => {
     if (overlayLayer && map.hasLayer(overlayLayer)) {
       map.removeLayer(overlayLayer);
     }
-    overlayLayer = overlay.layer().addTo(map);
+    var layer = overlay.layer();
+
+    // layer = L.imageOverlay(
+    //   window.location.origin + "/getImage/" + overlay.imageId,
+    //   [[21.070694, 105.808957], [21.042741, 105.840365]],
+    //   {opacity: 0.7}
+    // );
+    overlayLayer = layer.addTo(map);
     if (overlay.bbox) {
       map.fitBounds(overlay.bbox);
     }

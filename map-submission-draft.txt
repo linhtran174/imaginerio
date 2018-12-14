@@ -1,0 +1,11 @@
+Map submission workflow:
+
+- User choose an map file to upload (viet-1.gif)
+- A pop-up showing the image in it's original size.
+- The user hower the image, seeing a red dot prompting them to choose the first feature point
+- User click to choose the first feature point. Then the process for selecting the second feature point is repeated.
+- The map will be activated. Upon this, whenever the mouse hover the map, 
+the first feature point will follow the mouse tip, withe the submitted image overlayed on top.
+- The user click on the map to match a coordinate with the the first feature point.
+- The second feature point's coordinate is selected in the same manner.
+- At any point during the coordinate selection, the user can cancel and redo by pressing ESC
