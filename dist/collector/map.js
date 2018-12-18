@@ -246,9 +246,9 @@ mapImg.markPoint = function(x,y, width){
 
 var leafletMap = L.map("map", {
     center: [21.055160, 105.827277],
-    maxBounds: [[21.092327, 105.772103], [21.016277, 105.888311]],
+    maxBounds: [[21.12, 105.65], [20.99, 105.95]],
     zoom: 15,
-    minZoom: 14,
+    minZoom: 13,
     maxZoom: 18,
     doubleClickZoom: false
 })

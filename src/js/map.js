@@ -121,9 +121,10 @@ const getMap = (components) => {
 
     map = L.map(container, {
       zoomControl: true,
-      maxZoom: 18,
+      center: [21.055160, 105.827277],
+      maxBounds: [[21.12, 105.65], [20.99, 105.95]],
       minZoom: 13,
-      maxBounds: [[21.092327, 105.772103], [21.016277, 105.888311]],
+      maxZoom: 18,
     })
       .setView([21.055160, 105.827277], 14)
       .on('click', probe)
