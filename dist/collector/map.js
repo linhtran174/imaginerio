@@ -1,23 +1,35 @@
 let metaserver = window.location.origin;
-// Get the <span> element that closes the modal
-var span = document.getElementsByClassName("close")[0];
-
-// When the user clicks on <span> (x), close the modal
-span.onclick = function() {
-    $("#myModal").style.display = "none";
-}
-
-// When the user clicks anywhere outside of the $("#myModal"), close it
-window.onclick = function(event) {
-    console.log("Windows: ", event)
-    if (event.target == $("#myModal")) {
-        // $("#myModal").style.display = "none";
-    }
-}
 
 var $ = function (thing){
     return document.querySelector(thing);
 } 
+
+$("#openTutorialEng").onclick = function(){
+    $("#tutorialModal").style.display = "block";
+    $("#tutorialIframe").src = "https://player.vimeo.com/video/307830241";
+}
+
+$("#openTutorialVie").onclick = function(){
+    $("#tutorialModal").style.display = "block";
+    $("#tutorialIframe").src = "https://player.vimeo.com/video/307830637";
+}
+
+// When the user clicks on <span> (x), close the modal
+$("#closeSelectPointModal").onclick = function() {
+    $("#selectPointModal").style.display = "none";
+}
+
+$("#closeTutorialModal").onclick = function() {
+    $("#tutorialModal").style.display = "none";
+}
+
+// When the user clicks anywhere outside of the $("#selectPointModal"), close it
+window.onclick = function(event) {
+    console.log("Windows: ", event)
+    if (event.target == $("#selectPointModal")) {
+        // $("#selectPointModal").style.display = "none";
+    }
+}
 
 $("#uploadMap").onclick = (e)=>{
     e.preventDefault();
@@ -29,7 +41,7 @@ var imageOverlay;
 var tempImageId;
 var mapImg = $("#mapImg").getContext("2d");
 $("#mapImage").onchange = (e)=>{
-    $("#myModal").style.display = "block";
+    $("#selectPointModal").style.display = "block";
 
     var files = e.srcElement.files;
     var fd = new FormData();
@@ -66,7 +78,7 @@ $("#mapImage").onchange = (e)=>{
     }
 
     selectFeaturePoint.onFinish = (points)=>{
-        $("#myModal").style.display = "none";
+        $("#selectPointModal").style.display = "none";
         featurePoints = points;
         $("#form-featurePoints").value = JSON.stringify(featurePoints);
         

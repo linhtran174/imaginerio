@@ -149,6 +149,10 @@ const getInit = (components) => {
 
   preloadImages();
   
+  $("#blogButton").on("click",()=>{
+    window.location.href = "http://medium.com/oldtayho";
+  })
+
   $("#contribute-image-button").on("click",()=>{
     window.location.href = window.location.origin + "/imageCollector";
   })

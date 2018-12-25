@@ -60,10 +60,9 @@
 </head>
 <body>
     
-    <div id="myModal" class="modal">
-    <!-- Modal content -->
+    <div id="selectPointModal" class="modal">
     <div class="modal-content">
-        <span class="close">&times;</span>
+        <span id="closeSelectPointModal" class="close">&times;</span>
         <p style="display: inline-block">Please select 3 feature points (IN ORDER) on the image to match against the map... </p>
         <button class="button" id="panzoomSelectPointToggle" style="display: inline-block;">CLICK TO PAN AND ZOOM (SPACEBAR)</button>
         <button class="button" id="cancelSelectPoint" style="display: inline-block">CLICK TO START OVER (ESC)</button>
@@ -74,10 +73,20 @@
     </div>
     </div>
 
+    <div id="tutorialModal" class="modal">
+    <div class="modal-content">
+        
+        <span id="closeTutorialModal" class="close">&times;</span>
+        <iframe id="tutorialIframe" style="width: 100%; height: calc(100% - 50px);" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
+    </div>
+    </div>
+
     <div class="wrapper">
         <main>
-            <h1 style=" margin-left: 5px; text-align: center; margin-top: 5px; margin-bottom: 5px;">Historical Map Contribution</h1>
-            <p style="text-align: center;margin-left: 5px;margin-top: 0px;">Please fill in map info and select an image, then match 3 feature points on the image (IN ORDER) to match against the map</p>
+            <h1 style="margin-left: 20px; margin-top: 5px; margin-bottom: 5px; display: inline-block; vertical-align: middle">Historical Map Contribution</h1>
+            <button id="openTutorialEng" class="button" style="display: inline-block; margin-left: 20px; width: 150px; vertical-align: middle">Tutorial (ENG)</button>
+			<button id="openTutorialVie" class="button" style="display: inline-block; margin-left: 20px; width: 150px; vertical-align: middle">Tutorial (VIE)</button>
+            <p style="margin-left: 20px;margin-top: 0px;">Please fill in map info and select an image, then match 3 feature points on the image (IN ORDER) to match against the map</p>
             <div id="map" class="map"></div>
         </main>
         <sidebar>

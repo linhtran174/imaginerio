@@ -1,3 +1,21 @@
+var $ = function (thing){
+  return document.querySelector(thing);
+} 
+
+closeModal = document.getElementsByClassName("close")[0];
+closeModal.onclick = function() {
+  $("#myModal").style.display = "none";
+}
+
+$("#openTutorialEng").onclick = function(){
+  $("#myModal").style.display = "block";
+  $("#tutorialIframe").src = "https://player.vimeo.com/video/307831022";
+}
+$("#openTutorialVie").onclick = function(){
+  $("#myModal").style.display = "block";
+  $("#tutorialIframe").src = "https://player.vimeo.com/video/307831099";
+}
+
 let maxAngleAllowed = 170;
 let tooltips = {
   firstPoint: 'Click map to place Focal point of Visual',
