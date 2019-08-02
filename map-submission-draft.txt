@@ -9,3 +9,5 @@ the first feature point will follow the mouse tip, withe the submitted image ove
 - The user click on the map to match a coordinate with the the first feature point.
 - The second feature point's coordinate is selected in the same manner.
 - At any point during the coordinate selection, the user can cancel and redo by pressing ESC
+
+

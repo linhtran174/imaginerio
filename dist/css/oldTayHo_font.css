@@ -1,0 +1,106 @@
+@charset "utf-8";
+/* CSS Document */
+@font-face{
+ font-family: Pridi;
+src:url(font/Pridi-Regular.ttf);
+}
+a{
+	font-family:Pridi;
+	font-size: 16px;
+}
+
+h{
+	font-family:Pridi;
+	font-size: 20px;
+}
+
+.description-text{
+	font-weight: lighter;
+	font-size: 0.98rem;
+	color: #3d3c3c;
+}
+
+.decor-line{
+	width: 10%;
+	height: 80px;
+	background-color: #BA0F1C;
+	float: left;
+
+}
+
+
+
+.head-text-container{
+	width: 100%;
+	margin-bottom: 20px;
+}
+.tag{
+	color: #BA0F1C;
+}
+.head-text{
+	color: #333;
+	font-weight: 600;
+	font-size: 1.3rem;
+	
+}
+
+/************/
+.tab-head{
+	width: 100%;
+	float: left;
+	margin-bottom: 12px;
+}
+.tab-head h{
+font-weight: 700;
+	line-height: 30px;
+	font-size: 1.5rem;
+}
+
+
+
+
+/*BUTTON*/
+
+.red-btn{
+	margin-left: 5px;
+	padding: 3px 6px;
+	color: white;
+	display: inline-block;
+	text-decoration: none;
+	background-color: #BA0F1C;
+}
+.red-btn:hover{
+	color: #333;
+	background-color: #39C0C9;
+	transition: all 0.3s ease;	
+}
+
+
+
+/*see-more-btn*/
+.see_more{
+	text-align: center;
+	float: left;
+		box-sizing: border-box;
+
+}
+.see_more a{
+	position: relative;
+color: #BA0F1C;
+	text-decoration: none;
+
+}
+.see_more a:hover{
+	color: #333;
+	text-decoration: none;
+}
+.see_more a::after{
+	content: '';
+	height: 5px;
+	width: 30%;
+	background: #BA0F1C;
+	position: absolute;
+	left: calc(-40%);
+	top: 50%;
+	}
+

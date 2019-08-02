@@ -1,6 +1,6 @@
 # Oldtayho
 
-[Oldtayho](http://oldtayho.com) is a digital searchable atlas that illustrate urban evolution of the old TayHo area. 
+[Oldtayho.com](http://oldtayho.com) is a digital searchable atlas that illustrate urban evolution of the old TayHo area. 
 
   - Explore popular places through past photos with their perspectives 
   - Project historical maps onto what it is today, highlighting the differences 

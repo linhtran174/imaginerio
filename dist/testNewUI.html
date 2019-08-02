@@ -1,0 +1,118 @@
+<html>
+<head>
+  <title>Old TayHo</title>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="initial-scale=1.0"/>
+  <!-- build:css css/{{site}}.css -->
+  <!-- <link rel="stylesheet" href="https://use.typekit.net/nwz6jsn.css"> -->
+  <link rel="stylesheet" href="css/leaflet.css" />
+  <link rel="stylesheet" href="css/leaflet.draw.css" />
+
+  <!-- <link rel="stylesheet" href="css/fontello.css" /> -->
+  <link rel="stylesheet" href="css/animation.css" />
+  <!-- <link rel="stylesheet" href="styles.css" /> -->
+  <link href="https://fonts.googleapis.com/css?family=Pridi&display=swap&subset=vietnamese" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css?family=Gochi+Hand&display=swap" rel="stylesheet">
+  
+  <style type="text/css">
+    img {
+      /* width: 100%; */
+      /* height: 100%; */
+    }
+    body {
+      margin: 0;
+      width: 100%;
+      height: 100%;
+      font-family: Pridi;
+      display: grid;
+      background-color: #F5EEDE;
+    }
+    p {
+      display: inline-block;
+      margin: 0;
+    }
+    div{
+      display: grid;
+      height: 100%;
+    }
+    .leftMenuItems{
+      transform: rotate(270deg); 
+      transform-origin: top left;
+      height: 20px;
+      width: min-content ;
+    }
+  </style>
+  <meta property="og:url" content="https://oldtayho.com" />
+  <meta property="og:title" content="Old TayHo" />
+  <meta property="og:image" content="img/cover.png" />
+</head>
+
+<div style="position: fixed;
+ grid-template-rows: 119px 55px 51px 37px 50px 70px 50px 75px;
+ width: 40px; height: 570px; left: 53px; top: 120px;
+ border: 1px dotted grey; z-index: 1;">
+  <object type="image/svg+xml" data="img/left_menu.svg">
+    Your browser does not support SVG
+  </object>
+  <p class="leftMenuItems">HOME</p><div></div>
+  <p class="leftMenuItems">ABOUT</p><div></div>
+  <p class="leftMenuItems">MAP</p><div></div>
+  <p class="leftMenuItems">GALLERY</p><div></div>
+  <p class="leftMenuItems">BLOG</p><div></div>
+</div>
+<div style="position:fixed; display: grid; width: 100%; height: 40px; background-color: black; grid-template-columns: 35px auto 100px">
+  <svg style="padding: 7px 3px 3px 7px; width: calc(100% - 10px); height: calc(100% - 10px);">
+    <path d="M0 10.2491C0.0804763 4.89793 3.58485 0.959598 8.2159 0.154363C13.6078 -0.789958 18.729 2.7604 19.6874 8.23599C20.1337 10.7908 19.6216 13.1772 18.2023 15.3513C18.0267 15.6222 18.0486 15.7686 18.2681 15.9882C20.3459 18.0525 22.409 20.1242 24.4794 22.1958C25.1452 22.862 25.1818 23.8136 24.5892 24.4578C23.938 25.1679 22.9284 25.1898 22.2188 24.4871C20.8434 23.1182 19.4753 21.7493 18.1072 20.3731C17.4121 19.6776 16.7025 18.9822 16.0148 18.2722C15.788 18.0379 15.6417 17.994 15.349 18.1916C13.7761 19.2531 12.0129 19.8021 10.1254 19.8241C5.27486 19.8899 1.3681 16.647 0.307273 12.2548C0.124372 11.4862 0.0658443 10.6956 0 10.2491ZM9.93517 2.27725C5.75771 2.21137 2.30455 5.70316 2.27528 9.8611C2.24602 14.063 5.7065 17.5548 9.89859 17.5694C14.098 17.584 17.5731 14.1069 17.5731 9.91967C17.5731 5.71048 14.0907 2.21869 9.93517 2.27725Z" fill="#EEEEEE"/>
+  </svg>
+  <div style=""></div>
+  <div style="grid-template-columns: 37px auto">
+    <img src="img/united-kingdom-flag-icon-128.png" style="border-radius: 50px; height: 25px; width:25px; margin-top: 8px; "/>
+    <p style="color: white; font-size: 14px; padding-top: 10px; ">English</p>
+  </div>
+</div>
+<body style="grid-template-rows: 65px 70px 800px">
+  <div></div>
+  <div style="grid-template-columns: auto 132px auto">
+    <div></div>
+    <img src="img/logo.png"/>
+    <div></div>
+  </div>
+  <div style="width: 100%;
+   background-image: url('img/con_bo.png');
+   background-repeat: no-repeat;
+   background-position: center top;
+   /* background-size: cover; */
+   grid-template-columns: 2fr 60px 8fr">
+    <div></div>
+    <div style="grid-template-columns: 25px 30px;
+     transform: translate(0px, 150px); height: 180px;">
+      <p style="font-size: 16px;
+      width: 16px;
+      height: 169px;
+      line-height: 25px;">E<br>X<br>P<br>L<br>O<br>R<br>E</p>
+      <p style="
+      font-size: 16px;
+      width: 27px;
+      height: 79px;
+      line-height: 25px;
+      background-color: #BA0F1C;
+      color: #F2EBDB;
+      text-align: center;
+      transform: translate(0px, 98px);
+      ">N<br>O<br>W</p>
+    </div>
+    <div></div>
+  </div>
+  <!-- <img > -->
+
+  <script src="libraries/jquery.min.js"></script>
+  <script src="libraries/leaflet.js"></script>
+  <script src="libraries/leaflet.draw.js"></script>
+  <script src="libraries/underscore-min.js"></script>
+  <script src="libraries/d3-dispatch.min.js"></script>
+  <script src="libraries/hammer.min.js"></script>
+  <script src="libraries/utils.js"></script>
+
+  <script src="bundle.js"></script>
+</body>
+</html>

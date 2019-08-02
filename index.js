@@ -31,6 +31,11 @@ app.get('/', (req, res) => {
   res.end(index);
 });
 
+// testPage = fs.readFileSync("./dist/testNewUI.html")
+app.get('/test', (req, res)=>{
+  res.end(fs.readFileSync("./dist/oldTayHo_home.html"));
+})
+
 // collector = fs.readFileSync('src/collector/index.html');
 app.get('/imageCollector', (req, res) => {
   fs.readFile("dist/collector/image.html", (err, data)=>{
