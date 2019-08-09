@@ -2,7 +2,7 @@
 /* CSS Document */
 @font-face{
  font-family: Pridi;
-src:url(font/Pridi-Regular.ttf);
+src:url(/font/Pridi-Regular.ttf);
 }
 a{
 	font-family:Pridi;
@@ -21,14 +21,9 @@ h{
 }
 
 .decor-line{
-	width: 10%;
 	height: 80px;
 	background-color: #BA0F1C;
-	float: left;
-
 }
-
-
 
 .head-text-container{
 	width: 100%;

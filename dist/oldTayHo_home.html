@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <link rel="stylesheet" href="css/oldTayHo.css">
 <link rel="stylesheet" href="css/oldTayHo_font.css">
-<script type="text/javascript" src="Jquery/jquery-3.4.0.min.js"></script>
+<script type="text/javascript" src="libraries/jquery-3.4.0.min.js"></script>
 
 <title>OldTayHo</title>
 
@@ -16,11 +16,11 @@
 <div id="sub-menu" class="container">
 <div><a class="search-btn" href=""><img src="img/search.svg" alt="search"></a></div>
 <div class="language-btn">
-	<select size="1" name="links" onchange="window.location.href=this.value;">
-		<option value="">English</option>
-		<option value="">Tiếng việt</option>
-	</select>
-		<div class="language-btn-img"><img src="img/english.png" alt="English"></div>
+    <select size="1" name="links" onchange="window.location.href=this.value;">
+        <option value="">English</option>
+        <option value="">Tiếng việt</option>
+    </select>
+        <div class="language-btn-img"><img src="img/english.png" alt="English"></div>
 
 </div>
 </div>
@@ -29,510 +29,470 @@
 <!--MENU-->
 <div id="menu" class="container">
 <!--large scr-->
-	<div class="col1 hide-xs hide-sm">
-		<label for="menu-toggle"><img class="toggle-btn" src="img/toggle.svg"></label>
-<input type="checkbox" id="menu-toggle"/>
-<div id="toggle">
-<ul>
-  <li><a class="menu-text1" href="#">BLOG</a></li>
-     <li><a class="menu-text1" href="#">GALERY</a></li>
-    <li><a class="menu-text1" href="#">MAP</a></li>
-  <li><a class="menu-text1" href="#">ABOUT</a></li>
-  <li><a class="menu-text1 menu-active" href="#">HOME</a></li>
-
-</ul>
-	</div>
-	</div>
-	<div class="col1 hide-lg hide-xl hide-md">
-	
-<input id="sidebar-trigger" class="sidebar-trigger" type="checkbox" />
-<label for="sidebar-trigger">
-<img class="toggle-btn" src="img/toggle.svg">
-</label>
-<div class="sidebar">
-<ul>
-	<li><a class="sidebar-active" href="">HOME</a></li>
-	<li><a class="" href="">ABOUT</a></li>
-	<li><a class="" href="">MAP</a></li>
-	<li><a class="" href="">GALERY</a></li>
-	<li><a class="" href="">BLOG</a></li> 
-</ul>
+    <div class="col1 hide-xs hide-sm">
+        <label for="menu-toggle"><img class="toggle-btn" src="img/toggle.svg"></label>
+        <input type="checkbox" id="menu-toggle"/>
+        <div id="toggle">
+            <ul>
+                <li><a class="menu-text1" href="#blog">BLOG</a></li>
+                    <li><a class="menu-text1" href="#">GALERY</a></li>
+                    <li><a class="menu-text1" href="#map">MAP</a></li>
+                <li><a class="menu-text1" href="#about">ABOUT</a></li>
+                <li><a class="menu-text1 menu-active" href="#">HOME</a></li>
+            </ul>
+        </div>
+    </div>
+    <div class="col1 hide-lg hide-xl hide-md">
+    
+        <input id="sidebar-trigger" class="sidebar-trigger" type="checkbox" />
+        <label for="sidebar-trigger">
+        <img class="toggle-btn" src="img/toggle.svg">
+        </label>
+        <div class="sidebar">
+        <ul>
+            <li><a class="sidebar-active" href="">HOME</a></li>
+            <li><a class="" href="">ABOUT</a></li>
+            <li><a class="" href="#map">MAP</a></li>
+            <li><a class="" href="">GALERY</a></li>
+            <li><a class="" href="">BLOG</a></li> 
+        </ul>
+        </div>
+        
+    </div>
+    <div class="col2">
+        <img class="logo hide-xs" src="img/OldTayHo-logo.svg">
+    </div>
+    
+    <div class="col1">
+        <a class="contribute-btn" href="/imageCollector">CONTRIBUTE</a>
+    </div>
 </div>
-		
-	</div>
-	<div class="col2">
-		<img class="logo hide-xs" src="img/OldTayHo-logo.svg">
-	</div>
-	
-	<div class="col1">
-		<a class="contribute-btn" href="">CONTRIBUTE</a>
-	</div>
-	</div>
-	
-	
-	<div class="col hide-lg hide-xl hide-md hide-sm">
-	<img class="logo hide-lg hide-xl hide-md hide-sm" src="img/OldTayHo-logo.svg">
-	</div>
+    
+    
+<div class="col hide-lg hide-xl hide-md hide-sm">
+<img class="logo hide-lg hide-xl hide-md hide-sm" src="img/OldTayHo-logo.svg">
+</div>
 
 
 <!--landing-->
 <div id="landing">
-<div class="landing-bg">
-	<img src="img/landing.png">
-	</div>
-	<div class="explore-btn1 hide-xs hide-sm">
-		<a class="verticaltext1">EXPLORE</a>
-		<a class="verticaltext2" href="">NOW</a>
-		</div>
-	<div class="explore-btn2 hide-xl hide-lg hide-md">
-		<a>EXPLORE</a>
-		<a class="red-btn" href="">NOW</a>
-	</div>	
+    <div class="landing-bg">
+        <img src="img/landing.png">
+    </div>
+    <div class="explore-btn1 hide-xs hide-sm" onclick="navigateToMapSection()">
+        <a class="verticaltext1" >EXPLORE</a>
+        <a class="verticaltext2" >NOW</a>
+    </div>
+    <div class="explore-btn2 hide-xl hide-lg hide-md">
+        <a>EXPLORE</a>
+        <a class="red-btn" href="">NOW</a>
+    </div>
+    
 </div>
 
 
 <!--about-->
 <!--LARGE SCR-->
 <div id="about">
-<div class="container hide-md hide-sm hide-xs">
-<div class="col0">
+<div class="container hide-md hide-sm hide-xs" style="display: grid; grid-template-columns: 5% 95%">
+    <div class="col0">
+        <div class="decor-line">
+        </div>
+    </div>
+    <div class="about-container">
+        <div class="about-pic1">
+            <img src="img/map1.jpg">
+            <div class="about-col1">
+                <a class="description-text">Old Tay Ho brings together historical images, maps, and even documents to show how the area has evolved, which can stimulate a vibrant appreciation of the region, and evoke interest and communications among national and international communities.</a>
+            </div>
+        </div>
+        <div class="about-col2">
+            <div class="about-col2-row1">
+                <div class="head-text-container">
+                    <a class="tag">ABOUT</a><br>
+                    <h class="head-text">OLD TAY HO - HISTORICAL MAP</h>
+                </div>
+                <div class="about-col2-1">
+                    <a>Legend has it that Tay Ho was created by an agitated buffalo hearing the cries of its <a href="">calf back in China.</a> </a><br>
+                    <a>Visit the neighborhoods of the lake today, and it can feel that frantic change is occurring along nearly every street or alleyway.</a>
+                </div>
+                <div class="about-col2-2">
+                    <a>Often this is making for progress, and continuing to draw many Vietnamese and foreign residents and visitors.  The old Tay Ho site aims to bring alive the heritage of the area, giving a sense of how old and new can best co-exist and evolve across this vibrant area.</a>
+                </div>
+            </div>
+            
+            <div class="about-col2-row2">
+            <img src="img/historical-image.png" class="about-pic2">
+            <img src="img/historical-map.png" class="about-pic2">
+            <img src="img/historical-document.png" class="about-pic2">
+            </div>
+            <div class="about-col2-row3">
+                    <div class="pic-description">
+                        <a style="font-weight: 600;">Historical Images:</a><br>
+                        <a class="description-text">Presents photos to show specific places and structures in the area looked like.</a>
+                    </div>
+                    <div class="pic-description">
+                        <a style="font-weight: 600;">Historical Maps:</a><br>
+                        <a class="description-text">View current Tay Ho maps overlaid on historical maps and even aerial images.</a>
+                    </div>
+                    <div class="pic-description">
+                        <a style="font-weight: 600;">Historical Documents:</a><br>
+                        <a class="description-text"> View key relevent historical documents and declarations.</a>
+                </div>
+            </div>
+        </div>
 
-	<div class="decor-line">
-		
-	</div>
-		
+        <div class="about-btn see_more">
+            <a href="">READ MORE</a>
+        </div>
+    </div>
 </div>
-<div class="about-container">
-	<div class="about-col1">
-		<div class="about-pic1">
-		<img src="img/map1.jpg">
-		</div>
-	</div>
-	<div class="about-col2">
-			<div class="about-col2-row1">
-
-		<div class="head-text-container">
-			<a class="tag">ABOUT</a><br>
-			<h class="head-text">OLD TAY HO - HISTORICAL MAP</h>
-		</div>
-		<div class="about-col2-1">
-			<a>Legend has it that Tay Ho was created by an agitated buffalo hearing the cries of its <a href="">calf back in China.</a> </a><br>
-			<a>Visit the neighborhoods of the lake today, and it can feel that frantic change is occurring along nearly every street or alleyway.</a>
-		</div>
-		
-		<div class="about-col2-2">
-			<a>Often this is making for progress, and continuing to draw many Vietnamese and foreign residents and visitors.  The old Tay Ho site aims to bring alive the heritage of the area, giving a sense of how old and new can best co-exist and evolve across this vibrant area.</a>
-		</div>
-		</div>
-		
-
-		
-		<div class="about-col2-row2">
-		<div class="about-pic2">
-			<img src="img/historical-image.png">
-		</div>
-		<div class="about-pic2">
-			<img src="img/historical-map.png">
-		</div>
-		<div class="about-pic2">
-			<img src="img/historical-document.png">
-		</div>
-			
-		</div>
-		</div>
-	</div>
-<div class="about-container2">
-		<div class="about-col1">
-		<a class="description-text">Old Tay Ho brings together historical images, maps, and even documents to show how the area has evolved, which can stimulate a vibrant appreciation of the region, and evoke interest and communications among national and international communities.</a>
-	</div>
-		<div class="about-col2">
-		<div class="about-col2-row3">
-			<div class="pic-description">
-				<a style="font-weight: 600;">Historical Images:</a><br>
-				<a class="description-text">Presents photos to show specific places and structures in the area looked like.</a>
-			</div>
-			<div class="pic-description">
-				<a style="font-weight: 600;">Historical Maps:</a><br>
-				<a class="description-text">View current Tay Ho maps overlaid on historical maps and even aerial images.</a>
-			</div>
-			<div class="pic-description">
-				<a style="font-weight: 600;">Historical Documents:</a><br>
-				<a class="description-text"> View key relevent historical documents and declarations.</a>
-		</div>
-	</div>
-	 <div class="about-btn see_more">
-      <a href="">READ MORE</a>		
- 	  	</div>
-</div>	
-</div>	
-	</div>	
-	
 
 <!--MED SCR-->
-<div  class="container hide-lg hide-xl hide-xs">	
+<div  class="container hide-lg hide-xl hide-xs">    
 <div class="head-text-container">
-			<a class="tag">ABOUT</a><br>
-			<h class="head-text">OLD TAY HO - HISTORICAL MAP</h>
-		</div>
+            <a class="tag">ABOUT</a><br>
+            <h class="head-text">OLD TAY HO - HISTORICAL MAP</h>
+        </div>
 <div class="about-small-row1">
-	<div class="about-text-med">
-		<a class="description-text">Old Tay Ho brings together historical images, maps, and even documents to show how the area has evolved, which can stimulate a vibrant appreciation of the region, and evoke interest and communications among national and international communities.</a>
-	</div>
-	<div class="about-pic-med">
+    <div class="about-text-med">
+        <a class="description-text">Old Tay Ho brings together historical images, maps, and even documents to show how the area has evolved, which can stimulate a vibrant appreciation of the region, and evoke interest and communications among national and international communities.</a>
+    </div>
+    <div class="about-pic-med">
 <img src="img/map1.jpg">
-	</div>
+    </div>
 </div>
 <div class="about-small-row2">
-		<div class="about-pic2">
-			<img src="img/historical-image.png">
-		</div>
-		<div class="about-pic2">
-			<img src="img/historical-map.png">
-		</div>
-		<div class="about-pic2">
-			<img src="img/historical-document.png">
-		</div>
-			
-		</div>
+        <div class="about-pic2">
+            <img src="img/historical-image.png">
+        </div>
+        <div class="about-pic2">
+            <img src="img/historical-map.png">
+        </div>
+        <div class="about-pic2">
+            <img src="img/historical-document.png">
+        </div>
+            
+        </div>
 <div class="about-small-row2">
-			<div class="pic-description">
-				<a style="font-weight: 600;">Historical Images:</a><br>
-				<a class="description-text">Presents photos to show specific places and structures in the area looked like.</a>
-			</div>
-			<div class="pic-description">
-				<a style="font-weight: 600;">Historical Maps:</a><br>
-				<a class="description-text">View current Tay Ho maps overlaid on historical maps and even aerial images.</a>
-			</div>
-			<div class="pic-description">
-				<a style="font-weight: 600;">Historical Documents:</a><br>
-				<a class="description-text"> View key relevent historical documents and declarations.</a>
-		</div>
-	</div>
-	 <div class="about-btn2 see_more">
-      <a href="">READ MORE</a>		
- 	  	</div>
+            <div class="pic-description">
+                <a style="font-weight: 600;">Historical Images:</a><br>
+                <a class="description-text">Presents photos to show specific places and structures in the area looked like.</a>
+            </div>
+            <div class="pic-description">
+                <a style="font-weight: 600;">Historical Maps:</a><br>
+                <a class="description-text">View current Tay Ho maps overlaid on historical maps and even aerial images.</a>
+            </div>
+            <div class="pic-description">
+                <a style="font-weight: 600;">Historical Documents:</a><br>
+                <a class="description-text"> View key relevent historical documents and declarations.</a>
+        </div>
+    </div>
+     <div class="about-btn2 see_more">
+      <a href="">READ MORE</a>        
+           </div>
 
-	</div>
-	
-	
+    </div>
+    
+    
 <!--SMALL-->
 <div class="container hide show-xs">
 <div class="head-text-container">
-			<a class="tag">ABOUT</a><br>
-			<h class="head-text">OLD TAY HO - HISTORICAL MAP</h>
-		</div>
+            <a class="tag">ABOUT</a><br>
+            <h class="head-text">OLD TAY HO - HISTORICAL MAP</h>
+        </div>
 <div class="about-small-row1">
-	<div class="about-text-sm">
-	<a class="description-text">Old Tay Ho brings together historical images, maps, and even documents to show how the area has evolved, which can stimulate a vibrant appreciation of the region, and evoke interest and communications among national and international communities.</a>
-	</div>
-	<div class="about-pic-sm">
-		<img src="img/map1.jpg">
+    <div class="about-text-sm">
+    <a class="description-text">Old Tay Ho brings together historical images, maps, and even documents to show how the area has evolved, which can stimulate a vibrant appreciation of the region, and evoke interest and communications among national and international communities.</a>
+    </div>
+    <div class="about-pic-sm">
+        <img src="img/map1.jpg">
 
-	</div>
-	</div>
+    </div>
+    </div>
 <div class="about-small-row2">
-		<div class="about-pic2">
-			<img src="img/historical-image.png">
-		</div>
-		<div class="about-pic2">
-			<img src="img/historical-map.png">
-		</div>
-		<div class="about-pic2">
-			<img src="img/historical-document.png">
-		</div>
-			
-		</div>
+        <div class="about-pic2">
+            <img src="img/historical-image.png">
+        </div>
+        <div class="about-pic2">
+            <img src="img/historical-map.png">
+        </div>
+        <div class="about-pic2">
+            <img src="img/historical-document.png">
+        </div>
+            
+        </div>
 <div class="about-small-row2">
-			<div class="pic-description">
-				<a style="font-weight: 600;">Historical Images</a><br>
-			</div>
-			<div class="pic-description">
-				<a style="font-weight: 600;">Historical Maps</a><br>
-			</div>
-			<div class="pic-description">
-				<a style="font-weight: 600;">Historical Documents</a><br>
-		</div>
-	</div>
-	 <div class="about-btn2 see_more">
-      <a href="">READ MORE</a>		
- 	  	</div>
+            <div class="pic-description">
+                <a style="font-weight: 600;">Historical Images</a><br>
+            </div>
+            <div class="pic-description">
+                <a style="font-weight: 600;">Historical Maps</a><br>
+            </div>
+            <div class="pic-description">
+                <a style="font-weight: 600;">Historical Documents</a><br>
+        </div>
+    </div>
+     <div class="about-btn2 see_more">
+      <a href="">READ MORE</a>        
+           </div>
 
-</div>	
-	
-	
-	</div>
-	
-	
-	
+</div>    
+    
+    
+</div>
+    
+    
+    
 <!--MAP-->
 <!---------NOTE---------
 Jquery at bottom of pg-->
 <div  id="map">
 <div class="container">
 <div class="map-row1">
-	<div class="col0 hide-xs hide-sm">
+    <div class="col0 hide-xs hide-sm">
 
-	<div class="decor-line">
-		
-	</div>
-	</div>
-	<div class="map-head">
-		<div class="head-text-container">
-			<a class="tag">MAP</a><br>
-		</div>
-		<div class="map-slider-container">
-			<div class="map-slider">
-				<ol class="tabs">
-  					<li class="map-active" rel="tab1">
+    <div class="decor-line">
+        
+    </div>
+    </div>
+    <div class="map-head">
+        <div class="head-text-container">
+            <a class="tag">MAP</a><br>
+        </div>
+        <div class="map-slider-container">
+            <div class="map-slider">
+                <ol class="tabs">
+                      <li class="map-active" rel="tab1">
     <a class="diplome">1850</a>
     <span class="point"></span>
    
   </li>
- 					<li rel="tab2">
+                     <li rel="tab2">
     <a class="diplome">1945</a>
     <span class="point"></span>
    
   </li>
- 					<li rel="tab3">
+                     <li rel="tab3">
     <a class="diplome">1976</a>
     <span class="point"></span>
    
   </li>
-  					<li rel="tab4">
+                      <li rel="tab4">
     <a class="diplome">1986</a>
       <span class="point"></span>
 </li>
   
-				</ol>
-			</div>
-		</div>
-	</div>
-</div>	
+                </ol>
+            </div>
+        </div>
+    </div>
+</div>    
 <div class="map-row2">
-	<!--TAB1-->
-<a class="red-btn" style="margin-bottom: 20px;" href="">GO TO MAP</a>
+    <!--TAB1-->
+<a class="red-btn" style="margin-bottom: 20px;" onclick="navigateToMap()">GO TO MAP</a>
 
-	<div class="map-tab" id="tab1">
-			<!--LARGE-->
-			<div class="map-tab-col1">
-				<div class="tab-head">
-					<h>FRENCH COLONIAL ERA</h><br>
-					<a>(1858 - 1945)</a>
-				</div>
-				<div class="map-tab-content">
-					<a class="description-text">
-						Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque pretium ligula erat. Quisque quis metus magna. Mauris nec vulputate ante. Praesent sapien neque, tempus sed fringilla quis, lacinia eget sapien. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque pretium ligula erat. 
-						Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque pretium ligula erat. Quisque quis metus magna. Mauris nec vulputate ante. Praesent sapien neque, tempus sed fringilla quis, lacinia eget sapien. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque pretium ligula erat. 
-					</a>
-				</div>
-				<div class="map-tab-btn see_more">
-      <a href="">READ MORE</a>		
- 	  	</div>
- 	  </div>
-			
-			<div class="map-tab-col2">
-				<img src="img/pic2.jpg">
-			</div>
-	</div>
-	<div class="map-tab" id="tab2">
-			<!--LARGE-->
-			<div class="map-tab-col1">
-				<div class="tab-head">
-					<h>WARNING ERA</h><br>
-					<a>(1945 - 1976)</a>
-				</div>
-				<div class="map-tab-content">
-					<a class="description-text">
-						Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque pretium ligula erat. Quisque quis metus magna. Mauris nec vulputate ante. Praesent sapien neque, tempus sed fringilla quis, lacinia eget sapien. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque pretium ligula erat. 
-						Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque pretium ligula erat. Quisque quis metus magna. Mauris nec vulputate ante. Praesent sapien neque, tempus sed fringilla quis, lacinia eget sapien. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque pretium ligula erat. 
-					</a>
-				</div>
-				<div class="map-tab-btn see_more">
-      <a href="">READ MORE</a>		
- 	  	</div>
- 	  </div>
-			
-			<div class="map-tab-col2">
-				<img src="img/sample-pic.jpg">
-			</div>
-	</div>
-	<div class="map-tab" id="tab3">
-			<!--LARGE-->
-			<div class="map-tab-col1">
-				<div class="tab-head">
-					<h>UNIFIED ERA</h><br>
-					<a>(1976 - 1986)</a>
-				</div>
-				<div class="map-tab-content">
-					<a class="description-text">
-						Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque pretium ligula erat. Quisque quis metus magna. Mauris nec vulputate ante. Praesent sapien neque, tempus sed fringilla quis, lacinia eget sapien. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque pretium ligula erat. 
-						Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque pretium ligula erat. Quisque quis metus magna. Mauris nec vulputate ante. Praesent sapien neque, tempus sed fringilla quis, lacinia eget sapien. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque pretium ligula erat. 
-					</a>
-				</div>
-				<div class="map-tab-btn see_more">
-      <a href="">READ MORE</a>		
- 	  	</div>
- 	  </div>
-			
-			<div class="map-tab-col2">
-				<img src="img/sample-pic.jpg">
-			</div>
-	</div>
-	<div class="map-tab" id="tab4">
-			<!--LARGE-->
-			<div class="map-tab-col1">
-				<div class="tab-head">
-					<h>RENOVATED ERA</h><br>
-					<a>(1986- Now)</a>
-				</div>
-				<div class="map-tab-content">
-					<a class="description-text">
-						Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque pretium ligula erat. Quisque quis metus magna. Mauris nec vulputate ante. Praesent sapien neque, tempus sed fringilla quis, lacinia eget sapien. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque pretium ligula erat. 
-						Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque pretium ligula erat. Quisque quis metus magna. Mauris nec vulputate ante. Praesent sapien neque, tempus sed fringilla quis, lacinia eget sapien. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque pretium ligula erat. 
-					</a>
-				</div>
-				<div class="map-tab-btn see_more">
-      <a href="">READ MORE</a>		
- 	  	</div>
- 	  </div>
-			
-			<div class="map-tab-col2">
-				<img src="img/sample-pic.jpg">
-			</div>
-	</div>
-
-</div>
+    <div class="map-tab" id="tab1">
+            <!--LARGE-->
+            <div class="map-tab-col1">
+                <div class="tab-head">
+                    <h>FRENCH COLONIAL ERA</h><br>
+                    <a>(1858 - 1945)</a>
+                </div>
+                <div class="map-tab-content">
+                    <a class="description-text">
+                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque pretium ligula erat. Quisque quis metus magna. Mauris nec vulputate ante. Praesent sapien neque, tempus sed fringilla quis, lacinia eget sapien. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque pretium ligula erat. 
+                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque pretium ligula erat. Quisque quis metus magna. Mauris nec vulputate ante. Praesent sapien neque, tempus sed fringilla quis, lacinia eget sapien. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque pretium ligula erat. 
+                    </a>
+                </div>
+                <div class="map-tab-btn see_more">
+      <a href="">READ MORE</a>        
+           </div>
+       </div>
+            
+            <div class="map-tab-col2">
+                <img src="img/pic2.jpg">
+            </div>
+    </div>
+    <div class="map-tab" id="tab2">
+            <!--LARGE-->
+            <div class="map-tab-col1">
+                <div class="tab-head">
+                    <h>WARNING ERA</h><br>
+                    <a>(1945 - 1976)</a>
+                </div>
+                <div class="map-tab-content">
+                    <a class="description-text">
+                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque pretium ligula erat. Quisque quis metus magna. Mauris nec vulputate ante. Praesent sapien neque, tempus sed fringilla quis, lacinia eget sapien. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque pretium ligula erat. 
+                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque pretium ligula erat. Quisque quis metus magna. Mauris nec vulputate ante. Praesent sapien neque, tempus sed fringilla quis, lacinia eget sapien. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque pretium ligula erat. 
+                    </a>
+                </div>
+                <div class="map-tab-btn see_more">
+      <a href="">READ MORE</a>        
+           </div>
+       </div>
+            
+            <div class="map-tab-col2">
+                <img src="img/sample-pic.jpg">
+            </div>
+    </div>
+    <div class="map-tab" id="tab3">
+            <!--LARGE-->
+            <div class="map-tab-col1">
+                <div class="tab-head">
+                    <h>UNIFIED ERA</h><br>
+                    <a>(1976 - 1986)</a>
+                </div>
+                <div class="map-tab-content">
+                    <a class="description-text">
+                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque pretium ligula erat. Quisque quis metus magna. Mauris nec vulputate ante. Praesent sapien neque, tempus sed fringilla quis, lacinia eget sapien. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque pretium ligula erat. 
+                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque pretium ligula erat. Quisque quis metus magna. Mauris nec vulputate ante. Praesent sapien neque, tempus sed fringilla quis, lacinia eget sapien. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque pretium ligula erat. 
+                    </a>
+                </div>
+                <div class="map-tab-btn see_more">
+      <a href="">READ MORE</a>        
+           </div>
+       </div>
+            
+            <div class="map-tab-col2">
+                <img src="img/sample-pic.jpg">
+            </div>
+    </div>
+    <div class="map-tab" id="tab4">
+            <!--LARGE-->
+            <div class="map-tab-col1">
+                <div class="tab-head">
+                    <h>RENOVATED ERA</h><br>
+                    <a>(1986- Now)</a>
+                </div>
+                <div class="map-tab-content">
+                    <a class="description-text">
+                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque pretium ligula erat. Quisque quis metus magna. Mauris nec vulputate ante. Praesent sapien neque, tempus sed fringilla quis, lacinia eget sapien. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque pretium ligula erat. 
+                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque pretium ligula erat. Quisque quis metus magna. Mauris nec vulputate ante. Praesent sapien neque, tempus sed fringilla quis, lacinia eget sapien. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque pretium ligula erat. 
+                    </a>
+                </div>
+                <div class="map-tab-btn see_more">
+      <a href="">READ MORE</a>        
+           </div>
+       </div>
+            
+            <div class="map-tab-col2">
+                <img src="img/sample-pic.jpg">
+            </div>
+    </div>
 
 </div>
-</div>		
 
-	
-<!--BLOG-->	
+</div>
+</div>        
+
+    
+<!--BLOG-->    
 <div id="blog">
 <div class="container">
-	<div class="blog-row1">
-		<div class="col0 hide-xs hide-sm">
+    <div class="blog-row1">
+        <div class="col0 hide-xs hide-sm">
 
-	<div class="decor-line">
-		
-	</div>
-	</div>
-		<div class="blog-head">
-			<div class="head-text-container">
-			<a class="tag">BLOG</a><br>
-			<h class="head-text">ENJOY FASCINATING STORIES</h>
-		</div>
+    <div class="decor-line">
+        
+    </div>
+    </div>
+        <div class="blog-head">
+            <div class="head-text-container">
+            <a class="tag">BLOG</a><br>
+            <h class="head-text">ENJOY FASCINATING STORIES</h>
+        </div>
 
-		</div>
-	</div>
-	<div class="blog-row2">
-		<div class="blog-col1">
+        </div>
+    </div>
+    <div class="blog-row2">
+        <div class="blog-col1">
 
-			<div class="blog-pic">
-				<img src="img/sample-pic.jpg">
-			</div>
-			<div class="blog-content">
-			<a class="blog-date">August 8th, 2019</a><br>
-				<h>Lorem ipsum dolor sit amet</h><br>
-	  			<div class="blog-lines">
- 	  				<a >Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque pretium ligula erat. Quisque quis metus magna. Mauris nec vulputate ante.</a>
-					</div>
- 	  				<div class="blog-btn see_more">
-      <a href="">READ MORE</a>		
- 	  
-			</div>
-		</div>
-		</div>
-		<div class="blog-col2">
+            <div class="blog-pic">
+                <img src="img/sample-pic.jpg">
+            </div>
+            <div class="blog-content">
+            <a class="blog-date">August 8th, 2019</a><br>
+                <h>Lorem ipsum dolor sit amet</h><br>
+                  <div class="blog-lines">
+                       <a >Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque pretium ligula erat. Quisque quis metus magna. Mauris nec vulputate ante.</a>
+                    </div>
+                       <div class="blog-btn see_more">
+      <a href="">READ MORE</a>        
+       
+            </div>
+        </div>
+        </div>
+        <div class="blog-col2">
 
-			<div class="blog-pic">
-				<img src="img/sample-pic.jpg">
-			</div>
-			<div class="blog-content">
-			<a class="blog-date">August 8th, 2019</a><br>
-				<h>Lorem ipsum dolor sit amet</h><br>
-	  			<div class="blog-lines">
- 	  				<a >Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque pretium ligula erat. Quisque quis metus magna. Mauris nec vulputate ante.</a>
-					</div>
- 	  				<div class="blog-btn see_more">
-      <a href="">READ MORE</a>		
- 	  
-			</div>
-		</div>
-		</div>
-		<div class="blog-col3 hide-xs hide-sm">
-			<div class="blog-more">
-				<div class="blog-more1">
-					<a class="blog-date">August 01st,2019</a><br>		
-					<h>Lorem ipsum dolor sit amet</h>
-				</div>
-				<div class="blog-more2">
-					<a class="blog-date">July 29th,2019</a><br>		
-					<h>Lorem ipsum dolor sit amet</h>
-				</div>
-				<div class="blog-more1">
-					<a class="blog-date">July 25th,2019</a><br>	
-					<h>Lorem ipsum dolor sit amet</h>
-				</div>
-				<div class="blog-more-tag"><a>More stories</a></div>
-		</div>
-		<div class="blog-btn see_more">
-      <a href="">SEE MORE</a>		
- 	  
-			</div>
-		</div>
-	</div>
-	
+            <div class="blog-pic">
+                <img src="img/sample-pic.jpg">
+            </div>
+            <div class="blog-content">
+            <a class="blog-date">August 8th, 2019</a><br>
+                <h>Lorem ipsum dolor sit amet</h><br>
+                  <div class="blog-lines">
+                       <a >Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque pretium ligula erat. Quisque quis metus magna. Mauris nec vulputate ante.</a>
+                    </div>
+                       <div class="blog-btn see_more">
+      <a href="">READ MORE</a>        
+       
+            </div>
+        </div>
+        </div>
+        <div class="blog-col3 hide-xs hide-sm">
+            <div class="blog-more">
+                <div class="blog-more1">
+                    <a class="blog-date">August 01st,2019</a><br>        
+                    <h>Lorem ipsum dolor sit amet</h>
+                </div>
+                <div class="blog-more2">
+                    <a class="blog-date">July 29th,2019</a><br>        
+                    <h>Lorem ipsum dolor sit amet</h>
+                </div>
+                <div class="blog-more1">
+                    <a class="blog-date">July 25th,2019</a><br>    
+                    <h>Lorem ipsum dolor sit amet</h>
+                </div>
+                <div class="blog-more-tag"><a>More stories</a></div>
+        </div>
+        <div class="blog-btn see_more">
+      <a href="">SEE MORE</a>        
+       
+            </div>
+        </div>
+    </div>
+    
 </div>
 </div>
-								
+                                
 
-					
-<!--FOOTER-->										
+                    
+<!--FOOTER-->                                        
 <div id="footer">
-	<div class="container">
-		<div class="footer-row1">
-			<img class="footer-lg" src="img/OldTayHo-logo.svg">
-		</div>
-		<div class="footer-row2">
-			<ul>
-				<li><a href="">ABOUT</a></li>
-				<li><a href="">MAP</a></li>
-				<li><a href="">GALERY</a></li>
-				<li><a href="">BLOG</a></li>
-			</ul>
-			<a href="">example.email@gmail.com</a>
+    <div class="container">
+        <div class="footer-row1">
+            <img class="footer-lg" src="img/OldTayHo-logo.svg">
+        </div>
+        <div class="footer-row2">
+            <ul>
+                <li><a href="">ABOUT</a></li>
+                <li><a href="">MAP</a></li>
+                <li><a href="">GALERY</a></li>
+                <li><a href="">BLOG</a></li>
+            </ul>
+            <a href="">example.email@gmail.com</a>
 
-		</div>
-		<div class="footer-row3">
-			<a href=""><img class="footer-icon" src="img/icon-facebook.svg"></a>
-			<a href=""><img class="footer-icon" src="img/icon-instagram.svg"></a>
-			<a href=""><img class="footer-icon" src="img/icon-youtube.svg"></a>
-		</div>
-	</div>
-</div>	
-																								
-																																						
-																																																				
-																																																																																
-																									
-							
-<!--Jquery--Map-tab-->
-<script>
-	$(document).ready(function() {
-    "use strict";$(".map-tab").hide();
-    $(".map-tab:first").show();
- 
-    $("ol.tabs li").click(function() {
-    $("ol.tabs li").removeClass("map-active");
-        $(this).addClass("map-active");
-        $(".map-tab").hide();
-        var activeTab = $(this).attr("rel");
-        $("#"+activeTab).fadeIn();
-    });
-});
-	
-	</script>									
-													
+        </div>
+        <div class="footer-row3">
+            <a href=""><img class="footer-icon" src="img/icon-facebook.svg"></a>
+            <a href=""><img class="footer-icon" src="img/icon-instagram.svg"></a>
+            <a href=""><img class="footer-icon" src="img/icon-youtube.svg"></a>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript" src="oldtayho.js"></script>
+
 </body>
 </html>

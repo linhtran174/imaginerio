@@ -26,14 +26,16 @@ app.use(express.static(path.join(__dirname, 'dist/collector')));
 
 fs = require('fs');
 
-index = fs.readFileSync('./dist/index.html');
+index = fs.readFileSync('./dist/oldTayHo_oldUI.html');
+testNewUI = fs.readFileSync("./dist/testNewUI.html");
+newUI = fs.readFileSync("./dist/oldTayHo_home.html");
+
 app.get('/', (req, res) => {
   res.end(index);
 });
 
-// testPage = fs.readFileSync("./dist/testNewUI.html")
 app.get('/test', (req, res)=>{
-  res.end(fs.readFileSync("./dist/oldTayHo_home.html"));
+  res.end(newUI);
 })
 
 // collector = fs.readFileSync('src/collector/index.html');
