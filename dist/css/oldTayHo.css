@@ -536,7 +536,8 @@ height: 400px;
     -ms-flex-align: center;
     -webkit-align-items: center;
     align-items: center;
-    position: relative;
+	position: relative;
+	object-fit: contain;
 
 }
 .about-pic2 img{
