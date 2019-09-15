@@ -35,7 +35,7 @@ app.get('/', (req, res) => {
 });
 
 app.get('/test', (req, res)=>{
-  res.end(newUI);
+  res.end(fs.readFileSync("./dist/oldTayHo_home.html"));
 })
 
 // collector = fs.readFileSync('src/collector/index.html');

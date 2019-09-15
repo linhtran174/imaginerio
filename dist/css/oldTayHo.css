@@ -263,7 +263,7 @@ scroll down:
 #landing{
 	position: relative;
 	width: 100%;
-	margin-bottom: 100px;
+	/* margin-bottom: 100px; */
 	/* height: 1000px; */
 	box-sizing: border-box;
 
@@ -329,6 +329,7 @@ scroll down:
 
 /*ABOUT*/
 #about{
+	padding-top: 50px;
 	position: relative;
 	width: 100%;
 	margin-bottom: 100px;
@@ -450,11 +451,12 @@ scroll down:
 	width: 28%;
 	/* float: left; */
 }
-.about-btn{
-	grid-area: seeMore;
+.about-readmore{
+	grid-area: h;
 	width:100%;
 	/* float: left; */
-	margin-top: 50px; }
+	margin-top: 50px; 
+}
 
 	/*ABOUT -MED*/
 	.about-small-row1{
@@ -814,7 +816,7 @@ scroll down:
 #footer{
 	width: 100%;
 	/* float: left; */
-		padding: 100px 0;
+	padding: 100px 0;
 	background-color: #39C0C9;
 }
 
@@ -866,6 +868,20 @@ scroll down:
 }
 
 
+@media only screen and (max-width:1439px){
+	.explore-btn1{
+		left: 50px;
+		top: 50px;
+	}	
+	#landing{
+		height: 700px;
+	}
+	.landing-bg img{
+		height: 600px;
+	}
+
+}
+
 @media only screen and (min-width:1441px){
 	.explore-btn1{
 		width: 85px;
@@ -873,7 +889,6 @@ scroll down:
 		/* margin-left:  20%; */
 		left: 50px;
 		top: 80px;
-
 	}
 
 	.verticaltext1{
@@ -884,9 +899,91 @@ scroll down:
 	}
 }
 
+@media only screen and (min-width:1200px){
+	.show-xl{
+		display: block !important;
+	}
+	.hide-xl{
+		display: none;
+	}
+}
+
+@media only screen and (max-width:1023px){
+	.explore-btn1{
+		left: 20px;
+		top: 50px;
+	}
+	#landing{
+		height: 500px;
+	}
+	.landing-bg img{
+		height: 500px;
+	}
+
+	.about-container{
+		grid-template: 
+		'a a a a a a'
+		'b b b c c c'
+		'e e f f g g'
+		'h h h h h h';
+	}
+
+}
+
+
 @media only screen and (max-width:768px){
 	#about{
 		margin-bottom: 100px;
+	}
+
+	.map-head{
+		width: 100%;
+	}
+
+	.map-row2{
+		height: 800px;
+	}
+	.map-row2{
+		width: 100%;
+		margin-left: 0;
+	}
+	.map-tab-col1{
+		width: 100%;
+	}
+	.map-tab-col2{
+		width: 100%;
+		margin-left: 0;
+		margin-bottom: 80px;
+	}
+
+	.blog-row2{
+		width: 100%;
+		margin-left: 0;
+	}
+	.blog-col1{
+		width: 40%;
+		margin-right: 15%;
+		margin-bottom: 20px;
+	}
+	.blog-col2{
+		width: 40%;
+		margin-right: 0;
+	}
+
+	#landing{
+		height: 600px;
+		margin-bottom: 20px;
+	}
+	.landing-bg img{
+		height: 400px;
+	}
+
+	.about-container{
+		grid-template: 
+		'a a a a a a'
+		'b b b c c c'
+		'e e f f g g'
+		'h h h h h h';
 	}
 }
 
@@ -909,27 +1006,19 @@ scroll down:
 	}
 }
 
-@media only screen and (max-width:768px){
-	.map-head{
+@media only screen and (max-width:500px){
+	.blog-col1{
 		width: 100%;
+		margin-right: 0;
+		margin-bottom: 20px;
 	}
-
-	.map-row2{
-		height: 800px;
-	}
-	.map-row2{
+	.blog-col2{
 		width: 100%;
-		margin-left: 0;
-	}
-	.map-tab-col1{
-		width: 100%;
-	}
-	.map-tab-col2{
-		width: 100%;
-		margin-left: 0;
+		margin-right: 0;
 		margin-bottom: 80px;
 	}
 }
+
 
 @media only screen and (max-width:425px){
 	.map-tab-col2{
@@ -937,43 +1026,6 @@ scroll down:
 	}
 }
 
-@media only screen and (max-width:768px){
-	.blog-row2{
-		width: 100%;
-		margin-left: 0;
-	}
-	.blog-col1{
-		width: 40%;
-		margin-right: 15%;
-		margin-bottom: 20px;
-	}
-	.blog-col2{
-		width: 40%;
-		margin-right: 0;
-	}
-}
-@media only screen and (max-width:500px){
-.blog-col1{
-		width: 100%;
-		margin-right: 0;
-		margin-bottom: 20px;
-	}
-	.blog-col2{
-		width: 100%;
-		margin-right: 0;
-		margin-bottom: 80px;
-	}
-}
-
-
-@media only screen and (min-width:1200px){
-	.show-xl{
-		display: block !important;
-	}
-	.hide-xl{
-		display: none;
-	}
-}
 
 @media only screen and (min-width:992px) and (max-width:1199px){
 	.show-lg{
@@ -991,6 +1043,7 @@ scroll down:
 		display: none;
 	}
 }	
+
 @media only screen and (min-width:576px) and (max-width:768px){
 	.show-sm{
 		display: block !important;
@@ -1000,49 +1053,14 @@ scroll down:
 	}
 }
 
-
 @media only screen and (min-width:1441px){
 	.container{
 	padding: 0 6.24%;
 	}
 }
 
-@media only screen and (max-width:1439px){
-	.explore-btn1{
-		left: 50px;
-		top: 50px;
-	}	
-	#landing{
-		height: 800px;
-	}
-	.landing-bg img{
-height: 600px;
-	}
 
-}
-@media only screen and (max-width:1023px){
-	.explore-btn1{
-		left: 20px;
-		top: 50px;
-	}
-	#landing{
-		height: 700px;
-	}
-	.landing-bg img{
-		height: 500px;
-	}
 
-}
-@media only screen and (max-width:767px){
-	#landing{
-		height: 600px;
-		margin-bottom: 20px;
-	}
-	.landing-bg img{
-height: 400px;
-	}
-
-}
 @media only screen and (max-width:500px){
 	#landing{
 		height: 500px;
@@ -1051,8 +1069,7 @@ height: 400px;
 	.landing-bg{
 		width: 100%;
 		height: 300px;
-	overflow: hidden;
-	
+		overflow: hidden;
 	}
 	.landing-bg img{
 		height: 300px;
