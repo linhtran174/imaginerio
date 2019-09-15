@@ -21,46 +21,6 @@ body{
 .hide{
 	display: none;
 }
-@media only screen and (min-width:1200px){
-	.show-xl{
-		display: block !important;
-	}
-	.hide-xl{
-		display: none;
-	}
-}
-@media only screen and (min-width:992px) and (max-width:1199px){
-	.show-lg{
-		display: block !important;
-	}
-	.hide-lg{
-		display: none;
-	}
-}
-@media only screen and (min-width:769px) and (max-width:991px){
-	.show-md{
-		display: block !important;
-	}
-	.hide-md{
-		display: none;
-	}
-}	
-@media only screen and (min-width:576px) and (max-width:768px){
-	.show-sm{
-		display: block !important;
-	}
-	.hide-sm{
-		display: none;
-	}
-}
-@media only screen and (max-width:575px){
-	.show-xs{
-		display: block !important;
-	}
-	.hide-xs{
-		display: none;
-	}
-}	
 
 
 .container{
@@ -70,11 +30,6 @@ body{
 	padding:0 5%;
 }
 
-@media only screen and (min-width:1441px){
-	.container{
-	padding: 0 6.24%;
-	}
-}
 
 
 /*SUB MENU*/
@@ -168,7 +123,7 @@ scroll down:
 	margin-bottom: 20px;
 }
 .col1{
-	width: 30%;
+	/* width: 30%; */
 	height: 100%;
 	/* float: left; */
 }
@@ -285,11 +240,6 @@ scroll down:
 	height: 60px;
 }
 
-@media only screen and (max-width:575px){
-	.logo{
-		height: 50px;
-	}
-}
 
 /*Button*/
 .contribute-btn{
@@ -330,52 +280,6 @@ scroll down:
 	width: auto;
 
 }
-@media only screen and (max-width:1439px){
-	#landing{
-		height: 800px;
-	}
-	.landing-bg img{
-height: 600px;
-	}
-
-}
-@media only screen and (max-width:1023px){
-	#landing{
-		height: 700px;
-	}
-	.landing-bg img{
-height: 500px;
-	}
-
-}
-@media only screen and (max-width:767px){
-	#landing{
-		height: 600px;
-	}
-	.landing-bg img{
-height: 400px;
-	}
-
-}
-@media only screen and (max-width:500px){
-	#landing{
-		height: 500px;
-		
-	}
-	.landing-bg{
-		width: 100%;
-		height: 300px;
-	overflow: hidden;
-	
-	}
-	.landing-bg img{
-		height: 300px;
-		width: auto;
-		object-fit: cover;
-	}
-
-}
-
 
 
 .explore-btn1{
@@ -413,20 +317,7 @@ height: 400px;
 	background-color: #39C0C9;
 	transition: all 0.3s ease;	
 }
-@media only screen and (min-width:1441px){
-.explore-btn1{
-	width: 85px;
-	/* margin-top:-50%; */
-	margin-left:  20%;
-}
 
-.verticaltext1{
-	font-size: 20px;
-}
-.verticaltext2{
-	font-size: 20px;
-}
-}
 
 .explore-btn2{
 	width: 100%;
@@ -442,11 +333,8 @@ height: 400px;
 	width: 100%;
 	margin-bottom: 100px;
 }
-@media only screen and (max-width:768px){
-	#about{
-		margin-bottom: 100px;
-	}
-}
+
+
 .col0{
 	width: 7%;
 	/* float: left; */
@@ -643,16 +531,6 @@ height: 400px;
 
 }
 
-@media only screen and (max-width:575px){
-	.about-small-row1{
-		height: 400px;
-		margin-bottom: 25px;
-	}
-	.about-small-row2{
-		height: 100px;
-	}
-}
-
 
 /*MAP*/
 #map{
@@ -676,11 +554,6 @@ height: 400px;
 .map-head{
 	/* width: 95%; */
 	/* float: left; */
-}
-@media only screen and (max-width:768px){
-	.map-head{
-	width: 100%;
-	}
 }
 
 .map-slider-container{
@@ -807,30 +680,6 @@ height: 400px;
 	height: 100%;
 	object-fit: cover;
 }
-@media only screen and (max-width:768px){
-	.map-row2{
-		height: 800px;
-	}
-	.map-row2{
-		width: 100%;
-		margin-left: 0;
-	}
-	.map-tab-col1{
-		width: 100%;
-	}
-	.map-tab-col2{
-		width: 100%;
-		margin-left: 0;
-		margin-bottom: 80px;
-	}
-}
-
-@media only screen and (max-width:425px){
-.map-tab-col2{
-	height: 350px;
-}
-}
-
 
 /*BLOG*/
 #blog{
@@ -961,37 +810,6 @@ height: 400px;
 
 
 
-@media only screen and (max-width:768px){
-	.blog-row2{
-		width: 100%;
-		margin-left: 0;
-	}
-	.blog-col1{
-		width: 40%;
-		margin-right: 15%;
-		margin-bottom: 20px;
-	}
-	.blog-col2{
-		width: 40%;
-		margin-right: 0;
-	}
-}
-@media only screen and (max-width:500px){
-.blog-col1{
-		width: 100%;
-		margin-right: 0;
-		margin-bottom: 20px;
-	}
-	.blog-col2{
-		width: 100%;
-		margin-right: 0;
-		margin-bottom: 80px;
-	}
-}
-
-
-
-
 /*FOOTER*/
 #footer{
 	width: 100%;
@@ -1045,4 +863,201 @@ height: 400px;
 }
 .footer-icon:hover{
 	cursor: pointer;
+}
+
+
+@media only screen and (min-width:1441px){
+	.explore-btn1{
+		width: 85px;
+		/* margin-top:-50%; */
+		/* margin-left:  20%; */
+		left: 50px;
+		top: 80px;
+
+	}
+
+	.verticaltext1{
+		font-size: 20px;
+	}
+	.verticaltext2{
+		font-size: 20px;
+	}
+}
+
+@media only screen and (max-width:768px){
+	#about{
+		margin-bottom: 100px;
+	}
+}
+
+@media only screen and (max-width:575px){
+	.about-small-row1{
+		height: 400px;
+		margin-bottom: 25px;
+	}
+	.about-small-row2{
+		height: 100px;
+	}
+	.show-xs{
+		display: block !important;
+	}
+	.hide-xs{
+		display: none;
+	}
+	.logo{
+		height: 50px;
+	}
+}
+
+@media only screen and (max-width:768px){
+	.map-head{
+		width: 100%;
+	}
+
+	.map-row2{
+		height: 800px;
+	}
+	.map-row2{
+		width: 100%;
+		margin-left: 0;
+	}
+	.map-tab-col1{
+		width: 100%;
+	}
+	.map-tab-col2{
+		width: 100%;
+		margin-left: 0;
+		margin-bottom: 80px;
+	}
+}
+
+@media only screen and (max-width:425px){
+	.map-tab-col2{
+		height: 350px;
+	}
+}
+
+@media only screen and (max-width:768px){
+	.blog-row2{
+		width: 100%;
+		margin-left: 0;
+	}
+	.blog-col1{
+		width: 40%;
+		margin-right: 15%;
+		margin-bottom: 20px;
+	}
+	.blog-col2{
+		width: 40%;
+		margin-right: 0;
+	}
+}
+@media only screen and (max-width:500px){
+.blog-col1{
+		width: 100%;
+		margin-right: 0;
+		margin-bottom: 20px;
+	}
+	.blog-col2{
+		width: 100%;
+		margin-right: 0;
+		margin-bottom: 80px;
+	}
+}
+
+
+@media only screen and (min-width:1200px){
+	.show-xl{
+		display: block !important;
+	}
+	.hide-xl{
+		display: none;
+	}
+}
+
+@media only screen and (min-width:992px) and (max-width:1199px){
+	.show-lg{
+		display: block !important;
+	}
+	.hide-lg{
+		display: none;
+	}
+}
+@media only screen and (min-width:769px) and (max-width:991px){
+	.show-md{
+		display: block !important;
+	}
+	.hide-md{
+		display: none;
+	}
+}	
+@media only screen and (min-width:576px) and (max-width:768px){
+	.show-sm{
+		display: block !important;
+	}
+	.hide-sm{
+		display: none;
+	}
+}
+
+
+@media only screen and (min-width:1441px){
+	.container{
+	padding: 0 6.24%;
+	}
+}
+
+@media only screen and (max-width:1439px){
+	.explore-btn1{
+		left: 50px;
+		top: 50px;
+	}	
+	#landing{
+		height: 800px;
+	}
+	.landing-bg img{
+height: 600px;
+	}
+
+}
+@media only screen and (max-width:1023px){
+	.explore-btn1{
+		left: 20px;
+		top: 50px;
+	}
+	#landing{
+		height: 700px;
+	}
+	.landing-bg img{
+		height: 500px;
+	}
+
+}
+@media only screen and (max-width:767px){
+	#landing{
+		height: 600px;
+		margin-bottom: 20px;
+	}
+	.landing-bg img{
+height: 400px;
+	}
+
+}
+@media only screen and (max-width:500px){
+	#landing{
+		height: 500px;
+		
+	}
+	.landing-bg{
+		width: 100%;
+		height: 300px;
+	overflow: hidden;
+	
+	}
+	.landing-bg img{
+		height: 300px;
+		width: auto;
+		object-fit: cover;
+	}
+
 }
