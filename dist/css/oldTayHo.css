@@ -742,7 +742,7 @@ scroll down:
 }
 .blog-row2{
 	display: grid;
-	grid-template-columns: 30fr 30fr 26fr;
+	grid-template: "a b c" / 30fr 30fr 26fr;
 	column-gap: 5%;
 	/* float: left; */
 	width: 95%;
