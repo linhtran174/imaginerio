@@ -26,3 +26,16 @@ function navigateToMapSection(){
 function navigateToImageContrib(){
     window.location.href = window.location.origin + "/imageCollector";
 }
+
+function showHistoryOverview(){
+    $(".about-readmore").hide();
+    
+    $("#overview_history")[0].style.display = "grid";
+    $("#overview_history")[0].style.animationName = "fadein";
+    $("#overview_history")[0].style.animationDuration = "1s";
+}
+
+function openNewTabTo(link){
+    console.log("Mố ! ", link)
+    window.open(link)
+}

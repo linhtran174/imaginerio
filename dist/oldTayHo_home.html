@@ -14,14 +14,14 @@
 <body>
 <!--SUB MENU-->
 <div id="sub-menu" class="container">
-<div><a class="search-btn" href=""><img src="img/search.svg" alt="search"></a></div>
+<img style="object-fit: cover; height: 30px; position: relative; top: 5px; grid-area: a" src="img/search.svg" alt="search">
+<div style="grid-area: b"></div>
 <div class="language-btn">
     <select size="1" name="links" onchange="window.location.href=this.value;">
         <option value="">English</option>
         <option value="">Tiếng việt</option>
     </select>
-        <div class="language-btn-img"><img src="img/english.png" alt="English"></div>
-
+    <div class="language-btn-img"><img src="img/english.png" alt="English"></div>
 </div>
 </div>
 
@@ -94,7 +94,7 @@
 <!--about-->
 <!--LARGE SCR-->
 <div id="about">
-<div class="container hide-md hide-sm hide-xs" style="display: grid; grid-template-columns: 5% 95%">
+<div class="container" style="display: grid; grid-template-columns: 5% 95%">
     <div class="col0">
         <div class="decor-line">
         </div>
@@ -107,8 +107,8 @@
         <img src="img/map1.jpg" class="about-pic1" style="grid-area: b">
         <a class="description-text" style="grid-area: c; width: 85%; padding-top: 25px">Old Tay Ho brings together historical images, maps, and even documents to show how the area has evolved, which can stimulate a vibrant appreciation of the region, and evoke interest and communications among national and international communities.</a>
         <div class="about-col2-1" style="grid-area: d">
-            <p>Legend has it that Tay Ho was created by an agitated buffalo hearing the cries of its <a href="">calf back in China.</a><br>Visit the neighborhoods of the lake today, and it can feel that frantic change is occurring along nearly every street or alleyway.</p>
-            <p>Often this is making for progress, and continuing to draw many Vietnamese and foreign residents and visitors.  The old Tay Ho site aims to bring alive the heritage of the area, giving a sense of how old and new can best co-exist and evolve across this vibrant area.</p>
+            <p>Hanoi celebrated its 1000 year founding founding anniversary in 2010.  We hope the Old Tay Ho platform can accompany you on a digital, mental, and physical journey, whether with the help of desktop or mobile, to help discover and document this special area of the city.</p>
+            <p>As you stroll the environs of Ho Tay, stop off for a sip of good Vietnamese coffee, and leaf through one of a number of good history books, travel guides, or your smartphone to get a sense of the city's evolution.  And if you find a new gem - picture, map, or document, please contribute to the community!</p>
         </div>
         <div style="grid-area: e" class="about-pic2">
             <img src="img/historical-image.png">
@@ -131,6 +131,11 @@
                 <a class="description-text"> View key relevent historical documents and declarations.</a>
             </div>
         </div>
+        <div style="" id="overview_history">
+            <p>The past two centuries of Hanoi's history were characterized by the colonization of the French after 1858, as well as waves of external wars and threats. Ho Chi Minh declared Vietnamese independence in Hanoi in Sept 1945, but the French returned to occupy the city between 1947-1954. During the American War, Hanoi was repeatedly bombed between 1966 and 1972.  In 1976, Hanoi became the capital of unified Vietnam.</p>
+            <p>Hanoi's, along with Vietnam's wider history, can be grouped into four major periods: pre-French colonial, French colonial (1858-1945), the Warring era (1945–76), Unified era (1976-1986), and the Renovated era (1986–present). </p>
+            <p>Here are a few existing building highlights from each era. But explore further to find your favorities, including as they have given way to new structures and uses.</p>
+        </div>
         
         <!-- <div class="about-pic1">
             <div class="about-col1">   
@@ -142,7 +147,8 @@
         </div> -->
 
         <div class="about-readmore">
-            <a href="">READ MORE</a>
+            <div class="left-bar-btn-decorator"></div>
+            <a style="position: relative;" onclick="showHistoryOverview()">READ MORE</a>
         </div>
     </div>
 </div>
@@ -292,92 +298,93 @@ Jquery at bottom of pg-->
 <a class="red-btn" style="margin-bottom: 20px;" onclick="navigateToMap()">GO TO MAP</a>
 
     <div class="map-tab" id="tab1">
-            <!--LARGE-->
-            <div class="map-tab-col1">
-                <div class="tab-head">
-                    <h>FRENCH COLONIAL ERA</h><br>
-                    <a>(1858 - 1945)</a>
-                </div>
-                <div class="map-tab-content">
-                    <a class="description-text">
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque pretium ligula erat. Quisque quis metus magna. Mauris nec vulputate ante. Praesent sapien neque, tempus sed fringilla quis, lacinia eget sapien. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque pretium ligula erat. 
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque pretium ligula erat. Quisque quis metus magna. Mauris nec vulputate ante. Praesent sapien neque, tempus sed fringilla quis, lacinia eget sapien. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque pretium ligula erat. 
-                    </a>
-                </div>
-                <div class="map-tab-btn see_more">
-      <a href="">READ MORE</a>        
-           </div>
-       </div>
-            
-            <div class="map-tab-col2">
-                <img src="img/pic2.jpg">
+        <!--LARGE-->
+        <div style="grid-area: a">
+            <div class="tab-head">
+                <h>FRENCH COLONIAL ERA</h><br>
+                <a>(1858 - 1945)</a>
             </div>
+            <div class="map-tab-content">
+                <a class="description-text">
+                    French colonial: The French took control of Hanoi in 1858, Tay Ho was still largely rural with small outlying village settlements. Historic building from that period include Chu Van An School. 
+                </a>
+            </div>
+        </div>
+        <img style="grid-area: b" class="highlight-pic" src="img/pic2.jpg">
+        
+        <p style="grid-area: c" class="description-text">Established by French authorities in 1908 as High School of the Protectorate (French: Lycée du Protectorat), this is one of the oldest institutions for secondary education in Indochina. The initial purpose of the French government for this school which was training native civil servant to serve in their colonial establishments. Before 1945, Vietnamese also refered to it was as Pomelo School (Bưởi school), because the school was built on the land of Thuy Khuê village (in the Hậu Lê era, it was the place where the palace Thụy Chương was built at the Kẻ Bưởi area, beside the West Lake (Hanoi),  . In 1945 it was renamed Chu Van An high school - named after the famous teacher in the history of Viet Nam.</p>
+        <img style="grid-area: d" class="highlight-pic" src="img/landing assets/cva.png">
+        <div style="grid-area: e" class="map-tab-btn see_more">
+            <a onclick="openNewTabTo('https://en.wikipedia.org/wiki/Chu_V%C4%83n_An_High_School_(Hanoi)')">READ MORE</a>
+        </div>
+        <div style="grid-area: f"></div>
     </div>
     <div class="map-tab" id="tab2">
-            <!--LARGE-->
-            <div class="map-tab-col1">
-                <div class="tab-head">
-                    <h>WARNING ERA</h><br>
-                    <a>(1945 - 1976)</a>
-                </div>
-                <div class="map-tab-content">
-                    <a class="description-text">
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque pretium ligula erat. Quisque quis metus magna. Mauris nec vulputate ante. Praesent sapien neque, tempus sed fringilla quis, lacinia eget sapien. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque pretium ligula erat. 
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque pretium ligula erat. Quisque quis metus magna. Mauris nec vulputate ante. Praesent sapien neque, tempus sed fringilla quis, lacinia eget sapien. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque pretium ligula erat. 
-                    </a>
-                </div>
-                <div class="map-tab-btn see_more">
-      <a href="">READ MORE</a>        
-           </div>
-       </div>
-            
-            <div class="map-tab-col2">
-                <img src="img/sample-pic.jpg">
+        <!--LARGE-->
+        <div style="grid-area: a">
+            <div class="tab-head">
+                <h>WARRING ERA</h><br>
+                <a>(1945 - 1976)</a>
             </div>
+            <div class="map-tab-content">
+                <a class="description-text">
+                    Following the end of WWII in 1945, the French returned to Hanoi in 1947-54.  The North Westlake Bunker was built by the French, but apparently also used by the Vietnamese in the American War to defend Hanoi.
+                </a>
+            </div>
+        </div>
+        <img style="grid-area: b" class="highlight-pic" src="img/landing assets/bunker1.png">
+        <div style="grid-area: c">
+            <p class="description-text">Perched on an incline at the upper end of the lake on Ngoc Van Street, a 1950s French military blockhouse stands guard.  The fortification was likely built by the French during the Indochine War to protect the Red River Delta and Hanoi from attacks by the Viet Minh to the south and China to the north. The blockhouse was also likely re-used as a military installation after the French left. It is said to have been used as an anti-aircraft post during the ‘American war'. You can get a closer look at the “Block House” after 4pm when it opens as an informal café, serving fresh up juices, beer, smoothies, and one of the best views across Tay Ho lake. Or, go along and have your hair cut by Mr Nam who operates his hair dressing salon out of the base of its fortifications.</p>
+        </div>
+        <img style="grid-area: d" class="highlight-pic" src="img/landing assets/bunker2.png">
+        <div style="grid-area: e" class="map-tab-btn see_more">
+            <a onclick="openNewTabTo('https://www.dropbox.com/s/3415harro09p4fc/Bunker%20blog.docx?dl=0')">READ MORE</a>
+        </div>
+        <div style="grid-area: f"></div>
     </div>
     <div class="map-tab" id="tab3">
-            <!--LARGE-->
-            <div class="map-tab-col1">
-                <div class="tab-head">
-                    <h>UNIFIED ERA</h><br>
-                    <a>(1976 - 1986)</a>
-                </div>
-                <div class="map-tab-content">
-                    <a class="description-text">
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque pretium ligula erat. Quisque quis metus magna. Mauris nec vulputate ante. Praesent sapien neque, tempus sed fringilla quis, lacinia eget sapien. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque pretium ligula erat. 
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque pretium ligula erat. Quisque quis metus magna. Mauris nec vulputate ante. Praesent sapien neque, tempus sed fringilla quis, lacinia eget sapien. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque pretium ligula erat. 
-                    </a>
-                </div>
-                <div class="map-tab-btn see_more">
-      <a href="">READ MORE</a>        
-           </div>
-       </div>
-            
-            <div class="map-tab-col2">
-                <img src="img/sample-pic.jpg">
+        <!--LARGE-->
+        <div class="map-tab-col1">
+            <div class="tab-head">
+                <h>UNIFIED ERA</h><br>
+                <a>(1976 - 1986)</a>
             </div>
+            <div class="map-tab-content">
+                <a class="description-text">
+                    To be updated
+                </a>
+            </div>
+        </div>
+        <img style="grid-area: b" class="highlight-pic" src="img/sample-pic.jpg">
+        <p style="grid-area: c" style="description-text"></p>
+        <img style="grid-area: d">
+        <div class="map-tab-btn see_more" style="grid-area: e">
+            <a href="">READ MORE</a>
+        </div>
     </div>
     <div class="map-tab" id="tab4">
-            <!--LARGE-->
-            <div class="map-tab-col1">
-                <div class="tab-head">
-                    <h>RENOVATED ERA</h><br>
-                    <a>(1986- Now)</a>
-                </div>
-                <div class="map-tab-content">
-                    <a class="description-text">
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque pretium ligula erat. Quisque quis metus magna. Mauris nec vulputate ante. Praesent sapien neque, tempus sed fringilla quis, lacinia eget sapien. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque pretium ligula erat. 
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque pretium ligula erat. Quisque quis metus magna. Mauris nec vulputate ante. Praesent sapien neque, tempus sed fringilla quis, lacinia eget sapien. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque pretium ligula erat. 
-                    </a>
-                </div>
-                <div class="map-tab-btn see_more">
-      <a href="">READ MORE</a>        
-           </div>
-       </div>
-            
-            <div class="map-tab-col2">
-                <img src="img/sample-pic.jpg">
+        <!--LARGE-->
+        <div style="grid-area: a">
+            <div class="tab-head">
+                <h>RENOVATED ERA</h><br>
+                <a>(1986- Now)</a>
             </div>
+            <div class="map-tab-content">
+                <a class="description-text">
+                    The Đổi Mới ("Renovation") economic reforms initiated in Vietnam in 1986 gave rise to growing rates of prosperity, but also rapid urban change and expansion.  During due its proximity to the center of Hanoi, but relative spaciousness, the area became quite popular with foreigners.<br><br>
+                    Thang Loi (Victory) hotel emerged as one of the early resort hotels on the lake in the 1980s, built in 1973 with assistance from the Cuban government, further tourist landmarks such as the Intercon Hotel was opened in 2007.
+                </a>
+            </div>
+        </div>
+        <img style="grid-area: b" class="highlight-pic" src="img/landing assets/khach-san-intercontinental.jpg">
+        <div style="grid-area: c">
+            <p class="description-text">Thang Loi Hotel is a four-star international standard hotel with 175 rooms, located on Yen Phu Street. This hotel was put into operation in mid-1975 as a present from Cuban people, and built with.Cuban engineers and workers travelled to Vietnam/  The Thang Loi hotel has special architecture and preserves space and architectural values of history, culture, and landscape.  Based on the Hanoi planning on tourism development to 2020, orientation to 2030 that has been approved, Hanoi people’s committee said that the renovation and upgrading of Thang Loi hotel are necessary, creating a highlight for the West Lake area and Hanoi tourism.</p>
+        </div>
+        <img style="grid-area: d" class="highlight-pic" src="img/landing assets/ks thang loi.jpg">
+        <div style="grid-area: e" class="map-tab-btn see_more">
+            <a href="">READ MORE</a>
+        </div>
+        <div style="grid-area: f"></div>
     </div>
 
 </div>
@@ -391,11 +398,9 @@ Jquery at bottom of pg-->
 <div class="container">
     <div class="blog-row1">
         <div class="col0 hide-xs hide-sm">
-
-    <div class="decor-line">
-        
-    </div>
-    </div>
+            <div class="decor-line">
+            </div>
+        </div>
         <div class="blog-head">
             <div class="head-text-container">
             <a class="tag">BLOG</a><br>
@@ -406,44 +411,41 @@ Jquery at bottom of pg-->
     </div>
     <div class="blog-row2">
         <div class="blog-col1">
-
             <div class="blog-pic">
-                <img src="img/sample-pic.jpg">
+                <img src="img/landing assets/blog1.png">
             </div>
             <div class="blog-content">
-            <a class="blog-date">August 8th, 2019</a><br>
-                <h>Lorem ipsum dolor sit amet</h><br>
-                  <div class="blog-lines">
-                       <a >Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque pretium ligula erat. Quisque quis metus magna. Mauris nec vulputate ante.</a>
-                    </div>
-                       <div class="blog-btn see_more">
-      <a href="">READ MORE</a>        
-       
+                <a class="blog-date">May 7th, 2019</a><br>
+                <h>The Forgotten Plan Behind Modern Hanoi</h><br>
+                <div class="blog-lines">
+                    <a>Hanoi is well known for its blend of French influence and Vietnamese character. One of the reasons for this is a little-known architect whose plan helped shape the modern city.</a>
+                </div>
+                <div class="blog-btn see_more">
+                    <a onclick="openNewTabTo('https://medium.com/oldtayho/the-forgotten-plan-behind-modern-hanoi-5f11ee1e4fe9')">READ MORE</a>
+                </div>
             </div>
-        </div>
         </div>
         <div class="blog-col2">
-
             <div class="blog-pic">
-                <img src="img/sample-pic.jpg">
+                <img src="img/landing assets/blog2.png">
             </div>
             <div class="blog-content">
-            <a class="blog-date">August 8th, 2019</a><br>
-                <h>Lorem ipsum dolor sit amet</h><br>
-                  <div class="blog-lines">
-                       <a >Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque pretium ligula erat. Quisque quis metus magna. Mauris nec vulputate ante.</a>
-                    </div>
-                       <div class="blog-btn see_more">
-      <a href="">READ MORE</a>        
-       
+                <a class="blog-date">Jan 15th, 2019</a><br>
+                <h>Changing Hanoi Tay Ho: Views of Satellites and the Golden Bull</h><br>
+                <div class="blog-lines">
+                    <a>The legendary energy of Westlake’s Golden Buffalo can very much be felt in today’s lakeside district perimeter. Any quiet stroll through the wards is quickly interrupted by the sounds of active construction, highlighting the rapid and seemingly ceaseless change in the area. </a>
+                </div>
+                <div class="blog-btn see_more">
+                    <a onclick="openNewTabTo('https://medium.com/oldtayho/changing-hanoi-tay-ho-views-of-satellites-and-the-golden-bull-40937f4cfe58')">READ MORE</a>
+                </div>
             </div>
         </div>
-        </div>
         <div class="blog-col3 hide-xs hide-sm">
+            <div class="blog-more-tag"><a>More stories</a></div>
             <div class="blog-more">
-                <div class="blog-more1">
-                    <a class="blog-date">August 01st,2019</a><br>        
-                    <h>Lorem ipsum dolor sit amet</h>
+                <div class="blog-more1" onclick="openNewTabTo('https://medium.com/oldtayho/digital-archeology-findings-from-hanois-westlake-aaf3d8255201')">
+                    <a class="blog-date">Jan 15th,2019</a><br>        
+                    <h>Digital Archeology: Findings from Hanoi’s Westlake</h>
                 </div>
                 <div class="blog-more2">
                     <a class="blog-date">July 29th,2019</a><br>        
@@ -453,8 +455,7 @@ Jquery at bottom of pg-->
                     <a class="blog-date">July 25th,2019</a><br>    
                     <h>Lorem ipsum dolor sit amet</h>
                 </div>
-                <div class="blog-more-tag"><a>More stories</a></div>
-        </div>
+            </div>
         <div class="blog-btn see_more">
       <a href="">SEE MORE</a>        
        

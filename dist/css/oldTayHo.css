@@ -16,6 +16,9 @@ body{
 	padding:0;
 }
 
+div{
+	overflow: hidden;
+}
 
 /*DISPLAY*/
 .hide{
@@ -34,6 +37,8 @@ body{
 
 /*SUB MENU*/
 #sub-menu{
+	display: grid;
+	grid-template: "a b c" / 1fr 1fr 1fr;
 	position: fixed;
 	z-index: 100;
 	background-color: #333;
@@ -52,35 +57,30 @@ body{
 	width: auto;
 }
 .language-btn{
-	float:right;
+	grid-area: c;
 	height: 40px;
+	display: grid;
+	grid-template-columns: 100px 40px;
+	justify-content: end;
 }
 .language-btn-img{
 	border-radius: 50%;
 	height: 26px;
 	width: 26px;
-	float: left;
 	margin-top: 8px;
 	margin-left: 10px;
-	overflow: hidden;
-	 display: -webkit-flexbox;
-    display: -ms-flexbox;
-    display: -webkit-flex;
-    display: flex;
-    -webkit-flex-align: center;
-    -ms-flex-align: center;
-    -webkit-align-items: center;
-    align-items: center;
+	display: flex;
+	align-items: center;
 }
 .language-btn-img img{
-	width: 100%;
+	/* width: 100%; */
 	height: 100%;
 	object-fit: cover;
 }
 .language-btn select{
-	 font-family: Pridi;
+	font-family: Pridi;
 	font-size: 16px;
-	float: left;
+	/* float: left; */
 	height: 40px;
 	background-color: transparent;
 	color: #F5EEDE;
@@ -332,7 +332,6 @@ scroll down:
 	padding-top: 50px;
 	position: relative;
 	width: 100%;
-	margin-bottom: 100px;
 }
 
 
@@ -347,6 +346,7 @@ scroll down:
 	"b d d d" 250px
 	"b e f g" 
 	"c e f g" 150px
+	"i i i i"
 	"h h h h" / 40% auto ;
 	/* row-gap: 15px; */
 	margin-bottom: 30px;
@@ -387,10 +387,16 @@ scroll down:
 .about-col2-1{
 	display: grid;
 	grid-template-columns: 45% auto; 
-	grid-column-gap: 5%;
+	grid-column-gap: 7%;
+	overflow: hidden;
 	/* width: 45%; */
 	/* float: left; */
 }
+
+.about-col2-1 p{
+	text-align: justify;
+}
+
 .about-col2-2{
 	/* width: 50%; */
 	/* margin-left: 5%; */
@@ -432,40 +438,67 @@ scroll down:
 }
 .about-readmore{
 	grid-area: h;
-	width:100%;
+	width:40%;
+	padding-left: 60%;
+	margin-top: 30px;
 	/* float: left; */
-	margin-top: 50px; 
 }
 
-	/*ABOUT -MED*/
-	.about-small-row1{
-		width: 100%;
-		/* float: left; */
-		height: 250px;
-		margin-bottom: 80px;
+.about-readmore a{
+	color: #BA0F1C;
+	text-decoration: none;
+}
+
+
+.about-readmore a:hover{
+	color: #333;
+	text-decoration: none;
+}
+
+#overview_history{
+	display: none;
+	grid-area: i;
+	padding-top: 50px;
+}
+
+@keyframes fadein{
+	from {
+		opacity: 0;
 	}
-	.about-text-med{
-		width: 50%;
-		/* float: left; */
+	to{
+		opacity: 1;
 	}
-	.about-pic-med{
-		width: 45%;
+}
+
+/*ABOUT -MED*/
+.about-small-row1{
+	width: 100%;
+	/* float: left; */
+	height: 250px;
+	margin-bottom: 80px;
+}
+.about-text-med{
+	width: 50%;
+	/* float: left; */
+}
+.about-pic-med{
+	width: 45%;
 	height: 100%;
 	margin-left: 5%;
 	/* float: left; */
 	overflow: hidden;
-	 display: -webkit-flexbox;
-    display: -ms-flexbox;
-    display: -webkit-flex;
-    display: flex;
-    -webkit-flex-align: center;
-    -ms-flex-align: center;
-    -webkit-align-items: center;
-    align-items: center;
-		background-color: aquamarine;
-	}
+	display: -webkit-flexbox;
+	display: -ms-flexbox;
+	display: -webkit-flex;
+	display: flex;
+	-webkit-flex-align: center;
+	-ms-flex-align: center;
+	-webkit-align-items: center;
+	align-items: center;
+	background-color: aquamarine;
+}
 
-	.about-pic-med img{
+.about-pic-med img{
 	width: 100%;
 	height: 100%;
 	object-fit: cover;
@@ -568,11 +601,11 @@ scroll down:
 	top: -10px;
 	display: block;
 	width: 0; 
-  height: 0; 
-  border-top:12px solid transparent;
-  border-bottom: 12px solid transparent;
-  border-left: 12px solid #39C0C9;
-	right:-5px;
+	height: 0; 
+	border-top:12px solid transparent;
+	border-bottom: 12px solid transparent;
+	border-left: 12px solid #39C0C9;
+	right:-1px;
 	z-index: 1;
 }
 
@@ -615,13 +648,47 @@ scroll down:
 .map-row2{
 	width: 95%;
 	/* float: left; */
-	height: 500px;
+	/* height: 500px; */
 	margin-bottom: 100px;
 	margin-left: 5%;
 }
 .map-tab{
 	display: grid;
-	grid-template-columns: 15fr 20fr
+	grid-template: 
+	"a a b" 
+	"d c c"
+	"e e e" / auto;
+	row-gap: 20px;
+	column-gap: 5%;
+}
+
+.highlight-pic{
+	object-fit: cover;
+	width: 100%;
+	height: 100%;
+	/* padding-top: 20px; */
+}
+
+#tab1{
+	grid-template: 
+	"a b" 350px
+	"d c"
+	"f e" / auto;
+}
+
+#tab2{
+	grid-template: 
+	"a b b" 
+	"d c c"
+	"e e e" / auto;
+}
+
+#tab3{
+	
+}
+
+#tab4{
+
 }
 
 .map-tab-col1{
@@ -643,9 +710,8 @@ scroll down:
 }
 .map-tab-btn{
 	/* float: left; */
-	margin-left: 35px;
-	margin-bottom: 30px;
-	text-align: left !important;
+	/* margin-left: 35px;
+	margin-bottom: 30px; */
 }
 
 .map-tab-col2{
@@ -677,6 +743,7 @@ scroll down:
 .blog-row2{
 	display: grid;
 	grid-template-columns: 30fr 30fr 26fr;
+	column-gap: 5%;
 	/* float: left; */
 	width: 95%;
 	margin-left: 5%;
@@ -686,13 +753,11 @@ scroll down:
 	/* width: 30%; */
 	/* float: left; */
 	height: 550px;
-	margin-right: 10%;
 }
 .blog-col2{
 	/* width: 30%; */
 	/* float: left; */
 	height: 550px;
-	margin-right: 10%;
 }
 .blog-pic{
 	width: 100%;
@@ -722,6 +787,8 @@ scroll down:
 }
 .blog-lines{
 	margin-top: 10px;
+	margin-bottom: 15px;
+	color: #3d3c3c;
 	overflow: hidden;
 	text-overflow: ellipsis;
 	display: -webkit-box;
@@ -732,20 +799,19 @@ scroll down:
 	min-height: 100px;	
 }
 .blog-btn{
-	text-align: left !important;
-	margin-left: 35px;
-	margin-top: 15px;
+	/* text-align: left !important; */
+	/* margin-left: 35px; */
+	/* margin-top: 15px; */
 }
 .blog-col3{
 	/* width: 26%; */
-	margin-right: 6%
 }
 .blog-more{
-	margin-top: 15px;
 	height: 320px;
 	background-color: white;
 	box-shadow: 0px 5px 5px 1px rgba(0,0,0,0.2);
 	position: relative;
+	top: -10px;
 	padding: 20px 5% 5% 5%;
 	margin-bottom: 25px;
 }
@@ -776,13 +842,13 @@ scroll down:
 	transition:.5s;  
 }
 .blog-more-tag{
+	z-index: 1;
 	height: 30px;
 	width: 100px;
 	padding: 0 5px;
 	background-color: #BA0F1C;
 	color: white;
-	position: absolute;
-	top:-15px;
+	position: relative;
 	left: 5%;
 	box-shadow: 0px 5px 5px 1px rgba(0,0,0,0.2);
 	line-height: 30px;
@@ -901,10 +967,18 @@ scroll down:
 
 	.about-container{
 		grid-template: 
-		'a a a a a a'
-		'b b b c c c'
-		'e e f f g g'
-		'h h h h h h';
+		"a a a a a a"
+		"c c c b b b"
+		"d d d d d d" 0px
+		"e e f f g g"
+		"h h h h h h"
+/* 		
+		"b a a a"
+		"b d d d" 250px
+		"b e f g"
+		"c e f g" 150px
+		"h h h h" / 40% auto; */
+
 	}
 
 }
@@ -1021,6 +1095,8 @@ scroll down:
 	.hide-md{
 		display: none;
 	}
+
+	
 }	
 
 @media only screen and (min-width:576px) and (max-width:768px){

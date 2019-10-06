@@ -17,6 +17,13 @@ h{
 	font-size: 20px;
 }
 
+.left-bar-btn-decorator{
+	height: 5px;
+	width: 20px;
+	display: inline-block;
+	background-color: #BA0F1C;
+}
+
 .description-text{
 	font-weight: lighter;
 	font-size: 0.98rem;
@@ -68,6 +75,7 @@ font-weight: 700;
 	background-color: #BA0F1C;
 }
 .red-btn:hover{
+	cursor: pointer;
 	color: #333;
 	background-color: #39C0C9;
 	transition: all 0.3s ease;	
@@ -78,8 +86,8 @@ font-weight: 700;
 /*see-more-btn*/
 .see_more{
 	text-align: center;
-	float: left;
-		box-sizing: border-box;
+	/* float: left; */
+	box-sizing: border-box;
 
 }
 .see_more a{
