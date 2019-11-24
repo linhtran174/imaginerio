@@ -434,15 +434,16 @@ const getInit = (components) => {
     $('.go-button').on('click', goButtonClick);
 
     $('#eras-button').click(function click() {
-      if ($('main').hasClass('eras')) {
-        goToStart();
-        return;
-      }
-      Dispatch.call('removeall', this);
-      Dispatch.call('removeoverlay', this);
-      $('main').addClass('eras');
-      $('#legend').addClass('collapsed');
-      showEra(eras.indexOf(currentEra), true);
+      window.location.href = "/#map"
+      // if ($('main').hasClass('eras')) {
+      //   goToStart();
+      //   return;
+      // }
+      // Dispatch.call('removeall', this);
+      // Dispatch.call('removeoverlay', this);
+      // $('main').addClass('eras');
+      // $('#legend').addClass('collapsed');
+      // showEra(eras.indexOf(currentEra), true);
     });
 
     $('#overlay-info').click(function click() {
