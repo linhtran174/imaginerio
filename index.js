@@ -23,19 +23,23 @@ app.use(cors())
 // app.use(express.static(path.join(__dirname, 'node_modules')));
 app.use(express.static(path.join(__dirname, 'dist')));
 app.use(express.static(path.join(__dirname, 'dist/collector')));
+app.use("/map", (req, res, next)=>{
+  // console.log("OK it's here!");
+  express.static(path.join(__dirname, 'dist/'))(req, res, next);
+});
+
 
 fs = require('fs');
 
 index = fs.readFileSync('./dist/oldTayHo_oldUI.html');
-testNewUI = fs.readFileSync("./dist/testNewUI.html");
 newUI = fs.readFileSync("./dist/oldTayHo_home.html");
 
-app.get('/', (req, res) => {
+app.get('/map', (req, res) => {
   res.end(index);
 });
 
-app.get('/test', (req, res)=>{
-  res.end(fs.readFileSync("./dist/oldTayHo_home.html"));
+app.get('/', (req, res)=>{
+  res.end(newUI);
 })
 
 // collector = fs.readFileSync('src/collector/index.html');
@@ -151,6 +155,7 @@ app.use("/getImage/scaled/:name/:x", (req, res)=>{
     if(err){
       console.log(err)
       res.status(404).send(err);
+      return;
     }
     sharp(data)
     .resize(x)

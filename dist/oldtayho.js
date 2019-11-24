@@ -15,12 +15,12 @@ $(document).ready(function() {
 function navigateToMap(){
     var year = $(".map-active > a")[0].innerHTML;
     var url = window.location.origin;
-    url += "/#en/"+year+"/14/21.0552263535956/105.82722187042236/all/";
+    url += "/map/#en/"+year+"/14/21.0552263535956/105.82722187042236/all/";
     window.location.href = url;
 }
 
 function navigateToMapSection(){
-    window.location.href = window.location.origin + "/test#map";
+    window.location.href = window.location.origin + "#map";
 }
 
 function navigateToImageContrib(){
