@@ -243,7 +243,7 @@ scroll down:
 
 /*Button*/
 .contribute-btn{
-	/* float: right; */
+	float: right;
 	margin-top: 25px;
 	background-color: #BA0F1C;
 	height: 36px;
@@ -320,6 +320,7 @@ scroll down:
 
 
 .explore-btn2{
+	position: relative;
 	width: 100%;
 	text-align: center;
 	/* float: left; */
@@ -992,6 +993,10 @@ scroll down:
 		width: 100%;
 	}
 
+	.map-row1{
+		grid-template-columns: 1fr;
+	}
+
 	.map-row2{
 		height: 800px;
 	}
@@ -1040,6 +1045,10 @@ scroll down:
 }
 
 @media only screen and (max-width:575px){
+	#menu{
+		grid-template-columns: 1fr 1fr 1fr;
+	}
+
 	.about-small-row1{
 		height: 400px;
 		margin-bottom: 25px;
@@ -1056,6 +1065,7 @@ scroll down:
 	.logo{
 		height: 50px;
 	}
+
 
 	.blog-row2{
 		grid-template: "a" "b" / auto;
