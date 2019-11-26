@@ -10,6 +10,15 @@ $(document).ready(function() {
         var activeTab = $(this).attr("rel");
         $("#"+activeTab).fadeIn();
     });
+
+    var sidebar_active = $(".sidebar > ul > li:nth-child(1) > a")[0];
+    $(".sidebar > ul > li").click((event)=>{
+        var t = event.target;
+        if(t == sidebar_active) return;
+        event.target.className = "sidebar-active";
+        sidebar_active.className = "";
+        sidebar_active = event.target;
+    })
 });
 
 function navigateToMap(){

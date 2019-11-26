@@ -14,7 +14,15 @@
 <body>
 <!--SUB MENU-->
 <div id="sub-menu" class="container">
-<img style="object-fit: cover; height: 30px; position: relative; top: 5px; grid-area: a" src="img/search.svg" alt="search">
+<div style="grid-area: a">
+    <label for="menu-toggle" class="hide-xs hide-sm">
+        <img class="toggle-btn" src="img/toggle2.svg" style="height: 30px; position: relative; top:4px; margin-right: 15px">
+    </label>
+    <label for="sidebar-trigger" class="hide-lg hide-xl hide-md">
+        <img class="toggle-btn" src="img/toggle2.svg" style="height: 30px; position: relative; top:4px; margin-right: 15px">
+    </label>
+    <img style="object-fit: cover; height: 30px; position: relative; top: 5px;" src="img/search.svg" alt="search">
+</div>
 <div style="grid-area: b"></div>
 <div class="language-btn">
     <select size="1" name="links" onchange="window.location.href=this.value;">
@@ -30,7 +38,7 @@
 <div id="menu" class="container">
 <!--large scr-->
     <div class="col1 hide-xs hide-sm">
-        <label for="menu-toggle"><img class="toggle-btn" src="img/toggle.svg"></label>
+        <!-- <label for="menu-toggle"><img class="toggle-btn" src="img/toggle.svg"></label> -->
         <input type="checkbox" id="menu-toggle"/>
         <div id="toggle">
             <ul>
@@ -38,23 +46,19 @@
                     <li><a class="menu-text1" href="#">GALERY</a></li>
                     <li><a class="menu-text1" href="#map">MAP</a></li>
                 <li><a class="menu-text1" href="#about">ABOUT</a></li>
-                <li><a class="menu-text1 menu-active" href="#">HOME</a></li>
+                <li><a class="menu-text1" href="#">HOME</a></li>
             </ul>
         </div>
     </div>
     <div class="col1 hide-lg hide-xl hide-md">
-    
         <input id="sidebar-trigger" class="sidebar-trigger" type="checkbox" />
-        <label for="sidebar-trigger">
-        <img class="toggle-btn" src="img/toggle.svg">
-        </label>
         <div class="sidebar">
         <ul>
-            <li><a class="sidebar-active" href="">HOME</a></li>
-            <li><a class="" href="">ABOUT</a></li>
+            <li><a class="sidebar-active" href="#landing" onclick="()=>{console.log(this)}">HOME</a></li>
+            <li><a class="" href="#about">ABOUT</a></li>
             <li><a class="" href="#map">MAP</a></li>
             <li><a class="" href="">GALERY</a></li>
-            <li><a class="" href="">BLOG</a></li> 
+            <li><a class="" href="#blog">BLOG</a></li> 
         </ul>
         </div>
         

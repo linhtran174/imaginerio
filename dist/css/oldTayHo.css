@@ -197,15 +197,17 @@ scroll down:
 }
 
 /*menu-small*/
-	.sidebar {
-  background: #39C0C9;
-  color: #333;
-  width: auto;
-		height: 1000px;
-  transition: transform 0.5s;
-		padding: 60px 0 10px 0px;
-		margin-top: -55px;
-		margin-left: -100px;
+.sidebar {
+	position: fixed;
+	z-index: 99;
+	background: #39C0C9;
+	color: #333;
+	width: 200px;
+	height: 1000px;
+	transition: transform 0.5s;
+	padding: 60px 0 10px 0px;
+	margin-top: -55px;
+	margin-left: -100px;
 }
 .sidebar ul{
 	list-style: none;
